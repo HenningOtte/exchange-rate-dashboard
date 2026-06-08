@@ -34,3 +34,9 @@ Das Backend stellt eine REST-API bereit und verarbeitet Daten einer externen Wec
 - [ ] React-Projekt aufsetzen
 - [ ] Diagramme integrieren
 - [ ] Deployment vorbereiten
+
+## Mockup
+
+Erster Entwurf der Benutzeroberfläche:
+
+![Currio Mockup](docs/Currio-Currency-Home.png)
