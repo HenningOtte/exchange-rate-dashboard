@@ -1,2 +1,16 @@
-node_modules
-.env
+# Backend
+backend/node_modules
+backend/.env
+
+# Frontend
+frontend/node_modules
+
+# Build files
+frontend/dist
+
+# Editor
+.vscode
+
+# OS files
+.DS_Store
+Thumbs.db
