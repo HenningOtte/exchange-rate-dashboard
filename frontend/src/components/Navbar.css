@@ -1,0 +1,18 @@
+.navbar {
+  height: 64px;
+  width: 100vw;
+  max-width: 1440px;
+  background-color: var(--color-primary);
+  padding-left: 32px;
+  padding-right: 32px;
+  margin-top: 32px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
