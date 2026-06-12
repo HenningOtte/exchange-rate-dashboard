@@ -1,7 +1,6 @@
 import "./Navbar.css";
 
 function Navbar() {
-
   return (
     <div className="navbar">
       <img
@@ -12,7 +11,11 @@ function Navbar() {
       <div className="navbar-actions">
         <button className="navbar-button">Home</button>
         <button className="navbar-button">Favorites</button>
-        <img className="navbar-avatar" src="./src/assets/icons/profil-pic.svg" alt="profil-pic" />
+        <img
+          className="navbar-avatar"
+          src="./src/assets/icons/profile-pic.svg"
+          alt="profil-pic"
+        />
       </div>
     </div>
   );

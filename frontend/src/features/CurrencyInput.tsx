@@ -7,10 +7,10 @@ type InputProps = {
 function CurrencyInput({ title }: InputProps) {
   return (
     <div className="currency-input-container">
-      <p className="title-currency">{title}</p>
+      <p className="currency-label">{title}</p>
       <input className="currency-input" type="number" placeholder="0" />
-      <button className="btn-currencies">
-        USD <div className="arrow"></div>
+      <button className="currency-button">
+        USD <div className="selector-arrow"></div>
       </button>
     </div>
   );

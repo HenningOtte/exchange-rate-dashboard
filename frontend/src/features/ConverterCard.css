@@ -1,4 +1,4 @@
-.converterCard {
+.converter-card {
   background-color: var(--color-background);
   border-radius: 8px;
   padding: 16px;
@@ -8,29 +8,18 @@
   flex-direction: column;
 }
 
-.converterCard > h2 {
+.converter-card > h2 {
   margin-bottom: 32px;
 }
 
-.value-container {
+.currency-inputs {
   display: flex;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 24px;
 }
 
-.title-currency {
-  position: absolute;
-  font-size: 12px;
-  top: -10px;
-  left: 8px;
-  color: var(--color-primary);
-  font-weight: 700;
-  background-color: var(--color-background);
-  padding: 0 4px;
-}
-
-.historic-container {
+.date-controls {
   width: 100%;
   display: flex;
   align-items: center;

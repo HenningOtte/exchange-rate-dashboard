@@ -16,13 +16,24 @@
   text-align: right;
 }
 
+.currency-label {
+  position: absolute;
+  font-size: 12px;
+  top: -10px;
+  left: 8px;
+  color: var(--color-primary);
+  font-weight: 700;
+  background-color: var(--color-background);
+  padding: 0 4px;
+}
+
 .currency-input::-webkit-outer-spin-button,
 .currency-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.btn-currencies {
+.currency-button {
   height: 100%;
   width: 68px;
   font-size: 16px;
@@ -39,12 +50,12 @@
   align-items: center;
 }
 
-.btn-currencies:hover {
+.currency-button:hover {
   background-color: var(--color-primary);
   color: var(--color-background);
 }
 
-.arrow {
+.selector-arrow {
   height: 12px;
   width: 12px;
   background-repeat: no-repeat;
@@ -52,11 +63,11 @@
   background-image: url(../assets/icons/arrow-blue.svg);
 }
 
-.btn-currencies:hover > .arrow {
+.currency-button:hover > .selector-arrow {
   background-image: url(../assets/icons/arrow-white.svg);
 }
 
-.date-picker > input {
+.date-input-container > input {
   width: 124px;
   font-size: 16px;
   padding: 0 8px;

@@ -6,8 +6,8 @@ type DateProps = {
 
 function DatePicker({ title }: DateProps) {
   return (
-    <div className="currency-input-container date-picker">
-      <p className="title-currency">{title}</p>
+    <div className="currency-input-container date-input-container">
+      <p className="currency-label">{title}</p>
       <input type="date" />
     </div>
   );

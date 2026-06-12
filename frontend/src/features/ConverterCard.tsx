@@ -9,13 +9,13 @@ type CardProps = {
 
 function Card({ title }: CardProps) {
   return (
-    <div className="converterCard max-w-512">
+    <div className="converter-card max-w-512">
       <h2>{title}</h2>
-      <div className="value-container">
+      <div className="currency-inputs">
         <CurrencyInput title="Initial value"></CurrencyInput>
         <CurrencyInput title="Target value"></CurrencyInput>
       </div>
-      <div className="historic-container">
+      <div className="date-controls">
         <DatePicker title="Date"></DatePicker>
         <Switch defaultChecked size="small" />
       </div>
