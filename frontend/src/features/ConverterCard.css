@@ -1,4 +1,5 @@
 .converter-card {
+  width: 100%;
   background-color: var(--color-background);
   border-radius: 8px;
   padding: 16px;
