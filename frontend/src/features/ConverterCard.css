@@ -1,0 +1,40 @@
+.converterCard {
+  background-color: var(--color-background);
+  border-radius: 8px;
+  padding: 16px;
+  border: 2px solid var(--color-light-grey);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.converterCard > h2 {
+  margin-bottom: 32px;
+}
+
+.value-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.title-currency {
+  position: absolute;
+  font-size: 12px;
+  top: -10px;
+  left: 8px;
+  color: var(--color-primary);
+  font-weight: 700;
+  background-color: var(--color-background);
+  padding: 0 4px;
+}
+
+.historic-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+}

@@ -1,13 +1,19 @@
 import "./Navbar.css";
 
-type NavbarProps = {
-  title: string;
-};
-
 function Navbar() {
+
   return (
-    <div className="navbar br8">
-      <img className="logo" src="./src/assets/icons/currio-logo.svg" alt="currio-logo" />
+    <div className="navbar">
+      <img
+        className="logo"
+        src="./src/assets/icons/currio-logo.svg"
+        alt="currio-logo"
+      />
+      <div className="navbar-actions">
+        <button className="navbar-button">Home</button>
+        <button className="navbar-button">Favorites</button>
+        <img className="navbar-avatar" src="./src/assets/icons/profil-pic.svg" alt="profil-pic" />
+      </div>
     </div>
   );
 }
