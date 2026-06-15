@@ -10,7 +10,7 @@ function CurrencyInput({ title }: InputProps) {
       <p className="currency-label">{title}</p>
       <input className="currency-input" type="number" placeholder="0" />
       <button className="currency-button">
-        USD <div className="selector-arrow"></div>
+        <p>USD</p> <div className="selector-arrow"></div>
       </button>
     </div>
   );
