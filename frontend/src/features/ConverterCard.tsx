@@ -8,6 +8,8 @@ type CardProps = {
 };
 
 function Card({ title }: CardProps) {
+  const setShowDatePicker = () => console.log("Clicked");
+
   return (
     <div className="converter-card max-w-512">
       <h2>{title}</h2>
@@ -17,7 +19,7 @@ function Card({ title }: CardProps) {
       </div>
       <div className="date-controls">
         <DatePicker title="Date"></DatePicker>
-        <Switch defaultChecked size="small" />
+        <Switch onClick={setShowDatePicker} defaultChecked size="small" />
       </div>
     </div>
   );
