@@ -2,13 +2,18 @@ import "./ConverterCard.css";
 import CurrencyInput from "./CurrencyInput";
 import DatePicker from "./DatePicker";
 import Switch from "@mui/material/Switch";
+import { useState } from "react";
 
 type CardProps = {
   title: string;
 };
 
 function Card({ title }: CardProps) {
-  const setShowDatePicker = () => console.log("Clicked");
+  const [isDatePickerDisabled, setIsDatePickerDisabled] = useState(true);
+
+  const setShowDatePicker = () => {
+    setIsDatePickerDisabled(!isDatePickerDisabled);
+  };
 
   return (
     <div className="converter-card max-w-512">
@@ -18,7 +23,7 @@ function Card({ title }: CardProps) {
         <CurrencyInput title="Target value"></CurrencyInput>
       </div>
       <div className="date-controls">
-        <DatePicker title="Date"></DatePicker>
+        <DatePicker title="Date" disabled={isDatePickerDisabled}></DatePicker>
         <Switch onClick={setShowDatePicker} defaultChecked size="small" />
       </div>
     </div>
