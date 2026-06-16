@@ -2,43 +2,119 @@
 
 ## Project Goal
 
-Development of a full-stack web application using React, Node.js, and TypeScript for displaying current and historical exchange rates.
+The goal of this project is to develop a full-stack web application using React, TypeScript, Node.js, and MongoDB for displaying current and historical exchange rates.
 
-The backend provides a REST API and processes data from an external exchange rate API. In addition, users can save and manage their favorite currency pairs.
+The backend provides a REST API that retrieves and processes data from an external exchange rate API. Additionally, users can save and manage their favorite currency pairs.
+
+---
 
 ## Technologies
 
 ### Frontend
-- React
-- TypeScript
+
+* React
+* TypeScript
+* Material UI (MUI)
 
 ### Backend
-- Node.js
-- Express
+
+* Node.js
+* Express
 
 ### Database
-- MongoDB
+
+* MongoDB
+* MongoDB Atlas (Cloud Hosting)
+
+---
 
 ## Planned Features
 
-- Display current exchange rates
-- Visualize historical exchange rate trends
-- Save favorite currency pairs
-- Manage favorites
-- Responsive user interface
+* Display current exchange rates
+* Visualize historical exchange rate trends
+* Save favorite currency pairs
+* Manage favorites
+* Responsive user interface
+* User profile management
 
-## Project Status
+---
 
-- [x] Project idea defined
-- [x] Node.js environment set up
-- [x] MongoDB Atlas configured
-- [x] Initial mockups created
-- [ ] Create first API endpoint
-- [ ] Integrate exchange rate API
-- [ ] Create favorites model
-- [ ] Set up React frontend
-- [ ] Integrate charts and data visualization
-- [ ] Prepare deployment
+## Application Structure
+
+### Frontend Components
+
+* **Navbar** – Navigation between dashboard, favorites, and profile pages.
+* **ConverterCard** – Currency conversion interface with amount and currency selection.
+* **CurrencyInput** – Reusable component for currency and amount input.
+* **DatePicker** – Selection of dates for historical exchange rate queries.
+* **DashboardCard** – Displays exchange rate information and visualizations.
+* **FavoriteSelector** – Quick access to saved favorite currency pairs.
+* **Profile Page** – Displays user account information.
+* **Edit Profile Dialog** – Allows users to update profile information.
+
+### Backend Components
+
+* **Exchange Rate API Service** – Handles communication with the external exchange rate API.
+* **Favorites API** – Provides CRUD endpoints for favorite currency pairs.
+* **Database Layer** – Stores user information and favorites in MongoDB Atlas.
+
+---
+
+## Data Storage Strategy
+
+* Guest users: Favorites stored in Local Storage.
+* Registered users: Favorites and profile data stored in MongoDB Atlas.
+
+---
+
+## Planned Project Workflow
+
+### Milestone 1 – Project Setup
+
+* [x] Create GitHub repository
+* [x] Configure Node.js backend
+* [x] Configure MongoDB Atlas
+* [x] Create initial mockups
+
+### Milestone 2 – Frontend Layout
+
+* [x] Initialize React + TypeScript project
+* [x] Implement dashboard layout
+* [x] Implement navigation bar
+* [ ] Implement profile page
+* [ ] Implement edit profile dialog
+* [ ] Implement responsive design
+
+### Milestone 3 – Frontend Functionality
+
+* [ ] Add React Router navigation
+* [ ] Add React state management
+* [ ] Implement currency selection
+* [ ] Implement date selection
+* [ ] Implement favorites selection
+
+### Milestone 4 – Exchange Rate Integration
+
+* [ ] Connect external exchange rate API
+* [ ] Display current exchange rates
+* [ ] Retrieve historical exchange rates
+
+### Milestone 5 – Data Storage
+
+* [ ] Implement Local Storage for guest users
+* [ ] Create favorites model
+* [ ] Store favorites in MongoDB Atlas
+* [ ] Load and manage favorites
+
+### Milestone 6 – Data Visualization & Deployment
+
+* [ ] Integrate chart library
+* [ ] Visualize historical exchange rate trends
+* [ ] Testing and bug fixing
+* [ ] Deployment preparation
+
+
+---
 
 ## Mockups
 
@@ -56,6 +132,6 @@ Concept for the user profile page displaying personal account information.
 
 ### Edit Profile
 
-Concept for the profile editing dialog, allowing users to update their personal information and account settings.
+Concept for the profile editing dialog, allowing users to update personal information and account settings.
 
 ![Currio Edit Profile](docs/Currio-Currency-Edit-Profil.png)
