@@ -11,7 +11,7 @@ export type ExchangeState = {
   };
 };
 
-export function createExchangeState(i: ExchangeState): ExchangeState {
+export function createExchangeState(i: ExchangeState) {
   return {
     converter: {
       initialValue: i.converter.initialValue,

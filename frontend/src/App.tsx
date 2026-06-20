@@ -32,7 +32,6 @@ function App() {
     <>
       <Navbar></Navbar>
       <main>
-        <h1>{exchangeState.converter.initialValue}</h1>
         <ExchangeContext value={{ exchangeState, setExchangeState }}>
           <ConverterCard title="Converter"></ConverterCard>
         </ExchangeContext>
