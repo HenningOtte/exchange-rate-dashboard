@@ -1,4 +1,4 @@
-export type ExchangeContext = {
+export type ExchangeState = {
   converter: {
     initialValue: number;
     targetValue: number;

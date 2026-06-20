@@ -4,6 +4,9 @@ import DatePicker from "./DatePicker";
 import Switch from "@mui/material/Switch";
 import { useState } from "react";
 
+import { useContext } from "react";
+import { ThemeContext } from "../App.tsx";
+
 type CardProps = {
   title: string;
 };
@@ -15,7 +18,10 @@ function Card({ title }: CardProps) {
     setIsDatePickerDisabled(!isDatePickerDisabled);
   };
 
+  let ctx = useContext(ThemeContext);
+
   return (
+    /*
     <div className="converter-card max-w-512">
       <h2>{title}</h2>
       <div className="currency-inputs">
@@ -27,6 +33,18 @@ function Card({ title }: CardProps) {
         <Switch onClick={setShowDatePicker} defaultChecked size="small" />
       </div>
     </div>
+    */
+
+    <button
+      onClick={() => {
+        console.log(ctx?.theme);
+        ctx?.setTheme((i) => {
+          return i == "light on" ? "light off" : "light on";
+        });
+      }}
+    >
+      {ctx?.theme}
+    </button>
   );
 }
 
