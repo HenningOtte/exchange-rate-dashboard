@@ -12,8 +12,8 @@ function DashboardCard({ title }: DashboardProps) {
     <div className="converter-card">
       <h2>{title}</h2>
       <div className="date-range">
-        <DatePicker title="From" disabled={false}></DatePicker>
-        <DatePicker title="To" disabled={false}></DatePicker>
+        <DatePicker title="From" disabled={false} id="dateFrom"></DatePicker>
+        <DatePicker title="To" disabled={false} id="dateTo"></DatePicker>
       </div>
       <div className="history-chart"></div>
       <FavoriteSelector></FavoriteSelector>

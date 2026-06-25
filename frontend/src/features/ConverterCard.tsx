@@ -26,7 +26,11 @@ function Card({ title }: CardProps) {
         <CurrencyInput title="Target value" id="targetValue"></CurrencyInput>
       </div>
       <div className="date-controls">
-        <DatePicker title="Date" disabled={isDisabled}></DatePicker>
+        <DatePicker
+          title="Date"
+          disabled={isDisabled}
+          id="dateHistorical"
+        ></DatePicker>
         <Switch
           checked={exchangeContext?.exchangeState.converter.isHistorical}
           onClick={() => {
