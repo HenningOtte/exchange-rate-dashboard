@@ -14,8 +14,8 @@ export const ExchangeContext = createContext<ExchangeContextValue | null>(null);
 
 const exchangeViewState: ExchangeState = {
   converter: {
-    initialValue: 0,
-    targetValue: 0,
+    initialValue: "",
+    targetValue: "",
     historicalDate: null,
     isHistorical: false,
   },
@@ -34,8 +34,8 @@ function App() {
       <main>
         <ExchangeContext value={{ exchangeState, setExchangeState }}>
           <ConverterCard title="Converter"></ConverterCard>
+          <DashboardCard title="Dashboard"></DashboardCard>
         </ExchangeContext>
-        <DashboardCard title="Dashboard"></DashboardCard>
       </main>
     </>
   );

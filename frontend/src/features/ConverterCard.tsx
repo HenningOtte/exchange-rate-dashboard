@@ -22,12 +22,13 @@ function Card({ title }: CardProps) {
     <div className="converter-card max-w-512">
       <h2>{title}</h2>
       <div className="currency-inputs">
-        <CurrencyInput title="Initial value"></CurrencyInput>
-        <CurrencyInput title="Target value"></CurrencyInput>
+        <CurrencyInput title="Initial value" id="initialValue"></CurrencyInput>
+        <CurrencyInput title="Target value" id="targetValue"></CurrencyInput>
       </div>
       <div className="date-controls">
         <DatePicker title="Date" disabled={isDisabled}></DatePicker>
         <Switch
+          checked={exchangeContext?.exchangeState.converter.isHistorical}
           onClick={() => {
             exchangeContext?.setExchangeState((exchange) => {
               const exchangeViewState: ExchangeState =
@@ -39,7 +40,6 @@ function Card({ title }: CardProps) {
               return exchangeViewState;
             });
           }}
-          defaultChecked
           size="small"
         />
       </div>

@@ -1,7 +1,7 @@
 export type ExchangeState = {
   converter: {
-    initialValue: number;
-    targetValue: number;
+    initialValue: string;
+    targetValue: string;
     historicalDate: string | null;
     isHistorical: boolean;
   };
