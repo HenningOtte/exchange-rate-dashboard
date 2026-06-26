@@ -5,7 +5,7 @@ import Switch from "@mui/material/Switch";
 import type { ExchangeState } from "../types/exchangeState";
 import { createExchangeState } from "../types/exchangeState";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ExchangeContext } from "../App.tsx";
 
 type CardProps = {

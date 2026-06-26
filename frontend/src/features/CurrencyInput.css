@@ -33,6 +33,11 @@
   margin: 0;
 }
 
+.currency-selection-container {
+  position: relative;
+  width: 68px;
+}
+
 .currency-button {
   height: 100%;
   width: 68px;
@@ -44,6 +49,7 @@
   background-color: var(--color-secondary);
   cursor: pointer;
   transition: 0.25s ease all;
+  border-radius: 0 4px 4px 0;
 
   display: flex;
   justify-content: space-around;
@@ -53,6 +59,44 @@
 .currency-button:hover {
   background-color: var(--color-primary);
   color: var(--color-background);
+}
+
+.currencySelection {
+  width: 68px;
+  position: absolute;
+  z-index: 1;
+  top: 29px;
+  display: flex;
+  flex-direction: column;
+  outline: 1px solid var(--color-primary);
+  border-radius: 0px 4px 4px 4px;
+  overflow: hidden;
+}
+
+.currencySelection > button {
+  height: 28px;
+  width: 100%;
+  padding-left: 6px;
+  outline: none;
+  border: 0;
+  color: var(--color-primary);
+  background-color: var(--color-background);
+  cursor: pointer;
+  font-weight: 700;
+  text-align: start;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all ease 0.25s;
+}
+
+.currencySelection > button:hover {
+  background-color: var(--color-secondary);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-secondary);
 }
 
 .selector-arrow {

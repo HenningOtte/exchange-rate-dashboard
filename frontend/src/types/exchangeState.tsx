@@ -2,6 +2,8 @@ export type ExchangeState = {
   converter: {
     initialValue: string;
     targetValue: string;
+    sourceCurrency: string;
+    targetCurrency: string;
     historicalDate: string | null;
     isHistorical: boolean;
   };
@@ -16,6 +18,8 @@ export function createExchangeState(i: ExchangeState) {
     converter: {
       initialValue: i.converter.initialValue,
       targetValue: i.converter.targetValue,
+      sourceCurrency: i.converter.sourceCurrency,
+      targetCurrency: i.converter.targetCurrency,
       historicalDate: i.converter.historicalDate,
       isHistorical: i.converter.isHistorical,
     },

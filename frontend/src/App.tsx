@@ -16,6 +16,8 @@ const exchangeViewState: ExchangeState = {
   converter: {
     initialValue: "",
     targetValue: "",
+    sourceCurrency: "USD",
+    targetCurrency: "EUR",
     historicalDate: null,
     isHistorical: false,
   },
