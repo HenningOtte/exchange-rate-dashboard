@@ -37,6 +37,10 @@ function App() {
         <ExchangeContext value={{ exchangeState, setExchangeState }}>
           <ConverterCard title="Converter"></ConverterCard>
           <DashboardCard title="Dashboard"></DashboardCard>
+          <div className="start-clear-container">
+            <button className="start-btn">START</button>
+            <button className="clear-btn">CLEAR</button>
+          </div>
         </ExchangeContext>
       </main>
     </>
