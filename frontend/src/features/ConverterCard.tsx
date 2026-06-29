@@ -6,7 +6,7 @@ import type { ExchangeState } from "../types/exchangeState";
 import { createExchangeState } from "../types/exchangeState";
 
 import { useContext } from "react";
-import { ExchangeContext } from "../App.tsx";
+import { ExchangeContext } from "../pages/Home";
 
 type CardProps = {
   title: string;
