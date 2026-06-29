@@ -1,6 +1,6 @@
 import "./CurrencyInput.css";
 import { useContext } from "react";
-import { ExchangeContext } from "../App.tsx";
+import { ExchangeContext } from "../pages/Home.tsx";
 import type { ExchangeState } from "../types/exchangeState";
 import { createExchangeState } from "../types/exchangeState";
 

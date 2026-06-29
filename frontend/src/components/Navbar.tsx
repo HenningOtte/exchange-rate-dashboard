@@ -1,4 +1,5 @@
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -8,15 +9,21 @@ function Navbar() {
         src="./src/assets/icons/currio-logo.svg"
         alt="currio-logo"
       />
-      <div className="navbar-actions">
-        <button className="navbar-button">Home</button>
-        <button className="navbar-button">Favorites</button>
-        <img
-          className="navbar-avatar"
-          src="./src/assets/icons/profile-pic.svg"
-          alt="profil-pic"
-        />
-      </div>
+      <nav className="navbar-actions">
+        <Link className="navbar-link" to={"/"}>
+          Home
+        </Link>
+        <Link className="navbar-link" to={"/favorites"}>
+          Favorites
+        </Link>
+        <Link to={"/profil"}>
+          <img
+            className="navbar-avatar"
+            src="./src/assets/icons/profile-pic.svg"
+            alt="profil-pic"
+          />
+        </Link>
+      </nav>
     </div>
   );
 }

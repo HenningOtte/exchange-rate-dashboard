@@ -1,11 +1,8 @@
-import Navbar from "./components/Navbar";
+import ConverterCard from "../features/ConverterCard";
+import DashboardCard from "../features/DashboardCard";
 import { useState } from "react";
-import type { ExchangeState } from "./types/exchangeState";
+import type { ExchangeState } from "../types/exchangeState";
 import { createContext } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import Favorites from "./pages/Favorites";
-import Profile from "./pages/Profile";
 
 type ExchangeContextValue = {
   exchangeState: ExchangeState;
@@ -29,23 +26,19 @@ const exchangeViewState: ExchangeState = {
   },
 };
 
-function App() {
+function Home() {
   const [exchangeState, setExchangeState] = useState(exchangeViewState);
 
   return (
-    <>
-      <BrowserRouter>
-        <Navbar></Navbar>
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/profil" element={<Profile />} />
-          </Routes>
-        </main>
-      </BrowserRouter>
-    </>
+    <ExchangeContext value={{ exchangeState, setExchangeState }}>
+      <ConverterCard title="Converter"></ConverterCard>
+      <DashboardCard title="Dashboard"></DashboardCard>
+      <div className="start-clear-container">
+        <button className="start-btn">START</button>
+        <button className="clear-btn">CLEAR</button>
+      </div>
+    </ExchangeContext>
   );
 }
 
-export default App;
+export default Home;

@@ -4,7 +4,7 @@ import { createExchangeState } from "../types/exchangeState";
 import { useEffect, useRef, useState } from "react";
 
 import { useContext } from "react";
-import { ExchangeContext } from "../App.tsx";
+import { ExchangeContext } from "../pages/Home.tsx";
 
 type InputProps = {
   title: string;
