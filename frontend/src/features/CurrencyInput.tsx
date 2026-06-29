@@ -17,7 +17,7 @@ function CurrencyInput({ title, id }: InputProps) {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const setCurrency = (currency: string) => {
+  const setCurrency = (currency: "USD" | "EUR" | "GBP") => {
     exchangeContext?.setExchangeState((stateObj) => {
       let newState = createExchangeState(stateObj);
 
@@ -29,6 +29,19 @@ function CurrencyInput({ title, id }: InputProps) {
     });
 
     setIsOpen(!isOpen);
+  };
+
+  const setInputValue = (e: React.InputEvent<HTMLInputElement>) => {
+    let inputValue: string = e.currentTarget.value;
+
+    if (id === "initialValue") {
+      exchangeContext?.setExchangeState((exchange) => {
+        const exchangeViewState: ExchangeState = createExchangeState(exchange);
+        exchangeViewState.converter.initialValue = inputValue;
+
+        return exchangeViewState;
+      });
+    }
   };
 
   useEffect(() => {
@@ -57,20 +70,16 @@ function CurrencyInput({ title, id }: InputProps) {
       <input
         id={id}
         onInput={(e) => {
-          let inputValue = e.currentTarget.value;
-
-          if (id === "initialValue") {
-            exchangeContext?.setExchangeState((exchange) => {
-              const exchangeViewState: ExchangeState =
-                createExchangeState(exchange);
-              exchangeViewState.converter.initialValue = inputValue;
-              return exchangeViewState;
-            });
-          }
+          setInputValue(e);
         }}
         className="currency-input"
         type="number"
         placeholder="0"
+        value={
+          id === "initialValue"
+            ? exchangeContext?.exchangeState.converter.initialValue
+            : exchangeContext?.exchangeState.converter.targetValue
+        }
       />
       <div className="currency-selection-container">
         <button

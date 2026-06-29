@@ -2,8 +2,8 @@ export type ExchangeState = {
   converter: {
     initialValue: string;
     targetValue: string;
-    sourceCurrency: string;
-    targetCurrency: string;
+    sourceCurrency: "USD" | "EUR" | "GBP";
+    targetCurrency: "USD" | "EUR" | "GBP";
     historicalDate: string | null;
     isHistorical: boolean;
   };
