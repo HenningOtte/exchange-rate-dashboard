@@ -32,23 +32,25 @@ function Home() {
   const [exchangeState, setExchangeState] = useState(exchangeViewState);
 
   return (
-    <ExchangeContext value={{ exchangeState, setExchangeState }}>
-      <ConverterCard title="Converter"></ConverterCard>
-      <DashboardCard title="Dashboard"></DashboardCard>
-      <div className="start-clear-container">
-        <button className="start-btn">START</button>
-        <button
-          onClick={() => {
-            setExchangeState((exchange) => {
-              return clearExchangeState(exchange);
-            });
-          }}
-          className="clear-btn"
-        >
-          CLEAR
-        </button>
-      </div>
-    </ExchangeContext>
+    <div className="home">
+      <ExchangeContext value={{ exchangeState, setExchangeState }}>
+        <ConverterCard title="Converter"></ConverterCard>
+        <DashboardCard title="Dashboard"></DashboardCard>
+        <div className="start-clear-container">
+          <button className="start-btn">START</button>
+          <button
+            onClick={() => {
+              setExchangeState((exchange) => {
+                return clearExchangeState(exchange);
+              });
+            }}
+            className="clear-btn"
+          >
+            CLEAR
+          </button>
+        </div>
+      </ExchangeContext>
+    </div>
   );
 }
 
