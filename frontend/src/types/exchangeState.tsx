@@ -4,12 +4,12 @@ export type ExchangeState = {
     targetValue: string;
     sourceCurrency: "USD" | "EUR" | "GBP";
     targetCurrency: "USD" | "EUR" | "GBP";
-    historicalDate: string | null;
+    historicalDate: string;
     isHistorical: boolean;
   };
   dashboard: {
-    dateFrom: string | null;
-    dateTo: string | null;
+    dateFrom: string;
+    dateTo: string;
   };
 };
 
@@ -28,4 +28,20 @@ export function createExchangeState(i: ExchangeState) {
       dateTo: i.dashboard.dateTo,
     },
   };
+}
+
+export function clearExchangeState(i: ExchangeState) {
+  const exchangeViewState: ExchangeState = createExchangeState(i);
+
+  exchangeViewState.converter.initialValue = "0";
+  exchangeViewState.converter.targetValue = "0";
+  exchangeViewState.converter.sourceCurrency = "USD";
+  exchangeViewState.converter.targetCurrency = "EUR";
+  exchangeViewState.converter.historicalDate = "";
+  exchangeViewState.converter.isHistorical = false;
+
+  exchangeViewState.dashboard.dateFrom = "";
+  exchangeViewState.dashboard.dateTo = "";
+
+  return exchangeViewState;
 }

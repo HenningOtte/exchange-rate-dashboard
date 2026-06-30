@@ -1,8 +1,7 @@
 import Navbar from "./components/Navbar";
-import { useState } from "react";
 import type { ExchangeState } from "./types/exchangeState";
 import { createContext } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import Profile from "./pages/Profile";
@@ -14,24 +13,7 @@ type ExchangeContextValue = {
 
 export const ExchangeContext = createContext<ExchangeContextValue | null>(null);
 
-const exchangeViewState: ExchangeState = {
-  converter: {
-    initialValue: "",
-    targetValue: "",
-    sourceCurrency: "USD",
-    targetCurrency: "EUR",
-    historicalDate: null,
-    isHistorical: false,
-  },
-  dashboard: {
-    dateFrom: null,
-    dateTo: null,
-  },
-};
-
 function App() {
-  const [exchangeState, setExchangeState] = useState(exchangeViewState);
-
   return (
     <>
       <BrowserRouter>

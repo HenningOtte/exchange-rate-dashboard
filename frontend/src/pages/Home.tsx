@@ -3,6 +3,7 @@ import DashboardCard from "../features/DashboardCard";
 import { useState } from "react";
 import type { ExchangeState } from "../types/exchangeState";
 import { createExchangeState } from "../types/exchangeState";
+import { clearExchangeState } from "../types/exchangeState";
 import { createContext } from "react";
 
 type ExchangeContextValue = {
@@ -18,35 +19,17 @@ const exchangeViewState: ExchangeState = {
     targetValue: "",
     sourceCurrency: "USD",
     targetCurrency: "EUR",
-    historicalDate: null,
+    historicalDate: "",
     isHistorical: false,
   },
   dashboard: {
-    dateFrom: null,
-    dateTo: null,
+    dateFrom: "",
+    dateTo: "",
   },
 };
 
 function Home() {
   const [exchangeState, setExchangeState] = useState(exchangeViewState);
-
-  const clearExchangeState = () => {
-    setExchangeState((exchange) => {
-      const exchangeViewState: ExchangeState = createExchangeState(exchange);
-
-      exchangeViewState.converter.initialValue = "0";
-      exchangeViewState.converter.targetValue = "0";
-      exchangeViewState.converter.sourceCurrency = "USD";
-      exchangeViewState.converter.targetCurrency = "EUR";
-      exchangeViewState.converter.historicalDate = null;
-      exchangeViewState.converter.isHistorical = false;
-
-      exchangeViewState.dashboard.dateFrom = null;
-      exchangeViewState.dashboard.dateTo = null;
-
-      return exchangeViewState;
-    });
-  };
 
   return (
     <ExchangeContext value={{ exchangeState, setExchangeState }}>
@@ -56,7 +39,9 @@ function Home() {
         <button className="start-btn">START</button>
         <button
           onClick={() => {
-            clearExchangeState();
+            setExchangeState((exchange) => {
+              return clearExchangeState(exchange);
+            });
           }}
           className="clear-btn"
         >

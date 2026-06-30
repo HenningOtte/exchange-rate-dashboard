@@ -13,13 +13,24 @@ type DateProps = {
 function DatePicker({ title, disabled, id }: DateProps) {
   let exchangeContext = useContext(ExchangeContext);
 
+  const setDateValue = () => {
+    if (id === "dateHistorical")
+      return exchangeContext?.exchangeState.converter.historicalDate;
+    if (id === "dateFrom")
+      return exchangeContext?.exchangeState.dashboard.dateFrom;
+    if (id === "dateTo") return exchangeContext?.exchangeState.dashboard.dateTo;
+  };
+
   return (
     <div className="currency-input-container date-input-container">
       <p className="currency-label">{title}</p>
       <input
+        value={setDateValue()}
         id={id}
         onChange={(e) => {
           let date = e.currentTarget.value;
+
+          console.log(exchangeContext?.exchangeState.converter.historicalDate);
 
           exchangeContext?.setExchangeState((exchange) => {
             const exchangeViewState: ExchangeState =
