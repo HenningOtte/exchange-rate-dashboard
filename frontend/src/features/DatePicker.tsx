@@ -30,8 +30,6 @@ function DatePicker({ title, disabled, id }: DateProps) {
         onChange={(e) => {
           let date = e.currentTarget.value;
 
-          console.log(exchangeContext?.exchangeState.converter.historicalDate);
-
           exchangeContext?.setExchangeState((exchange) => {
             const exchangeViewState: ExchangeState =
               createExchangeState(exchange);
