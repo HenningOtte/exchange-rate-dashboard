@@ -1,0 +1,41 @@
+.favorites {
+  width: 100vw;
+  margin-top: 92px;
+  padding-right: 32px;
+  padding-left: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+td,
+th {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.favorites-card {
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  background-color: var(--color-background);
+  border-radius: 8px;
+  border: 2px solid var(--color-light-grey);
+}
+
+.favorites-card > h3 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.favorites-table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.favorites-table-header {
+  font-weight: 700;
+  color: var(--color-primary);
+}

@@ -1,0 +1,13 @@
+.favoriteRow {
+  cursor: pointer;
+}
+
+.favoriteRow:hover {
+  background-color: var(--color-light-grey);
+}
+
+.favorites-last-td {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
