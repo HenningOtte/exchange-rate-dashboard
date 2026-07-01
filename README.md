@@ -76,7 +76,7 @@ The backend provides a REST API that retrieves and processes data from an extern
 - [x] Configure MongoDB Atlas
 - [x] Create initial mockups
 
-### Milestone 2 – Frontend Layout (KW 26)
+### Milestone 2 – Frontend Layout (KW 26-27)
 
 - [x] Initialize React + TypeScript project
 - [x] Implement dashboard layout
@@ -85,7 +85,7 @@ The backend provides a REST API that retrieves and processes data from an extern
 - [ ] Implement edit profile dialog
 - [ ] Implement responsive design
 
-### Milestone 3 – Frontend Functionality (KW 26-27)
+### Milestone 3 – Frontend Functionality (KW 27)
 
 - [x] Add React Router navigation
 - [x] Add React state management
@@ -93,20 +93,20 @@ The backend provides a REST API that retrieves and processes data from an extern
 - [x] Implement date selection
 - [ ] Implement favorites selection
 
-### Milestone 4 – Exchange Rate Integration (KW 27)
+### Milestone 4 – Exchange Rate Integration (KW 27-28)
 
 - [ ] Connect external exchange rate API
 - [ ] Display current exchange rates
 - [ ] Retrieve historical exchange rates
 
-### Milestone 5 – Data Storage (KW 28)
+### Milestone 5 – Data Storage (KW 28-29)
 
 - [ ] Implement Local Storage for guest users
 - [ ] Create favorites model
 - [ ] Store favorites in MongoDB Atlas
 - [ ] Load and manage favorites
 
-### Milestone 6 – Data Visualization & Deployment (KW 28–29)
+### Milestone 6 – Data Visualization & Deployment (KW 29)
 
 - [ ] Integrate chart library
 - [ ] Visualize historical exchange rate trends
@@ -133,7 +133,7 @@ Concept for the user profile page displaying personal account information.
 
 Overview of all saved favorite currency pairs. Users can quickly access or remove saved conversions.
 
-![Currio Profile](docs/Currio-Currency-Favorites.png)
+![Currio Favorites](docs/Currio-Currency-Favorites.png)
 
 ### Edit Profile
 
