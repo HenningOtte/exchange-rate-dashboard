@@ -2,11 +2,11 @@ import "./ConverterCard.css";
 import CurrencyInput from "./CurrencyInput";
 import DatePicker from "./DatePicker";
 import Switch from "@mui/material/Switch";
-import type { ExchangeState } from "../types/exchangeState";
-import { createExchangeState } from "../types/exchangeState";
+import type { ExchangeState } from "../../types/exchangeState";
+import { createExchangeState } from "../../types/exchangeState";
 
 import { useContext } from "react";
-import { ExchangeContext } from "../pages/Home";
+import { ExchangeContext } from "../../pages/Home";
 
 type CardProps = {
   title: string;

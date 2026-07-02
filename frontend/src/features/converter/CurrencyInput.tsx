@@ -1,10 +1,10 @@
 import "./CurrencyInput.css";
-import type { ExchangeState } from "../types/exchangeState";
-import { createExchangeState } from "../types/exchangeState";
+import type { ExchangeState } from "../../types/exchangeState.tsx";
+import { createExchangeState } from "../../types/exchangeState.tsx";
 import { useEffect, useRef, useState } from "react";
 
-import { useContext } from "react";
-import { ExchangeContext } from "../pages/Home.tsx";
+import { useContext, createContext } from "react";
+import { ExchangeContext } from "../../pages/Home.tsx";
 
 type InputProps = {
   title: string;

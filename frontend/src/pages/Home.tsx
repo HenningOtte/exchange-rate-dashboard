@@ -1,5 +1,5 @@
-import ConverterCard from "../features/ConverterCard";
-import DashboardCard from "../features/DashboardCard";
+import ConverterCard from "../features/converter/ConverterCard";
+import DashboardCard from "../features/converter/DashboardCard";
 import { useState } from "react";
 import type { ExchangeState } from "../types/exchangeState";
 import { createExchangeState } from "../types/exchangeState";

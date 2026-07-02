@@ -1,4 +1,4 @@
-import "../pages/Favorites.css";
+import "../../pages/Favorites.css";
 import "./FavoriteRow.css";
 
 type favoriteRow = {

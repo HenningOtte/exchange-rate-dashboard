@@ -3,7 +3,7 @@ import "./DashboardCard.css";
 import DatePicker from "./DatePicker";
 import FavoriteSelector from "./FavoriteSelector";
 import { useContext } from "react";
-import { ExchangeContext } from "../pages/Home.tsx";
+import { ExchangeContext } from "../../pages/Home.tsx";
 
 type DashboardProps = {
   title: string;

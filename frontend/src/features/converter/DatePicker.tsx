@@ -1,8 +1,8 @@
 import "./CurrencyInput.css";
 import { useContext } from "react";
-import { ExchangeContext } from "../pages/Home.tsx";
-import type { ExchangeState } from "../types/exchangeState";
-import { createExchangeState } from "../types/exchangeState";
+import { ExchangeContext } from "../../pages/Home.tsx";
+import type { ExchangeState } from "../../types/exchangeState.tsx";
+import { createExchangeState } from "../../types/exchangeState.tsx";
 
 type DateProps = {
   title: string;

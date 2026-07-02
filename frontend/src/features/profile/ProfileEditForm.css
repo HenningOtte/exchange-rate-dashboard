@@ -1,0 +1,67 @@
+.profileEdit {
+  z-index: 10;
+  position: fixed;
+  background-color: rgb(0, 0, 0, 0.35);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileEditCard {
+  position: relative;
+  max-width: 324px;
+  z-index: 10;
+  padding: 24px;
+  background-color: var(--color-background);
+  border-radius: 8px;
+  border: 2px solid var(--color-light-grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.profileEditCard > .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.profilEditPicture {
+  height: 80px;
+  width: 80px;
+}
+
+.profileEditForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.profil-name-container {
+  display: flex;
+  gap: 16px;
+}
+
+.profil-submit-btn {
+  height: 28px;
+  width: 28px;
+  margin-top: 8px;
+  border: none;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  background-image: url(../../assets/icons/check.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+
+.profil-submit-btn:hover {
+  background-color: var(--color-secondary);
+}

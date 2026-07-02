@@ -1,6 +1,5 @@
+import FavoriteRow from "../features/favorite/FavoriteRow";
 import "./Favorites.css";
-import FavoriteRow from "../features/FavoriteRow";
-import { Favorite } from "@mui/icons-material";
 
 const favoriteExchanges = [
   {
