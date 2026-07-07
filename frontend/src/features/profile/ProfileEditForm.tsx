@@ -1,15 +1,20 @@
 import "./ProfileEditForm.css";
 import { ProfilContext } from "../../pages/Profile";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ProfilInput from "./ProfilInput";
-import { Mail } from "@mui/icons-material";
 
 function ProfileEditForm() {
   const profilContext = useContext(ProfilContext);
 
   return (
     <div className="profileEdit">
-      <div className="profileEditCard">
+      <div
+        className={
+          profilContext?.isEditProfileOpen
+            ? "profileEditCard"
+            : "profileEditCard profilCard-hide"
+        }
+      >
         <button
           className="close-btn"
           onClick={() => {

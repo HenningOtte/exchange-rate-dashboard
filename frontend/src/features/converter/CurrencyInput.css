@@ -104,11 +104,11 @@
   width: 12px;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(../assets/icons/arrow-blue.svg);
+  background-image: url(../../assets/icons/arrow-blue.svg);
 }
 
 .currency-button:hover > .selector-arrow {
-  background-image: url(../assets/icons/arrow-white.svg);
+  background-image: url(../../assets/icons/arrow-white.svg);
 }
 
 .date-input-container > input {

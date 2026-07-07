@@ -118,10 +118,10 @@ main {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background-image: url(./assets/icons/remove-icon.svg);
+  background-image: url(./assets/icons/remove-icon.png);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 60%;
+  background-size: 50%;
   cursor: pointer;
   transition: all ease 0.3s;
 }
@@ -136,10 +136,10 @@ main {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background-image: url(./assets/icons/remove-icon.svg);
+  background-image: url(./assets/icons/remove-icon.png);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 60%;
+  background-size: 50%;
   cursor: pointer;
   transition: all ease 0.3s;
 }

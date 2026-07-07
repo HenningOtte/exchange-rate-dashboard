@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import Profile from "./pages/Profile";
+import ExchangeProvider from "./context/ExchangeProvider";
 
 type ExchangeContextValue = {
   exchangeState: ExchangeState;
@@ -19,11 +20,13 @@ function App() {
       <BrowserRouter>
         <Navbar></Navbar>
         <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/profil" element={<Profile />} />
-          </Routes>
+          <ExchangeProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/profil" element={<Profile />} />
+            </Routes>
+          </ExchangeProvider>
         </main>
       </BrowserRouter>
     </>
