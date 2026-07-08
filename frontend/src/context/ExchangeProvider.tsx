@@ -1,4 +1,4 @@
-import { ExchangeContext } from "./ExchangeContext";
+import { NewExchangeContext } from "./ExchangeContext";
 import { Children, useState } from "react";
 import type { ExchangeState } from "../types/exchangeState";
 import type { Favorite } from "../types/favorites";
@@ -53,7 +53,7 @@ function ExchangeProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavoritesState] = useState(initialFavorites);
 
   return (
-    <ExchangeContext
+    <NewExchangeContext
       value={{
         exchange,
         setExchangeState,
@@ -62,7 +62,7 @@ function ExchangeProvider({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-    </ExchangeContext>
+    </NewExchangeContext>
   );
 }
 

@@ -10,4 +10,4 @@ type ExchangeContextValue = {
   setFavoritesState: React.Dispatch<React.SetStateAction<Favorite[]>>;
 };
 
-export const ExchangeContext = createContext<ExchangeContextValue | null>(null);
+export const NewExchangeContext = createContext<ExchangeContextValue | null>(null);

@@ -1,34 +1,11 @@
 import FavoriteRow from "../features/favorite/FavoriteRow";
+import { NewExchangeContext } from "../context/ExchangeContext.ts"
 import "./Favorites.css";
-
-const favoriteExchanges = [
-  {
-    name: "Currency",
-    initialValue: "1000 USD",
-    targetValue: "1100 EUR",
-    date: "10.04.2026",
-  },
-  {
-    name: "Currency",
-    initialValue: "1000 USD",
-    targetValue: "1100 EUR",
-    date: "10.04.2026",
-  },
-  {
-    name: "Currency",
-    initialValue: "1000 USD",
-    targetValue: "1100 EUR",
-    date: "10.04.2026",
-  },
-  {
-    name: "Currency",
-    initialValue: "1000 USD",
-    targetValue: "1100 EUR",
-    date: "10.04.2026",
-  },
-];
+import { useContext } from "react";
 
 function Favorites() {
+  const { favorites } = useContext(NewExchangeContext);
+
   return (
     <div className="favorites">
       <div className="favorites-card">
@@ -43,17 +20,12 @@ function Favorites() {
             </tr>
           </thead>
           <tbody>
-            {favoriteExchanges.map((exchange, i) => {
-              console.log(i);
-
+            {favorites.map((exchange, i) => {
               return (
                 <FavoriteRow
-                  key={i}
-                  name={exchange.name}
-                  initialValue={exchange.initialValue}
-                  targetValue={exchange.targetValue}
-                  date={exchange.date}
-                  border={i < favoriteExchanges.length - 1}
+                  key={exchange.id}
+                  favorite={exchange}
+                  border={i < favorites.length - 1}
                 ></FavoriteRow>
               );
             })}

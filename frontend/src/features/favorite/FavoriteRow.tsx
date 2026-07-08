@@ -1,32 +1,27 @@
 import "../../pages/Favorites.css";
 import "./FavoriteRow.css";
+import type { Favorite } from "../../types/favorites";
 
-type favoriteRow = {
-  name: string;
-  initialValue: string;
-  targetValue: string;
-  date: string;
+type Row = {
+  favorite: Favorite;
   border: boolean;
-};
+}
 
 function FavoriteRow({
-  name,
-  initialValue,
-  targetValue,
-  date,
-  border,
-}: favoriteRow) {
+  favorite,
+  border
+}: Row) {
   return (
     <tr className="favoriteRow">
-      <td className={border ? "border-bottom" : ""}>{name}</td>
-      <td className={border ? "border-bottom" : ""}>{initialValue}</td>
-      <td className={border ? "border-bottom" : ""}>{targetValue}</td>
+      <td className={border ? "border-bottom" : ""}>{favorite.id}. {favorite.name}</td>
+      <td className={border ? "border-bottom" : ""}>{favorite.initialValue}</td>
+      <td className={border ? "border-bottom" : ""}>{favorite.targetValue}</td>
       <td
         className={
           border ? "border-bottom favorites-last-td" : "favorites-last-td"
         }
       >
-        {date}
+        {favorite.date}
         <button className="delete-btn"></button>
       </td>
     </tr>

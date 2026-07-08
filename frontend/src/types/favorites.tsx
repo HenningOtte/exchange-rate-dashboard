@@ -9,5 +9,6 @@ export type Favorite = {
   sourceCurrency: "USD" | "EUR" | "GBP";
   targetCurrency: "USD" | "EUR" | "GBP";
 
+  date: string;
   historicalDate: string;
 };
