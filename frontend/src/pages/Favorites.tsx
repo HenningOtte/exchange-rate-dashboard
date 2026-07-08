@@ -17,6 +17,7 @@ function Favorites() {
               <th className="border-bottom">Initial value</th>
               <th className="border-bottom">Target Value</th>
               <th className="border-bottom">Date</th>
+              <th className="border-bottom"></th>
             </tr>
           </thead>
           <tbody>

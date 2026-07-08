@@ -14,15 +14,17 @@ function FavoriteRow({
   return (
     <tr className="favoriteRow">
       <td className={border ? "border-bottom" : ""}>{favorite.id}. {favorite.name}</td>
-      <td className={border ? "border-bottom" : ""}>{favorite.initialValue}</td>
-      <td className={border ? "border-bottom" : ""}>{favorite.targetValue}</td>
+      <td className={border ? "border-bottom" : ""}>{favorite.state.converter.initialValue} {favorite.state.converter.sourceCurrency}</td>
+      <td className={border ? "border-bottom" : ""}>{favorite.state.converter.targetValue} {favorite.state.converter.targetCurrency}</td>
       <td
         className={
-          border ? "border-bottom favorites-last-td" : "favorites-last-td"
+          border ? "border-bottom" : ""
         }
       >
-        {favorite.date}
-        <button className="delete-btn"></button>
+        {favorite.creationDate}
+      </td>
+      <td>
+        <button className={border ? "border-bottom delete-btn" : "delete-btn"}></button>
       </td>
     </tr>
   );

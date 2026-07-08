@@ -21,31 +21,23 @@ const initialExchangeState: ExchangeState = {
 const initialFavorites: Favorite[] = [
   {
     id: "1",
-    name: "1. My Favorite",
-    initialValue: "1000",
-    targetValue: "1100",
-    sourceCurrency: "USD",
-    targetCurrency: "EUR",
-    historicalDate: "01.04.2026",
-  },
-  {
-    id: "2",
-    name: "2. My Favorite",
-    initialValue: "1000",
-    targetValue: "1100",
-    sourceCurrency: "USD",
-    targetCurrency: "EUR",
-    historicalDate: "01.04.2026",
-  },
-  {
-    id: "3",
-    name: "3. My Favorite",
-    initialValue: "1000",
-    targetValue: "1100",
-    sourceCurrency: "USD",
-    targetCurrency: "EUR",
-    historicalDate: "01.04.2026",
-  },
+    name: "My Currency",
+    creationDate: "2026-04-10",
+    state: {
+      converter: {
+        initialValue: "1000",
+        targetValue: "1200",
+        sourceCurrency: "USD",
+        targetCurrency: "EUR",
+        historicalDate: "",
+        isHistorical: false,
+      },
+      dashboard: {
+        dateFrom: "",
+        dateTo: ""
+      }
+    }
+  }
 ];
 
 function ExchangeProvider({ children }: { children: React.ReactNode }) {
