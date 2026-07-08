@@ -82,7 +82,7 @@ The backend provides a REST API that retrieves and processes data from an extern
 - [x] Implement dashboard layout
 - [x] Implement navigation bar
 - [x] Implement profile page
-- [ ] Implement edit profile dialog
+- [x] Implement edit profile dialog
 - [ ] Implement responsive design
 
 ### Milestone 3 – Frontend Functionality (KW 27)
@@ -91,7 +91,7 @@ The backend provides a REST API that retrieves and processes data from an extern
 - [x] Add React state management
 - [x] Implement currency selection
 - [x] Implement date selection
-- [ ] Implement favorites selection
+- [x] Implement favorites selection
 
 ### Milestone 4 – Exchange Rate Integration (KW 27-28)
 
