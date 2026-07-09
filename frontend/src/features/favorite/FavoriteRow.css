@@ -3,5 +3,5 @@
 }
 
 .favoriteRow:hover {
-  background-color: var(--color-light-grey);
+  color: var(--color-primary);
 }

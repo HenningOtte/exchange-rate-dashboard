@@ -57,3 +57,9 @@
 .navbar-avatar:hover {
   opacity: 75%;
 }
+
+@media (max-width: 767px) {
+  .navbar {
+    display: none;
+  }
+}

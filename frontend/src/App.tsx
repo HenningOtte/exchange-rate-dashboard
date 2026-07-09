@@ -1,13 +1,12 @@
 import Navbar from "./components/Navbar";
 import type { ExchangeState } from "./types/exchangeState";
-import { createContext } from "react";
+import React, { createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import Profile from "./pages/Profile";
 import ExchangeProvider from "./context/ExchangeProvider";
 import NavbarMobile from "./components/NavbarMobile";
-
 type ExchangeContextValue = {
   exchangeState: ExchangeState;
   setExchangeState: React.Dispatch<React.SetStateAction<ExchangeState>>;
