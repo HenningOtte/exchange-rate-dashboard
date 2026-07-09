@@ -22,6 +22,12 @@ function Profile() {
         </div>
 
         <div className="profil-card">
+          <button
+            onClick={() => {
+              setIsEditProfileOpen(!isEditProfileOpen);
+            }}
+            className="edit-btn"
+          ></button>
           <div className="profil-header-container">
             <img
               className="profil-header"
@@ -39,12 +45,6 @@ function Profile() {
             </div>
             <h3>Max Mustermann</h3>
             <span>MaxMustermann@gmail.com</span>
-            <button
-              onClick={() => {
-                setIsEditProfileOpen(!isEditProfileOpen);
-              }}
-              className="edit-btn"
-            ></button>
           </div>
         </div>
       </div>

@@ -96,37 +96,39 @@ function CurrencyInput({ title, id }: InputProps) {
               ? exchangeContext?.exchangeState.converter.sourceCurrency
               : exchangeContext?.exchangeState.converter.targetCurrency}
           </p>
-          <div className="selector-arrow"></div>
+          <div className={isOpen ? "selector-arrow rotate-180" : "selector-arrow"}></div>
         </button>
-        {isOpen && (
-          <div ref={dropdownRef} className="currencySelection">
-            <button
-              onClick={() => {
-                setCurrency("USD");
-              }}
-            >
-              USD
-            </button>
-            <div className="divider"></div>
-            <button
-              onClick={() => {
-                setCurrency("EUR");
-              }}
-            >
-              EUR
-            </button>
-            <div className="divider"></div>
-            <button
-              onClick={() => {
-                setCurrency("GBP");
-              }}
-            >
-              GBP
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
+        {
+          isOpen && (
+            <div ref={dropdownRef} className="currencySelection">
+              <button
+                onClick={() => {
+                  setCurrency("USD");
+                }}
+              >
+                USD
+              </button>
+              <div className="divider"></div>
+              <button
+                onClick={() => {
+                  setCurrency("EUR");
+                }}
+              >
+                EUR
+              </button>
+              <div className="divider"></div>
+              <button
+                onClick={() => {
+                  setCurrency("GBP");
+                }}
+              >
+                GBP
+              </button>
+            </div>
+          )
+        }
+      </div >
+    </div >
   );
 }
 

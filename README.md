@@ -83,7 +83,7 @@ The backend provides a REST API that retrieves and processes data from an extern
 - [x] Implement navigation bar
 - [x] Implement profile page
 - [x] Implement edit profile dialog
-- [ ] Implement responsive design
+- [x] Implement responsive design
 
 ### Milestone 3 – Frontend Functionality (KW 27)
 

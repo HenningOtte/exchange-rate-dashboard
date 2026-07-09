@@ -9,7 +9,7 @@
   flex-direction: column;
 }
 
-.converter-card > h2 {
+.converter-card>h2 {
   margin-bottom: 32px;
 }
 

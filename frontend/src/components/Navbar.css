@@ -5,13 +5,10 @@
   background-color: var(--color-primary);
   padding-left: 32px;
   padding-right: 32px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   position: fixed;
-
   z-index: 20;
 }
 

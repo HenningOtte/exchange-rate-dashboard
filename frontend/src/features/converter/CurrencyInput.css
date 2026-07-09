@@ -1,6 +1,5 @@
 .currency-input-container {
   height: 28px;
-  width: fit-content;
   position: relative;
   display: flex;
   outline: 1px solid var(--color-primary);
@@ -8,7 +7,7 @@
 }
 
 .currency-input {
-  max-width: 142px;
+  width: 100%;
   border: none;
   outline: none;
   margin: 0 8px;
@@ -73,7 +72,7 @@
   overflow: hidden;
 }
 
-.currencySelection > button {
+.currencySelection>button {
   height: 28px;
   width: 100%;
   padding-left: 6px;
@@ -89,7 +88,7 @@
   transition: all ease 0.25s;
 }
 
-.currencySelection > button:hover {
+.currencySelection>button:hover {
   background-color: var(--color-secondary);
 }
 
@@ -105,16 +104,38 @@
   background-repeat: no-repeat;
   background-position: center;
   background-image: url(../../assets/icons/arrow-blue.svg);
+  transition: all ease 0.2s;
 }
 
-.currency-button:hover > .selector-arrow {
+.currency-button:hover>.selector-arrow {
   background-image: url(../../assets/icons/arrow-white.svg);
 }
 
-.date-input-container > input {
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.date-input-container>input {
   width: 124px;
   font-size: 16px;
   padding: 0 8px;
   border: none;
   outline: none;
+}
+
+@media (max-width: 380px) {
+  .currency-button {
+    width: 45px;
+    font-size: 14px !important;
+  }
+
+  .selector-arrow {
+    height: 8px;
+    width: 8px;
+  }
+
+  .currencySelection {
+    width: 45px;
+    font-size: 14px;
+  }
 }
