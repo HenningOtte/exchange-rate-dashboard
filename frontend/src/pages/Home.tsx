@@ -2,7 +2,6 @@ import ConverterCard from "../features/converter/ConverterCard";
 import DashboardCard from "../features/converter/DashboardCard";
 import { useState } from "react";
 import type { ExchangeState } from "../types/exchangeState";
-import { createExchangeState } from "../types/exchangeState";
 import { clearExchangeState } from "../types/exchangeState";
 import { createContext } from "react";
 

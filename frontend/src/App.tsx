@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import Profile from "./pages/Profile";
 import ExchangeProvider from "./context/ExchangeProvider";
+import NavbarMobile from "./components/NavbarMobile";
 
 type ExchangeContextValue = {
   exchangeState: ExchangeState;
@@ -18,6 +19,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <NavbarMobile></NavbarMobile>
         <Navbar></Navbar>
         <main>
           <ExchangeProvider>

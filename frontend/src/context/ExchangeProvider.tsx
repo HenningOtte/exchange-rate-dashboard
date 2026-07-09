@@ -34,10 +34,10 @@ const initialFavorites: Favorite[] = [
       },
       dashboard: {
         dateFrom: "",
-        dateTo: ""
-      }
-    }
-  }
+        dateTo: "",
+      },
+    },
+  },
 ];
 
 function ExchangeProvider({ children }: { children: React.ReactNode }) {
