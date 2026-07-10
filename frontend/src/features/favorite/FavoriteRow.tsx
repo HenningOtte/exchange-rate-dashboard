@@ -23,8 +23,8 @@ function FavoriteRow({
       >
         {favorite.creationDate}
       </td>
-      <td>
-        <button className={border ? "border-bottom delete-btn" : "delete-btn"}></button>
+      <td className={border ? "border-bottom" : ""}>
+        <button className="delete-btn"></button>
       </td>
     </tr>
   );

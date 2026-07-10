@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { ExchangeState } from "../types/exchangeState";
 import { clearExchangeState } from "../types/exchangeState";
 import { createContext } from "react";
+import { fetchLatestRates } from "../api/exchangeApi";
 
 type ExchangeContextValue = {
   exchangeState: ExchangeState;
@@ -36,7 +37,14 @@ function Home() {
         <ConverterCard title="Converter"></ConverterCard>
         <DashboardCard title="Dashboard"></DashboardCard>
         <div className="start-clear-container">
-          <button className="start-btn">START</button>
+          <button
+            onClick={() => {
+              fetchLatestRates(["USD", "GBP"]);
+            }}
+            className="start-btn"
+          >
+            START
+          </button>
           <button
             onClick={() => {
               setExchangeState((exchange) => {

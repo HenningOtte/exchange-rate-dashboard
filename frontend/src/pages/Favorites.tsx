@@ -1,5 +1,5 @@
 import FavoriteRow from "../features/favorite/FavoriteRow";
-import { NewExchangeContext } from "../context/ExchangeContext.ts"
+import { NewExchangeContext } from "../context/ExchangeContext.ts";
 import "./Favorites.css";
 import { useContext } from "react";
 
