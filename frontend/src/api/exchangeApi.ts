@@ -9,7 +9,9 @@ export interface CurrencyRates {
 export async function fetchLatestRates(currencies: Currencies[]) {
   const [initial, target] = currencies;
   let currencyRates = await getSingleRate(initial, target);
-  return currencyRates.data;
+  if (currencyRates) {
+    return currencyRates.data;
+  }
 }
 
 async function getSingleRate(
