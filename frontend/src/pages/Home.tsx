@@ -5,6 +5,7 @@ import type { ExchangeState } from "../types/exchangeState";
 import { clearExchangeState } from "../types/exchangeState";
 import { createContext } from "react";
 import { fetchLatestRates } from "../api/exchangeApi";
+import type { CurrencyRates } from "../api/exchangeApi";
 
 type ExchangeContextValue = {
   exchangeState: ExchangeState;
@@ -31,6 +32,18 @@ const exchangeViewState: ExchangeState = {
 function Home() {
   const [exchangeState, setExchangeState] = useState(exchangeViewState);
 
+  const calcValue = async () => {
+    const { sourceCurrency, targetCurrency, initialValue } =
+      exchangeState.converter;
+    const currencyRates: Partial<CurrencyRates> = await fetchLatestRates([
+      sourceCurrency,
+      targetCurrency,
+    ]);
+
+    const convert = Number(initialValue) * currencyRates[targetCurrency];
+    console.log(convert);    
+  };
+
   return (
     <div className="home">
       <ExchangeContext value={{ exchangeState, setExchangeState }}>
@@ -39,7 +52,7 @@ function Home() {
         <div className="start-clear-container">
           <button
             onClick={() => {
-              fetchLatestRates(["USD", "GBP"]);
+              calcValue();
             }}
             className="start-btn"
           >

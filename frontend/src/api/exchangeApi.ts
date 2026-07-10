@@ -1,5 +1,6 @@
-type Currencies = "USD" | "EUR" | "GBP";
-interface CurrencyRates {
+export type Currencies = "USD" | "EUR" | "GBP";
+
+export interface CurrencyRates {
   USD: number;
   EUR: number;
   GBP: number;
@@ -7,8 +8,8 @@ interface CurrencyRates {
 
 export async function fetchLatestRates(currencies: Currencies[]) {
   const [initial, target] = currencies;
-  let data = await getSingleRate(initial, target);
-  console.log(data);
+  let currencyRates = await getSingleRate(initial, target);
+  return currencyRates.data;
 }
 
 async function getSingleRate(
