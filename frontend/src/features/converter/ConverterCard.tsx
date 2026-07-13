@@ -20,6 +20,7 @@ function Card({ title }: CardProps) {
 
   return (
     <div className="converter-card max-w-512">
+      <button className="save-icon"></button>
       <h2>{title}</h2>
       <div className="currency-inputs">
         <CurrencyInput title="Initial value" id="initialValue"></CurrencyInput>
