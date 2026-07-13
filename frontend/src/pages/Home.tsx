@@ -5,7 +5,6 @@ import type { ExchangeState } from "../types/exchangeState";
 import { clearExchangeState } from "../types/exchangeState";
 import { createContext } from "react";
 import { fetchLatestRates } from "../api/exchangeApi";
-import type { CurrencyRates } from "../api/exchangeApi";
 import { createExchangeState } from "../types/exchangeState";
 
 type ExchangeContextValue = {
