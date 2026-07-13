@@ -4,7 +4,8 @@ import { useState } from "react";
 import type { ExchangeState } from "../types/exchangeState";
 import { clearExchangeState } from "../types/exchangeState";
 import { createContext } from "react";
-import { fetchLatestRates } from "../api/exchangeApi";
+import { calculateHistoricalExchange } from "../services/exchangeService";
+import { calculateLatestRates } from "../services/exchangeService";
 import { createExchangeState } from "../types/exchangeState";
 
 type ExchangeContextValue = {
@@ -32,21 +33,36 @@ const exchangeViewState: ExchangeState = {
 function Home() {
   const [exchangeState, setExchangeState] = useState(exchangeViewState);
 
-  const calcValue = async () => {
-    const { sourceCurrency, targetCurrency, initialValue } =
-      exchangeState.converter;
-    const currencyRates = await fetchLatestRates([
-      sourceCurrency,
-      targetCurrency,
-    ]);
+  const updateTargetValue = (convertedValue: string) => {
+    setExchangeState((state) => {
+      let newState = createExchangeState(state);
+      newState.converter.targetValue = convertedValue;
+      return newState;
+    });
+  };
 
-    if (currencyRates && currencyRates[targetCurrency]) {
-      const convert = Number(initialValue) * currencyRates[targetCurrency];
-      setExchangeState((state) => {
-        let newState = createExchangeState(state);
-        state.converter.targetValue = convert.toFixed(2);
-        return newState;
-      });
+  const updateConvertedValue = async () => {
+    const { sourceCurrency, targetCurrency, initialValue, historicalDate } =
+      exchangeState.converter;
+
+    if (
+      exchangeState.converter.isHistorical &&
+      exchangeState.converter.historicalDate.length > 0
+    ) {
+      let convertedValue = await calculateHistoricalExchange(
+        sourceCurrency,
+        targetCurrency,
+        initialValue,
+        historicalDate,
+      );
+      if (convertedValue != null) updateTargetValue(convertedValue);
+    } else {
+      let convertedValue = await calculateLatestRates(
+        sourceCurrency,
+        targetCurrency,
+        initialValue,
+      );
+      if (convertedValue != null) updateTargetValue(convertedValue);
     }
   };
 
@@ -58,7 +74,7 @@ function Home() {
         <div className="start-clear-container">
           <button
             onClick={() => {
-              calcValue();
+              updateConvertedValue();
             }}
             className="start-btn"
           >
