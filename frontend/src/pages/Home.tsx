@@ -62,6 +62,7 @@ function Home() {
         targetCurrency,
         initialValue,
       );
+
       if (convertedValue != null) updateTargetValue(convertedValue);
     }
   };
