@@ -1,7 +1,7 @@
 import { NewExchangeContext } from "./ExchangeContext";
-import { Children, useState } from "react";
+import { useState } from "react";
 import type { ExchangeState } from "../types/exchangeState";
-import type { Favorite } from "../types/favorites";
+import { loadLocalStorage } from "../services/localStorage";
 
 const initialExchangeState: ExchangeState = {
   converter: {
@@ -18,69 +18,9 @@ const initialExchangeState: ExchangeState = {
   },
 };
 
-const initialFavorites: Favorite[] = [
-  {
-    id: "1",
-    name: "My Currency",
-    creationDate: "2026-04-10",
-    state: {
-      converter: {
-        initialValue: "1000",
-        targetValue: "1200",
-        sourceCurrency: "USD",
-        targetCurrency: "EUR",
-        historicalDate: "",
-        isHistorical: false,
-      },
-      dashboard: {
-        dateFrom: "",
-        dateTo: "",
-      },
-    },
-  },
-  {
-    id: "2",
-    name: "My Currency",
-    creationDate: "2026-04-10",
-    state: {
-      converter: {
-        initialValue: "1000",
-        targetValue: "1200",
-        sourceCurrency: "USD",
-        targetCurrency: "EUR",
-        historicalDate: "",
-        isHistorical: false,
-      },
-      dashboard: {
-        dateFrom: "",
-        dateTo: "",
-      },
-    },
-  },
-  {
-    id: "3",
-    name: "My Currency",
-    creationDate: "2026-04-10",
-    state: {
-      converter: {
-        initialValue: "1000",
-        targetValue: "1200",
-        sourceCurrency: "USD",
-        targetCurrency: "EUR",
-        historicalDate: "",
-        isHistorical: false,
-      },
-      dashboard: {
-        dateFrom: "",
-        dateTo: "",
-      },
-    },
-  },
-];
-
 function ExchangeProvider({ children }: { children: React.ReactNode }) {
   const [exchange, setExchangeState] = useState(initialExchangeState);
-  const [favorites, setFavoritesState] = useState(initialFavorites);
+  const [favorites, setFavoritesState] = useState(loadLocalStorage());
 
   return (
     <NewExchangeContext

@@ -4,23 +4,31 @@ import DatePicker from "./DatePicker";
 import Switch from "@mui/material/Switch";
 import type { ExchangeState } from "../../types/exchangeState";
 import { createExchangeState } from "../../types/exchangeState";
-
 import { useContext } from "react";
-import { ExchangeContext } from "../../pages/Home";
+import { NewExchangeContext } from "../../context/ExchangeContext";
+import { saveToLocal, loadLocalStorage } from "../../services/localStorage";
 
 type CardProps = {
   title: string;
 };
 
 function Card({ title }: CardProps) {
-  let exchangeContext = useContext(ExchangeContext);
-  const isDisabled = exchangeContext?.exchangeState.converter.isHistorical
+  let exchangeContext = useContext(NewExchangeContext);
+  const isDisabled = exchangeContext?.exchange.converter.isHistorical
     ? false
     : true;
 
   return (
     <div className="converter-card max-w-512">
-      <button className="save-icon"></button>
+      <button
+        onClick={() => {
+          if (exchangeContext?.exchange) {
+            saveToLocal(exchangeContext?.exchange, "Name");
+            exchangeContext.setFavoritesState(loadLocalStorage());
+          }
+        }}
+        className="save-icon"
+      ></button>
       <h2>{title}</h2>
       <div className="currency-inputs">
         <CurrencyInput title="Initial value" id="initialValue"></CurrencyInput>
@@ -33,7 +41,7 @@ function Card({ title }: CardProps) {
           id="dateHistorical"
         ></DatePicker>
         <Switch
-          checked={exchangeContext?.exchangeState.converter.isHistorical}
+          checked={exchangeContext?.exchange.converter.isHistorical}
           onClick={() => {
             exchangeContext?.setExchangeState((exchange) => {
               const exchangeViewState: ExchangeState =

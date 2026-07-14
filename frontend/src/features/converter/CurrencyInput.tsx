@@ -2,9 +2,8 @@ import "./CurrencyInput.css";
 import type { ExchangeState } from "../../types/exchangeState.tsx";
 import { createExchangeState } from "../../types/exchangeState.tsx";
 import { useEffect, useRef, useState } from "react";
-
-import { useContext, createContext } from "react";
-import { ExchangeContext } from "../../pages/Home.tsx";
+import { useContext } from "react";
+import { NewExchangeContext } from "../../context/ExchangeContext.ts";
 
 type InputProps = {
   title: string;
@@ -12,7 +11,7 @@ type InputProps = {
 };
 
 function CurrencyInput({ title, id }: InputProps) {
-  let exchangeContext = useContext(ExchangeContext);
+  let exchangeContext = useContext(NewExchangeContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -77,8 +76,8 @@ function CurrencyInput({ title, id }: InputProps) {
         placeholder="0"
         value={
           id === "initialValue"
-            ? exchangeContext?.exchangeState.converter.initialValue
-            : exchangeContext?.exchangeState.converter.targetValue
+            ? exchangeContext?.exchange.converter.initialValue
+            : exchangeContext?.exchange.converter.targetValue
         }
       />
       <div className="currency-selection-container">
@@ -93,42 +92,42 @@ function CurrencyInput({ title, id }: InputProps) {
         >
           <p>
             {id == "initialValue"
-              ? exchangeContext?.exchangeState.converter.sourceCurrency
-              : exchangeContext?.exchangeState.converter.targetCurrency}
+              ? exchangeContext?.exchange.converter.sourceCurrency
+              : exchangeContext?.exchange.converter.targetCurrency}
           </p>
-          <div className={isOpen ? "selector-arrow rotate-180" : "selector-arrow"}></div>
+          <div
+            className={isOpen ? "selector-arrow rotate-180" : "selector-arrow"}
+          ></div>
         </button>
-        {
-          isOpen && (
-            <div ref={dropdownRef} className="currencySelection">
-              <button
-                onClick={() => {
-                  setCurrency("USD");
-                }}
-              >
-                USD
-              </button>
-              <div className="divider"></div>
-              <button
-                onClick={() => {
-                  setCurrency("EUR");
-                }}
-              >
-                EUR
-              </button>
-              <div className="divider"></div>
-              <button
-                onClick={() => {
-                  setCurrency("GBP");
-                }}
-              >
-                GBP
-              </button>
-            </div>
-          )
-        }
-      </div >
-    </div >
+        {isOpen && (
+          <div ref={dropdownRef} className="currencySelection">
+            <button
+              onClick={() => {
+                setCurrency("USD");
+              }}
+            >
+              USD
+            </button>
+            <div className="divider"></div>
+            <button
+              onClick={() => {
+                setCurrency("EUR");
+              }}
+            >
+              EUR
+            </button>
+            <div className="divider"></div>
+            <button
+              onClick={() => {
+                setCurrency("GBP");
+              }}
+            >
+              GBP
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 

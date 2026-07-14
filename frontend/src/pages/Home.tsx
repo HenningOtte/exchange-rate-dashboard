@@ -1,12 +1,13 @@
 import ConverterCard from "../features/converter/ConverterCard";
 import DashboardCard from "../features/converter/DashboardCard";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import type { ExchangeState } from "../types/exchangeState";
 import { clearExchangeState } from "../types/exchangeState";
 import { createContext } from "react";
 import { calculateHistoricalExchange } from "../services/exchangeService";
 import { calculateLatestRates } from "../services/exchangeService";
 import { createExchangeState } from "../types/exchangeState";
+import { NewExchangeContext } from "../context/ExchangeContext";
 
 type ExchangeContextValue = {
   exchangeState: ExchangeState;
@@ -31,10 +32,11 @@ const exchangeViewState: ExchangeState = {
 };
 
 function Home() {
-  const [exchangeState, setExchangeState] = useState(exchangeViewState);
+  // const [exchangeState, setExchangeState] = useState(exchangeViewState);
+  let exchangeContext = useContext(NewExchangeContext);
 
   const updateTargetValue = (convertedValue: string) => {
-    setExchangeState((state) => {
+    exchangeContext?.setExchangeState((state) => {
       let newState = createExchangeState(state);
       newState.converter.targetValue = convertedValue;
       return newState;
@@ -42,57 +44,61 @@ function Home() {
   };
 
   const updateConvertedValue = async () => {
-    const { sourceCurrency, targetCurrency, initialValue, historicalDate } =
-      exchangeState.converter;
-
-    if (
-      exchangeState.converter.isHistorical &&
-      exchangeState.converter.historicalDate.length > 0
-    ) {
-      let convertedValue = await calculateHistoricalExchange(
+    if (exchangeContext) {
+      const {
         sourceCurrency,
         targetCurrency,
         initialValue,
         historicalDate,
-      );
-      if (convertedValue != null) updateTargetValue(convertedValue);
-    } else {
-      let convertedValue = await calculateLatestRates(
-        sourceCurrency,
-        targetCurrency,
-        initialValue,
-      );
+        isHistorical,
+      } = exchangeContext?.exchange.converter;
 
-      if (convertedValue != null) updateTargetValue(convertedValue);
+      if (isHistorical && historicalDate.length > 0) {
+        let convertedValue = await calculateHistoricalExchange(
+          sourceCurrency,
+          targetCurrency,
+          initialValue,
+          historicalDate,
+        );
+        if (convertedValue != null) updateTargetValue(convertedValue);
+      } else {
+        let convertedValue = await calculateLatestRates(
+          sourceCurrency,
+          targetCurrency,
+          initialValue,
+        );
+
+        if (convertedValue != null) updateTargetValue(convertedValue);
+      }
     }
   };
 
   return (
     <div className="home">
-      <ExchangeContext value={{ exchangeState, setExchangeState }}>
-        <ConverterCard title="Converter"></ConverterCard>
-        <DashboardCard title="Dashboard"></DashboardCard>
-        <div className="start-clear-container">
-          <button
-            onClick={() => {
-              updateConvertedValue();
-            }}
-            className="start-btn"
-          >
-            START
-          </button>
-          <button
-            onClick={() => {
-              setExchangeState((exchange) => {
+      <ConverterCard title="Converter"></ConverterCard>
+      <DashboardCard title="Dashboard"></DashboardCard>
+      <div className="start-clear-container">
+        <button
+          onClick={() => {
+            updateConvertedValue();
+          }}
+          className="start-btn"
+        >
+          START
+        </button>
+        <button
+          onClick={() => {
+            if (exchangeContext) {
+              exchangeContext.setExchangeState((exchange) => {
                 return clearExchangeState(exchange);
               });
-            }}
-            className="clear-btn"
-          >
-            CLEAR
-          </button>
-        </div>
-      </ExchangeContext>
+            }
+          }}
+          className="clear-btn"
+        >
+          CLEAR
+        </button>
+      </div>
     </div>
   );
 }

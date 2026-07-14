@@ -1,6 +1,7 @@
 import "./CurrencyInput.css";
 import { useContext } from "react";
-import { ExchangeContext } from "../../pages/Home.tsx";
+// import { ExchangeContext } from "../../pages/Home.tsx";
+import { NewExchangeContext } from "../../context/ExchangeContext.ts";
 import type { ExchangeState } from "../../types/exchangeState.tsx";
 import { createExchangeState } from "../../types/exchangeState.tsx";
 
@@ -11,14 +12,13 @@ type DateProps = {
 };
 
 function DatePicker({ title, disabled, id }: DateProps) {
-  let exchangeContext = useContext(ExchangeContext);
+  let exchangeContext = useContext(NewExchangeContext);
 
   const setDateValue = () => {
     if (id === "dateHistorical")
-      return exchangeContext?.exchangeState.converter.historicalDate;
-    if (id === "dateFrom")
-      return exchangeContext?.exchangeState.dashboard.dateFrom;
-    if (id === "dateTo") return exchangeContext?.exchangeState.dashboard.dateTo;
+      return exchangeContext?.exchange.converter.historicalDate;
+    if (id === "dateFrom") return exchangeContext?.exchange.dashboard.dateFrom;
+    if (id === "dateTo") return exchangeContext?.exchange.dashboard.dateTo;
   };
 
   const getDate = () => {

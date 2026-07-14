@@ -2,16 +2,12 @@ import "./ConverterCard.css";
 import "./DashboardCard.css";
 import DatePicker from "./DatePicker";
 import FavoriteSelector from "./FavoriteSelector";
-import { useContext } from "react";
-import { ExchangeContext } from "../../pages/Home.tsx";
 
 type DashboardProps = {
   title: string;
 };
 
 function DashboardCard({ title }: DashboardProps) {
-  let exchangeContext = useContext(ExchangeContext);
-
   return (
     <div className="converter-card">
       <h2>{title}</h2>
