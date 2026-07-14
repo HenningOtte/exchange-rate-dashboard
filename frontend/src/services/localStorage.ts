@@ -44,3 +44,13 @@ export function removeFavorite(id: string) {
   });
   localStorage.setItem("favorites", JSON.stringify(newfavorites));
 }
+
+export function overwriteFavorite(id: string, exchangeState: ExchangeState) {
+  let favorites = loadLocalStorage();
+  favorites.forEach((favorite) => {
+    if (favorite.id === id) {
+      favorite.state = exchangeState;
+    }
+  });
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+}

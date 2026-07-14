@@ -1,6 +1,6 @@
 import ConverterCard from "../features/converter/ConverterCard";
 import DashboardCard from "../features/converter/DashboardCard";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import type { ExchangeState } from "../types/exchangeState";
 import { clearExchangeState } from "../types/exchangeState";
 import { createContext } from "react";
@@ -15,21 +15,6 @@ type ExchangeContextValue = {
 };
 
 export const ExchangeContext = createContext<ExchangeContextValue | null>(null);
-
-const exchangeViewState: ExchangeState = {
-  converter: {
-    initialValue: "",
-    targetValue: "",
-    sourceCurrency: "USD",
-    targetCurrency: "EUR",
-    historicalDate: "",
-    isHistorical: false,
-  },
-  dashboard: {
-    dateFrom: "",
-    dateTo: "",
-  },
-};
 
 function Home() {
   // const [exchangeState, setExchangeState] = useState(exchangeViewState);
@@ -88,11 +73,11 @@ function Home() {
         </button>
         <button
           onClick={() => {
-            if (exchangeContext) {
-              exchangeContext.setExchangeState((exchange) => {
-                return clearExchangeState(exchange);
-              });
-            }
+            if (exchangeContext == null) return;
+            exchangeContext.setExchangeState((exchange) => {
+              return clearExchangeState(exchange);
+            });
+            exchangeContext.setActiveFavoriteId(null);
           }}
           className="clear-btn"
         >

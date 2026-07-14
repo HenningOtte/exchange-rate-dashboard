@@ -6,7 +6,11 @@ import type { ExchangeState } from "../../types/exchangeState";
 import { createExchangeState } from "../../types/exchangeState";
 import { useContext } from "react";
 import { NewExchangeContext } from "../../context/ExchangeContext";
-import { saveToLocal, loadLocalStorage } from "../../services/localStorage";
+import {
+  saveToLocal,
+  loadLocalStorage,
+  overwriteFavorite,
+} from "../../services/localStorage";
 
 type CardProps = {
   title: string;
@@ -22,10 +26,17 @@ function Card({ title }: CardProps) {
     <div className="converter-card max-w-512">
       <button
         onClick={() => {
-          if (exchangeContext?.exchange) {
+          if (exchangeContext?.exchange == null) return;
+
+          if (exchangeContext.activeFavoriteId) {
+            overwriteFavorite(
+              exchangeContext.activeFavoriteId,
+              exchangeContext.exchange,
+            );
+          } else {
             saveToLocal(exchangeContext?.exchange, "Name");
-            exchangeContext.setFavoritesState(loadLocalStorage());
           }
+          exchangeContext.setFavoritesState(loadLocalStorage());
         }}
         className="save-icon"
       ></button>

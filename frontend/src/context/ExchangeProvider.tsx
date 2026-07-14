@@ -19,12 +19,15 @@ const initialExchangeState: ExchangeState = {
 };
 
 function ExchangeProvider({ children }: { children: React.ReactNode }) {
+  const [activeFavoriteId, setActiveFavoriteId] = useState<string | null>(null);
   const [exchange, setExchangeState] = useState(initialExchangeState);
   const [favorites, setFavoritesState] = useState(loadLocalStorage());
 
   return (
     <NewExchangeContext
       value={{
+        activeFavoriteId,
+        setActiveFavoriteId,
         exchange,
         setExchangeState,
         favorites,
