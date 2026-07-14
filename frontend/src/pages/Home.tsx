@@ -29,32 +29,32 @@ function Home() {
   };
 
   const updateConvertedValue = async () => {
-    if (exchangeContext) {
-      const {
+    if (exchangeContext == null) return;
+
+    const {
+      sourceCurrency,
+      targetCurrency,
+      initialValue,
+      historicalDate,
+      isHistorical,
+    } = exchangeContext?.exchange.converter;
+
+    if (isHistorical && historicalDate.length > 0) {
+      let convertedValue = await calculateHistoricalExchange(
         sourceCurrency,
         targetCurrency,
         initialValue,
         historicalDate,
-        isHistorical,
-      } = exchangeContext?.exchange.converter;
+      );
+      if (convertedValue != null) updateTargetValue(convertedValue);
+    } else {
+      let convertedValue = await calculateLatestRates(
+        sourceCurrency,
+        targetCurrency,
+        initialValue,
+      );
 
-      if (isHistorical && historicalDate.length > 0) {
-        let convertedValue = await calculateHistoricalExchange(
-          sourceCurrency,
-          targetCurrency,
-          initialValue,
-          historicalDate,
-        );
-        if (convertedValue != null) updateTargetValue(convertedValue);
-      } else {
-        let convertedValue = await calculateLatestRates(
-          sourceCurrency,
-          targetCurrency,
-          initialValue,
-        );
-
-        if (convertedValue != null) updateTargetValue(convertedValue);
-      }
+      if (convertedValue != null) updateTargetValue(convertedValue);
     }
   };
 
