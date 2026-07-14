@@ -95,9 +95,9 @@ The backend provides a REST API that retrieves and processes data from an extern
 
 ### Milestone 4 – Exchange Rate Integration (KW 27-28)
 
-- [ ] Connect external exchange rate API
-- [ ] Display current exchange rates
-- [ ] Retrieve historical exchange rates
+- [x] Connect external exchange rate API
+- [x] Display current exchange rates
+- [x] Retrieve historical exchange rates
 
 ### Milestone 5 – Data Storage (KW 28-29)
 
