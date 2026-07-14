@@ -101,10 +101,11 @@ The backend provides a REST API that retrieves and processes data from an extern
 
 ### Milestone 5 – Data Storage (KW 28-29)
 
-- [ ] Implement Local Storage for guest users
-- [ ] Create favorites model
+- [x] Implement Local Storage for guest users
+- [x] Create favorites model
+- [x] Load and manage local favorites
 - [ ] Store favorites in MongoDB Atlas
-- [ ] Load and manage favorites
+- [ ] Load and manage cloud favorites
 
 ### Milestone 6 – Data Visualization & Deployment (KW 29)
 
