@@ -1,24 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
-require("dotenv").config();
-
 const app = express();
 const port = 3000;
-
-const connectionString = `mongodb+srv://henningotte91_db_user:${process.env.PASSWORD}@currencycluster.pgcrntc.mongodb.net/?appName=CurrencyCluster`;
-
+const { add } = require("./helpers/math");
+require("dotenv").config();
 
 app.get("/favorites", (req, res) => {
-    res.send("Favorites Page");
+  res.send("Favorites");
 });
 
-mongoose.connect(connectionString).then(() => {
+async function start() {
+  try {
+    await mongoose.connect(process.env.CONNECTION_STRING);
     console.log("Connected to MongoDB");
-    
     app.listen(port, () => {
-        console.log(`Server läuft auf http://localhost:${port}`);        
+      console.log(`Server läuft auf http://localhost:${port}`);
     });
-}).catch((error) => {
-    console.error(error);    
-});
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+start();
