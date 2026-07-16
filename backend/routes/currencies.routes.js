@@ -1,17 +1,6 @@
 const express = require("express");
-const mongoose = require("mongoose");
-
 const router = express.Router();
-
-const currencySchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  creationDate: String,
-});
-
-const CurrencyModel = mongoose.model("Currency", currencySchema);
+const CurrencyModel = require("../models/Currency.model");
 
 router.post("/", async (req, res) => {
   try {
