@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const favoriteSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, "Name is required"],
+    minlength: [3, "Favorite name must be at least 3 characters"],
+    maxlength: [50, "Favorite name cannot exceed 50 characters"],
   },
   creationDate: {
     type: String,
@@ -14,7 +16,7 @@ const favoriteSchema = mongoose.Schema({
     converter: {
       initialValue: {
         type: String,
-        required: true,
+        required: [true, "Initial value is required"],
       },
       targetValue: {
         type: String,
@@ -23,11 +25,11 @@ const favoriteSchema = mongoose.Schema({
       sourceCurrency: {
         type: String,
         enum: ["USD", "EUR", "GBP"],
-        required: true,
+        required: [true, "Source currency is required"],
       },
       targetCurrency: {
         type: String,
-        enum: ["USD", "EUR", "GBP"],
+        enum: [true, "Target currency is required"],
         required: true,
       },
       historicalDate: {
