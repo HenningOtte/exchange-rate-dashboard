@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const CurrencyModel = require("../models/Currency.model");
+const favoriteModel = require("../models/Favorite.model");
 
 router.post("/", async (req, res) => {
   try {
-    const newCurrency = await CurrencyModel.create(req.body);
-    res.status(201).json(newCurrency);
+    const newFavorite = await favoriteModel.create(req.body);
+    res.status(201).json(newFavorite);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -13,8 +13,8 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const currenciesList = await CurrencyModel.find();
-    res.send(currenciesList);
+    const favoriteList = await favoriteModel.find();
+    res.send(favoriteList);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -23,13 +23,13 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const currency = await CurrencyModel.findById(id);
+    const Favorite = await favoriteModel.findById(id);
 
-    if (!currency) {
-      return res.status(404).json({ message: "Currency Not Found!" });
+    if (!Favorite) {
+      return res.status(404).json({ message: "Favorite Not Found!" });
     }
 
-    res.status(200).json(currency);
+    res.status(200).json(Favorite);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -38,16 +38,16 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const updateCurrency = await CurrencyModel.findByIdAndUpdate(id, req.body, {
+    const updateFavorite = await favoriteModel.findByIdAndUpdate(id, req.body, {
       new: true,
     });
 
-    if (!updateCurrency) {
-      return res.status(404).json({ message: "Currency Not Found!" });
+    if (!updateFavorite) {
+      return res.status(404).json({ message: "Favorite Not Found!" });
     }
     res
       .status(200)
-      .json({ message: "Currency Updated Successfully", updateCurrency });
+      .json({ message: "Favorite Updated Successfully", updateFavorite });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -56,12 +56,12 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const deltedCurrency = await CurrencyModel.findByIdAndDelete(id);
+    const deltedFavorite = await favoriteModel.findByIdAndDelete(id);
 
-    if (!deltedCurrency) {
-      return res.status(404).json({ message: "Currency Not Found!" });
+    if (!deltedFavorite) {
+      return res.status(404).json({ message: "Favorite Not Found!" });
     }
-    res.status(200).json({ message: "Currency Deleted" });
+    res.status(200).json({ message: "Favorite Deleted" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

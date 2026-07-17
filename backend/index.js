@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
 require("dotenv").config();
-const currencyRouer = require("./routes/currencies.routes");
+const favoriteRouter = require("./routes/favorites.routes");
 
 app.use(express.json());
-app.use("/currencies", currencyRouer);
+app.use("/favorites", favoriteRouter);
 
 app.listen(port, () => {
   console.log(`Server läuft auf http://localhost:${port}`);
