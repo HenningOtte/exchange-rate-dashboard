@@ -6,6 +6,9 @@ require("dotenv").config();
 const favoriteRouter = require("./routes/favorites.routes");
 const userRouter = require("./routes/users.routes");
 
+const dns = require("node:dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
 app.use(express.json());
 app.use("/favorites", favoriteRouter);
 app.use("/users", userRouter);

@@ -29,8 +29,8 @@ const favoriteSchema = mongoose.Schema({
       },
       targetCurrency: {
         type: String,
-        enum: [true, "Target currency is required"],
-        required: true,
+        enum: ["USD", "EUR", "GBP"],
+        required: [true, "Target currency is required"],
       },
       historicalDate: {
         type: String,
