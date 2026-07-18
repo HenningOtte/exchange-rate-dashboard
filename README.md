@@ -99,7 +99,7 @@ The backend provides a REST API that retrieves and processes data from an extern
 - [x] Display current exchange rates
 - [x] Retrieve historical exchange rates
 
-### Milestone 5 – Data Storage (KW 28-29)
+### Milestone 5 – Data Storage (KW 29-30)
 
 - [x] Implement Local Storage for guest users
 - [x] Create favorites model
@@ -107,7 +107,7 @@ The backend provides a REST API that retrieves and processes data from an extern
 - [ ] Store favorites in MongoDB Atlas
 - [ ] Load and manage cloud favorites
 
-### Milestone 6 – Data Visualization & Deployment (KW 29)
+### Milestone 6 – Data Visualization & Deployment (KW 30 - 31)
 
 - [ ] Integrate chart library
 - [ ] Visualize historical exchange rate trends
