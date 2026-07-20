@@ -5,11 +5,11 @@ type inputProps = {
   type: string;
 };
 
-function ProfilInput({ title }: inputProps) {
+function ProfilInput({ title, type }: inputProps) {
   return (
     <div className="profil-input-container">
       <p className="input-label">{title}</p>
-      <input type="text" />
+      <input type={type} />
     </div>
   );
 }

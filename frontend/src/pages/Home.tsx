@@ -8,6 +8,7 @@ import { calculateHistoricalExchange } from "../services/exchangeService";
 import { calculateLatestRates } from "../services/exchangeService";
 import { createExchangeState } from "../types/exchangeState";
 import { NewExchangeContext } from "../context/ExchangeContext";
+import { fetchAllFavorites } from "../api/favoriteApi";
 
 type ExchangeContextValue = {
   exchangeState: ExchangeState;
@@ -17,7 +18,6 @@ type ExchangeContextValue = {
 export const ExchangeContext = createContext<ExchangeContextValue | null>(null);
 
 function Home() {
-  // const [exchangeState, setExchangeState] = useState(exchangeViewState);
   let exchangeContext = useContext(NewExchangeContext);
 
   const updateTargetValue = (convertedValue: string) => {
@@ -82,6 +82,13 @@ function Home() {
           className="clear-btn"
         >
           CLEAR
+        </button>
+        <button
+          onClick={() => {
+            fetchAllFavorites();
+          }}
+        >
+          TEST
         </button>
       </div>
     </div>

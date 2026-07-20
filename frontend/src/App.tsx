@@ -7,13 +7,7 @@ import Favorites from "./pages/Favorites";
 import Profile from "./pages/Profile";
 import ExchangeProvider from "./context/ExchangeProvider";
 import NavbarMobile from "./components/NavbarMobile";
-
-type ExchangeContextValue = {
-  exchangeState: ExchangeState;
-  setExchangeState: React.Dispatch<React.SetStateAction<ExchangeState>>;
-};
-
-export const ExchangeContext = createContext<ExchangeContextValue | null>(null);
+import AuthProvider from "./context/AuthProvider";
 
 function App() {
   return (
@@ -22,13 +16,15 @@ function App() {
         <NavbarMobile></NavbarMobile>
         <Navbar></Navbar>
         <main>
-          <ExchangeProvider>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/profil" element={<Profile />} />
-            </Routes>
-          </ExchangeProvider>
+          <AuthProvider>
+            <ExchangeProvider>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/profil" element={<Profile />} />
+              </Routes>
+            </ExchangeProvider>
+          </AuthProvider>
         </main>
       </BrowserRouter>
     </>

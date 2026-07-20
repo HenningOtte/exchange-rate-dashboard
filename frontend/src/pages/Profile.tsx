@@ -1,6 +1,8 @@
 import "./Profile.css";
 import ProfileEditForm from "../features/profile/ProfileEditForm";
-import { useEffect, useState, createContext } from "react";
+import { useState, createContext, useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
+import LoginSignup from "../features/profile/LoginSignup";
 
 type createEditProfilContext = {
   isEditProfileOpen: boolean;
@@ -13,10 +15,14 @@ export const ProfilContext = createContext<createEditProfilContext | null>(
 
 function Profile() {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const authContext = useContext(AuthContext);
 
   return (
     <ProfilContext value={{ isEditProfileOpen, setIsEditProfileOpen }}>
-      <div className="profil">
+      <div className={authContext?.isLoggedIn ? "dNone" : ""}>
+        <LoginSignup></LoginSignup>
+      </div>
+      <div className={authContext?.isLoggedIn ? "profil" : "dNone"}>
         <div className={isEditProfileOpen ? "" : "dNone"}>
           <ProfileEditForm></ProfileEditForm>
         </div>
@@ -43,8 +49,8 @@ function Profile() {
                 alt="profil-img"
               />
             </div>
-            <h3>Max Mustermann</h3>
-            <span>MaxMustermann@gmail.com</span>
+            <h3>{authContext?.user.firstname}</h3>
+            <span>{authContext?.user.email}</span>
           </div>
         </div>
       </div>
