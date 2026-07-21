@@ -1,11 +1,15 @@
 import ProfilInput from "./ProfilInput";
-import "./LoginSignup.css";
+import "./Login.css";
 import { postLogin } from "../../api/authApi";
 import { AuthContext } from "../../context/AuthProvider";
 import { useContext, useState } from "react";
 import type { LoginSucess } from "../../api/authApi";
 
-function LoginSignup() {
+type authMode = {
+  setAuthMode: React.Dispatch<React.SetStateAction<"login" | "signup">>;
+};
+
+function LoginSignup({ setAuthMode }: authMode) {
   const authContext = useContext(AuthContext);
 
   const [loginErrors, setLoginErrors] = useState({
@@ -53,8 +57,9 @@ function LoginSignup() {
     }
   };
 
-  const handleSignUp = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const goToSignUp = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    setAuthMode("signup");
   };
 
   const setEmail = (
@@ -118,7 +123,7 @@ function LoginSignup() {
             </button>
             <button
               onClick={(e) => {
-                handleSignUp(e);
+                goToSignUp(e);
               }}
               className="signUp-btn"
             >

@@ -21,8 +21,17 @@ router.post(
   async (req, res) => {
     try {
       const errors = validationResult(req);
-      if (!errors.isEmpty) {
-        return res.status(400).json({ errors: errors.array() });
+      if (!errors.isEmpty()) {
+        const errorMessage = [];
+
+        errors.array().forEach((error) => {
+          errorMessage.push({
+            sucess: false,
+            path: error.path,
+            msg: error.msg
+          });
+        });
+        return res.status(400).json(errorMessage);
       }
 
       const { firstname, lastname, email, password } = req.body;
@@ -34,9 +43,17 @@ router.post(
         email,
         password: hash,
       });
-      res.status(201).json({ message: "User is created" });
+      res.status(201).json([{
+        sucess: true,
+        "path": "success",
+        "msg": "User created successfully."
+      }]);
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(400).json([{
+        sucess: false,
+        "path": "server",
+        "msg": "An unexpected server error occurred."
+      }]);
     }
   },
 );

@@ -1,6 +1,6 @@
 import "./ProfileEditForm.css";
 import { ProfilContext } from "../../pages/Profile";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import ProfilInput from "./ProfilInput";
 
 function ProfileEditForm() {
@@ -34,7 +34,7 @@ function ProfileEditForm() {
             <ProfilInput title={"Lastname"} type={"text"}></ProfilInput>
           </div>
           <ProfilInput title={"Email"} type={"email"}></ProfilInput>
-          <ProfilInput title={"Country"} type={"text"}></ProfilInput>
+          <ProfilInput title={"Password"} type={"text"}></ProfilInput>
           <button
             className="profil-submit-btn"
             onClick={() => {
