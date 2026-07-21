@@ -1,9 +1,12 @@
+import type { User } from "../types/user";
+
 export type LoginSucess = {
   sucess: boolean;
   message: string;
+  data: User;
 };
 
-export async function postLogin() {
+export async function postLogin(inputEmail: string, inputPassword: string) {
   try {
     const response = await fetch("http://localhost:3000/users/login", {
       method: "POST",
@@ -11,8 +14,8 @@ export async function postLogin() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "HenningOtte91@gmail.com",
-        password: "2RidersOnTheStorm9",
+        email: inputEmail,
+        password: inputPassword,
       }),
     });
 
@@ -22,6 +25,11 @@ export async function postLogin() {
     return {
       sucess: false,
       message: "Network error.",
+      data: {
+        firstname: "",
+        lastname: "",
+        email: "",
+      },
     };
   }
 }
