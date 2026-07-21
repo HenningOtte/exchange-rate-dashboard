@@ -1,0 +1,71 @@
+.signUp {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signUp-card {
+    padding: 32px;
+    width: 320px;
+    max-width: 1080px;
+    background-color: var(--color-background);
+    border-radius: 8px;
+    border: 2px solid var(--color-light-grey);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    filter: drop-shadow(0px 0px 24px rgba(0, 0, 0, 0.15));
+}
+
+.signUp-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signUp-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.sucess-container {
+    z-index: 2;
+    position: absolute;
+    background-color: rgb(0, 0, 0, 0.3);
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: ease all 0.2;
+    animation-name: successAnimation;
+    animation: successAnimation 2.5s forwards;
+}
+
+.sucess-card {
+    z-index: 10;
+    padding: 32px;
+    background-color: var(--color-background);
+    border-radius: 8px;
+    border: 2px solid var(--color-light-grey);
+}
+
+@keyframes successAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

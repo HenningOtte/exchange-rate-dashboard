@@ -158,3 +158,29 @@ main {
 .dNone-500 {
   display: none;
 }
+
+.btn {
+  width: 64px;
+  height: 28px;
+  border: none;
+  outline: 1px solid var(--color-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all ease 0.18s;
+}
+
+.btn:hover {
+  color: var(--color-background);
+  background-color: var(--color-selected);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}

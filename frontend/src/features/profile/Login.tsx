@@ -117,7 +117,7 @@ function LoginSignup({ setAuthMode }: authMode) {
               onClick={(e) => {
                 handleLogIn(e);
               }}
-              className="logIn-btn"
+              className="btn btn-primary"
             >
               Log in
             </button>
@@ -125,7 +125,7 @@ function LoginSignup({ setAuthMode }: authMode) {
               onClick={(e) => {
                 goToSignUp(e);
               }}
-              className="signUp-btn"
+              className="btn btn-secondary"
             >
               Sign up
             </button>

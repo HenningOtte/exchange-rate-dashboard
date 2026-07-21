@@ -1,7 +1,8 @@
 import ProfilInput from "./ProfilInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { postRegister } from "../../api/authApi";
 import type { RegisterSucess } from "../../api/authApi";
+import "./Signup.css"
 
 type authMode = {
   setAuthMode: React.Dispatch<React.SetStateAction<"login" | "signup">>;
@@ -21,6 +22,19 @@ function Signup({ setAuthMode }: authMode) {
     email: "",
     password: "",
   });
+
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!showSuccess) return;
+
+    const timer = setTimeout(() => {
+      setShowSuccess(false);
+      setAuthMode("login");
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [showSuccess]);
 
   const setFirstName = (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
@@ -103,33 +117,43 @@ function Signup({ setAuthMode }: authMode) {
   };
 
   function handleErrors(errors: RegisterSucess[]) {
-    if (errors.length === 0 || errors[0].sucess) return;
+    if (errors.length === 0) return;
+    if (errors[0].sucess) {
+      setShowSuccess(true);
+    };
+
+    let updatedErrors = {
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+    };
+
+    if (errors[0].sucess) {
+      return;
+    };
 
     setLoginErrors(() => {
-      let newLoginErrors = {
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-      };
-
       errors.forEach((error) => {
-        if (error.path == "firstname") newLoginErrors.firstname = error.msg;
-        if (error.path == "lastname") newLoginErrors.lastname = error.msg;
-        if (error.path == "email") newLoginErrors.email = error.msg;
-        if (error.path == "password") newLoginErrors.password = error.msg;
+        if (error.path == "firstname") updatedErrors.firstname = error.msg;
+        if (error.path == "lastname") updatedErrors.lastname = error.msg;
+        if (error.path == "email") updatedErrors.email = error.msg;
+        if (error.path == "password") updatedErrors.password = error.msg;
       });
 
-      return newLoginErrors;
+      return updatedErrors;
     });
   }
 
   return (
-    <div className="auth">
-      <div className="auth-card">
+    <div className="signUp">
+      <div className={showSuccess ? "sucess-container" : "dNone"}>
+        <div className="sucess-card">Login was sucessfull</div>
+      </div>
+      <div className="signUp-card">
         <h3>Sign up</h3>
 
-        <form className="auth-form" action="#">
+        <form className="signUp-form" action="#">
           <ProfilInput
             title="First Name"
             type="text"
@@ -159,12 +183,12 @@ function Signup({ setAuthMode }: authMode) {
           />
           <p className="error">{loginErrors.password}</p>
 
-          <div className="auth-actions">
+          <div className="signUp-actions">
             <button
               onClick={(e) => {
                 handleSignUp(e);
               }}
-              className="logIn-btn"
+              className="btn btn-primary"
             >
               Sign up
             </button>
@@ -172,7 +196,7 @@ function Signup({ setAuthMode }: authMode) {
               onClick={(e) => {
                 goToLogin(e);
               }}
-              className="signUp-btn"
+              className="btn btn-secondary"
             >
               Log in
             </button>
