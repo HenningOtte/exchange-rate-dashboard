@@ -11,6 +11,16 @@ type DateProps = {
   id: string;
 };
 
+export function getDate() {
+  const date = new Date();
+  date.setDate(date.getDate() - 1);
+
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${date.getFullYear()}-${month}-${day}`;
+};
+
 function DatePicker({ title, disabled, id }: DateProps) {
   let exchangeContext = useContext(NewExchangeContext);
 
@@ -19,16 +29,6 @@ function DatePicker({ title, disabled, id }: DateProps) {
       return exchangeContext?.exchange.converter.historicalDate;
     if (id === "dateFrom") return exchangeContext?.exchange.dashboard.dateFrom;
     if (id === "dateTo") return exchangeContext?.exchange.dashboard.dateTo;
-  };
-
-  const getDate = () => {
-    const date = new Date();
-    date.setDate(date.getDate() - 1);
-
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
-    return `${date.getFullYear()}-${month}-${day}`;
   };
 
   return (

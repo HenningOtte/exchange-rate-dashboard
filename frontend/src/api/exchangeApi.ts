@@ -1,5 +1,4 @@
 export type Currencies = "USD" | "EUR" | "GBP";
-// ("https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_RnwtzVgYRA9qlpegCia189guOBgXN2Xqz4cdlAtv&currencies=GBP&base_currency=EUR");
 
 export interface CurrencyRates {
   USD: number;
@@ -45,7 +44,6 @@ export async function fetchHistoricalRates(
   try {
     const promise = await fetch(apiUrl);
     const response: Response = await promise.json();
-    console.log(response);
 
     return response.data;
   } catch (error) {

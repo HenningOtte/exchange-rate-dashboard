@@ -4,6 +4,7 @@ import { postLogin } from "../../api/authApi";
 import { AuthContext } from "../../context/AuthProvider";
 import { useContext, useState } from "react";
 import type { LoginSucess } from "../../api/authApi";
+import { NewExchangeContext } from "../../context/ExchangeContext";
 
 type authMode = {
   setAuthMode: React.Dispatch<React.SetStateAction<"login" | "signup">>;
@@ -11,6 +12,7 @@ type authMode = {
 
 function LoginSignup({ setAuthMode }: authMode) {
   const authContext = useContext(AuthContext);
+  const newExchangeContext = useContext(NewExchangeContext);
 
   const [loginErrors, setLoginErrors] = useState({
     email: "",
@@ -41,6 +43,10 @@ function LoginSignup({ setAuthMode }: authMode) {
         lastname: login.data.lastname,
         email: login.data.email,
       });
+
+      newExchangeContext?.setFavoritesState([]);
+      newExchangeContext?.setActiveFavoriteId(null);
+
       authContext?.setLoggedIn(true);
     } else {
       if (login.message == "Email not found.") {

@@ -5,6 +5,8 @@ import { loadLocalStorage, removeFavorite } from "../../services/localStorage";
 import { useContext } from "react";
 import { NewExchangeContext } from "../../context/ExchangeContext";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthProvider";
+import { deleteFavorite, fetchAllFavorites } from "../../api/favoritesApi";
 
 type Row = {
   favorite: Favorite;
@@ -13,12 +15,19 @@ type Row = {
 
 function FavoriteRow({ favorite, border }: Row) {
   const context = useContext(NewExchangeContext);
+  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    removeFavorite(favorite.id);
-    context?.setFavoritesState(loadLocalStorage());
+
+    if (authContext?.isLoggedIn) {
+      await deleteFavorite(favorite.id);
+      context?.setFavoritesState(await fetchAllFavorites());
+    } else {
+      removeFavorite(favorite.id);
+      context?.setFavoritesState(loadLocalStorage());
+    }
   };
 
   function openFavorite() {

@@ -1,4 +1,5 @@
 import type { ExchangeState } from "./exchangeState";
+import { getCurrentDate } from "../utils/date";
 
 export type Favorite = {
   id: string;
@@ -7,27 +8,27 @@ export type Favorite = {
   state: ExchangeState;
 };
 
+export type FavoriteResponse = {
+  id: string;
+  name: string;
+  creationDate: string;
+  state: ExchangeState;
+  __v: number;
+  _id: string;
+}
+
 export function generateFavorite(
   i: string,
   exchangeName: string,
   exchangeState: ExchangeState,
+  creationDate: string = getCurrentDate(),
 ) {
   let favorite: Favorite = {
     id: i,
     name: exchangeName,
-    creationDate: getDate(),
+    creationDate: creationDate,
 
     state: exchangeState,
   };
   return favorite;
-}
-
-function getDate() {
-  const date = new Date();
-  date.setDate(date.getDate() - 1);
-
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return `${date.getFullYear()}-${month}-${day}`;
 }

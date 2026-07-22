@@ -34,21 +34,17 @@ const favoriteSchema = mongoose.Schema({
       },
       historicalDate: {
         type: String,
-        required: true,
       },
       isHistorical: {
         type: Boolean,
-        required: true,
       },
     },
     dashboard: {
       dateFrom: {
         type: String,
-        required: true,
       },
       dateTo: {
         type: String,
-        required: true,
       },
     },
   },

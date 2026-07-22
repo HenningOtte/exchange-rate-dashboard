@@ -8,7 +8,6 @@ import { calculateHistoricalExchange } from "../services/exchangeService";
 import { calculateLatestRates } from "../services/exchangeService";
 import { createExchangeState } from "../types/exchangeState";
 import { NewExchangeContext } from "../context/ExchangeContext";
-import { fetchAllFavorites } from "../api/favoriteApi";
 
 type ExchangeContextValue = {
   exchangeState: ExchangeState;
@@ -37,7 +36,7 @@ function Home() {
       initialValue,
       historicalDate,
       isHistorical,
-    } = exchangeContext?.exchange.converter;
+    } = exchangeContext.exchange.converter;
 
     if (isHistorical && historicalDate.length > 0) {
       let convertedValue = await calculateHistoricalExchange(
@@ -58,6 +57,14 @@ function Home() {
     }
   };
 
+  const handleClearExchange = () => {
+    if (exchangeContext == null) return;
+    exchangeContext.setExchangeState((exchange) => {
+      return clearExchangeState(exchange);
+    });
+    exchangeContext.setActiveFavoriteId(null);
+  }
+
   return (
     <div className="home">
       <ConverterCard title="Converter"></ConverterCard>
@@ -72,23 +79,10 @@ function Home() {
           START
         </button>
         <button
-          onClick={() => {
-            if (exchangeContext == null) return;
-            exchangeContext.setExchangeState((exchange) => {
-              return clearExchangeState(exchange);
-            });
-            exchangeContext.setActiveFavoriteId(null);
-          }}
+          onClick={() => { handleClearExchange() }}
           className="clear-btn"
         >
           CLEAR
-        </button>
-        <button
-          onClick={() => {
-            fetchAllFavorites();
-          }}
-        >
-          TEST
         </button>
       </div>
     </div>

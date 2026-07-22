@@ -44,3 +44,7 @@
 .save-icon:hover {
   opacity: 0.5;
 }
+
+.save-icon-disabled {
+  opacity: 0.5;
+}

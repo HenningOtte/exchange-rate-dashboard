@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const favoriteModel = require("../models/Favorite.model");
+const { body, validationResult } = require("express-validator");
 
 const {
   createFavoriteValidation,
@@ -15,7 +16,7 @@ router.post(
   async (req, res) => {
     try {
       const newFavorite = await favoriteModel.create(req.body);
-      res.status(201).json(newFavorite);
+      res.status(201).json([{ message: "Favorite created successfully." }]);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
