@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const favoriteModel = require("../models/Favorite.model");
-const { body, validationResult } = require("express-validator");
 
 const {
   createFavoriteValidation,

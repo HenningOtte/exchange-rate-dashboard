@@ -109,8 +109,8 @@ The backend provides a REST API that retrieves and processes data from an extern
 
 ### Milestone 6 – Data Visualization & Deployment (KW 30 - 31)
 
-- [ ] Integrate chart library
-- [ ] Visualize historical exchange rate trends
+- [x] Integrate chart library
+- [x] Visualize historical exchange rate trends
 - [ ] Testing and bug fixing
 - [ ] Deployment preparation
 
