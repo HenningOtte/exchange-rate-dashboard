@@ -3,6 +3,7 @@ const historicalRatesEndpoint = "http://localhost:3000/historicalRates";
 export type HistoricalRate = {
   date: string;
   rates: {
+    USD: number;
     EUR: number;
     GBP: number;
   };

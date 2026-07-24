@@ -21,12 +21,14 @@ function Dashboard() {
         setChartData();
     }, [
         exchangeContext?.exchange.dashboard.dateFrom,
-        exchangeContext?.exchange.dashboard.dateTo
+        exchangeContext?.exchange.dashboard.dateTo,
+        exchangeContext?.exchange.converter.targetValue
     ]);
 
     async function setChartData() {
         if (!exchangeContext) return;
         const { dashboard, converter } = exchangeContext.exchange;
+
         const historicalRates = await getHistoricalRate();
 
         if (
@@ -43,6 +45,7 @@ function Dashboard() {
                 rate.date <= dashboard.dateTo
             );
         });
+
         const chartData = takeSevenPoints(filtered);
         const values = calculateValues(chartData, Number(converter.initialValue));
 
@@ -57,9 +60,13 @@ function Dashboard() {
         data: HistoricalRate[],
         amount: number
     ): number[] {
-        return data.map(rate =>
-            Number((amount * rate.rates.EUR).toFixed(2))
-        );
+        if (!exchangeContext) return [];
+        return data.map((hisRate) => {
+            const sourceRate = hisRate.rates[exchangeContext.exchange.converter.sourceCurrency];
+            const targetRate = hisRate.rates[exchangeContext.exchange.converter.targetCurrency];
+
+            return Number((amount * (targetRate / sourceRate)).toFixed(2));
+        });
     }
 
     function takeSevenPoints(data: HistoricalRate[]): HistoricalRate[] {
@@ -86,6 +93,7 @@ function Dashboard() {
                     data: dashboardData.values,
                     label: `${exchangeContext?.exchange.converter.sourceCurrency} → ${exchangeContext?.exchange.converter.targetCurrency}`,
                     showMark: false,
+                    color: '#3e82e2',
                 },
             ]}
             height={280}

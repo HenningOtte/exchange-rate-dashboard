@@ -111,7 +111,7 @@ The backend provides a REST API that retrieves and processes data from an extern
 
 - [x] Integrate chart library
 - [x] Visualize historical exchange rate trends
-- [ ] Testing and bug fixing
+- [x] Testing and bug fixing
 - [ ] Deployment preparation
 
 ---

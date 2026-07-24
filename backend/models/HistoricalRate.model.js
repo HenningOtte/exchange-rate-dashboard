@@ -6,6 +6,10 @@ const historicalRateSchema = mongoose.Schema({
         required: true
     },
     rates: {
+        USD: {
+            type: Number,
+            required: true
+        },
         EUR: {
             type: Number,
             required: true

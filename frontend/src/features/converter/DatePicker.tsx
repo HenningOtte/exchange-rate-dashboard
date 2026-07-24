@@ -35,7 +35,7 @@ function DatePicker({ title, disabled, id }: DateProps) {
     <div className="currency-input-container date-input-container">
       <p className="currency-label">{title}</p>
       <input
-        min="2000-01-01"
+        min="2016-01-01"
         max={getDate()}
         value={setDateValue()}
         id={id}
