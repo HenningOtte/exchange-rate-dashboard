@@ -1,17 +1,19 @@
-import "./ProfilInput.css";
+import "./InputField.css";
 
 type inputProps = {
   title: string;
   type: string;
   value: string;
+  placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function ProfilInput({ title, type, value, onChange }: inputProps) {
+function InputField({ title, type, value, placeholder, onChange }: inputProps) {
   return (
     <div className="profil-input-container">
       <p className="input-label">{title}</p>
       <input
+        placeholder={placeholder}
         value={value}
         onChange={(e) => {
           onChange(e);
@@ -22,4 +24,4 @@ function ProfilInput({ title, type, value, onChange }: inputProps) {
   );
 }
 
-export default ProfilInput;
+export default InputField;

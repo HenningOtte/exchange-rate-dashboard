@@ -1,4 +1,4 @@
-import ProfilInput from "./ProfilInput";
+import InputField from "../../components/InputField";
 import "./Login.css";
 import { postLogin } from "../../api/authApi";
 import { AuthContext } from "../../context/AuthProvider";
@@ -68,9 +68,7 @@ function LoginSignup({ setAuthMode }: authMode) {
     setAuthMode("signup");
   };
 
-  const setEmail = (
-    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => {
+  const setEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userInput = e.currentTarget.value;
 
     setLoginData((state) => {
@@ -83,9 +81,7 @@ function LoginSignup({ setAuthMode }: authMode) {
     });
   };
 
-  const setPassword = (
-    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => {
+  const setPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userInput = e.currentTarget.value;
 
     setLoginData((state) => {
@@ -103,17 +99,19 @@ function LoginSignup({ setAuthMode }: authMode) {
         <h3>Log in</h3>
 
         <form className="auth-form" action="#">
-          <ProfilInput
+          <InputField
             title="Email"
             type="email"
             value={loginData.email}
+            placeholder=""
             onChange={setEmail}
           />
           <p className="error">{loginErrors.email}</p>
-          <ProfilInput
+          <InputField
             title="Password"
             type="password"
             value={loginData.password}
+            placeholder=""
             onChange={setPassword}
           />
           <p className="error">{loginErrors.password}</p>

@@ -63,7 +63,7 @@ function Home() {
       return clearExchangeState(exchange);
     });
     exchangeContext.setActiveFavoriteId(null);
-  }
+  };
 
   return (
     <div className="home">
@@ -79,7 +79,9 @@ function Home() {
           START
         </button>
         <button
-          onClick={() => { handleClearExchange() }}
+          onClick={() => {
+            handleClearExchange();
+          }}
           className="clear-btn"
         >
           CLEAR

@@ -1,8 +1,8 @@
-import ProfilInput from "./ProfilInput";
+import InputField from "../../components/InputField";
 import { useState, useEffect } from "react";
 import { postRegister } from "../../api/authApi";
 import type { RegisterSucess } from "../../api/authApi";
-import "./Signup.css"
+import "./Signup.css";
 
 type authMode = {
   setAuthMode: React.Dispatch<React.SetStateAction<"login" | "signup">>;
@@ -120,7 +120,7 @@ function Signup({ setAuthMode }: authMode) {
     if (errors.length === 0) return;
     if (errors[0].sucess) {
       setShowSuccess(true);
-    };
+    }
 
     let updatedErrors = {
       firstname: "",
@@ -131,7 +131,7 @@ function Signup({ setAuthMode }: authMode) {
 
     if (errors[0].sucess) {
       return;
-    };
+    }
 
     setLoginErrors(() => {
       errors.forEach((error) => {
@@ -154,28 +154,28 @@ function Signup({ setAuthMode }: authMode) {
         <h3>Sign up</h3>
 
         <form className="signUp-form" action="#">
-          <ProfilInput
+          <InputField
             title="First Name"
             type="text"
             value={signUp.firstname}
             onChange={setFirstName}
           />
           <p className="error">{loginErrors.firstname}</p>
-          <ProfilInput
+          <InputField
             title="Last Name"
             type="text"
             value={signUp.lastname}
             onChange={setLastName}
           />
           <p className="error">{loginErrors.lastname}</p>
-          <ProfilInput
+          <InputField
             title="Email"
             type="email"
             value={signUp.email}
             onChange={setEmail}
           />
           <p className="error">{loginErrors.email}</p>
-          <ProfilInput
+          <InputField
             title="Password"
             type="password"
             value={signUp.password}
