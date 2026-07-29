@@ -1,5 +1,4 @@
 .profileEdit {
-  position: relative;
   z-index: 10;
   position: fixed;
   background-color: rgb(0, 0, 0, 0.35);
@@ -10,6 +9,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 1;
+  transition: all ease 0.3s;
+}
+
+.profileEdit-hide {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .profileEditCard {
@@ -27,20 +33,21 @@
   transition: all ease 0.3s;
 }
 
-.profileEditCard > .close-btn {
+.profileEditCard>.close-btn {
   position: absolute;
   top: 16px;
   right: 16px;
 }
 
 .profilCard-hide {
-  right: -124px;
+  transform: translateX(60vw);
 }
 
 @keyframes myAnimation {
   from {
     right: -124px;
   }
+
   to {
     right: 0;
   }

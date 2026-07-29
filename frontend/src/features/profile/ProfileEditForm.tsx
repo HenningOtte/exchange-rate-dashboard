@@ -1,12 +1,30 @@
 import "./ProfileEditForm.css";
-import { ProfilContext } from "../../pages/Profile";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import InputField from "../../components/InputField";
 import { AuthContext } from "../../context/AuthProvider";
 
-function ProfileEditForm() {
-  const profilContext = useContext(ProfilContext);
+type editMode = {
+  isEditProfileOpen: boolean;
+  setIsEditProfileOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function ProfileEditForm({
+  isEditProfileOpen,
+  setIsEditProfileOpen,
+}: editMode) {
+  const [isCardOpen, setIsCardOpen] = useState(false);
   const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    if (isEditProfileOpen) {
+      setIsCardOpen(true);
+    } else {
+      const timer = setTimeout(() => {
+        setIsCardOpen(false);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isEditProfileOpen]);
 
   const [userFormData, setUserFormData] = useState({
     firstname: "",
@@ -110,20 +128,18 @@ function ProfileEditForm() {
   };
 
   return (
-    <div className="profileEdit">
+    <div
+      className={isCardOpen ? "profileEdit" : "profileEdit profileEdit-hide"}
+    >
       <div
         className={
-          profilContext?.isEditProfileOpen
-            ? "profileEditCard"
-            : "profileEditCard profilCard-hide"
+          isCardOpen ? "profileEditCard" : "profileEditCard profilCard-hide"
         }
       >
         <button
           className="close-btn"
           onClick={() => {
-            profilContext?.setIsEditProfileOpen(
-              !profilContext.isEditProfileOpen,
-            );
+            setIsEditProfileOpen(false);
           }}
         ></button>
         <img

@@ -5,31 +5,22 @@ import { AuthContext } from "../context/AuthProvider";
 import Login from "../features/profile/Login";
 import Signup from "../features/profile/Signup";
 
-type createEditProfilContext = {
-  isEditProfileOpen: boolean;
-  setIsEditProfileOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export const ProfilContext = createContext<createEditProfilContext | null>(
-  null,
-);
-
 function Profile() {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
   const authContext = useContext(AuthContext);
 
   return (
-    <ProfilContext value={{ isEditProfileOpen, setIsEditProfileOpen }}>
+    <div>
       <div className={authContext?.isLoggedIn ? "dNone" : ""}>
         {authMode == "login" && <Login setAuthMode={setAuthMode} />}
         {authMode == "signup" && <Signup setAuthMode={setAuthMode} />}
       </div>
       <div className={authContext?.isLoggedIn ? "profil" : "dNone"}>
-        <div className={isEditProfileOpen ? "" : "dNone"}>
-          <ProfileEditForm></ProfileEditForm>
-        </div>
-
+        <ProfileEditForm
+          isEditProfileOpen={isEditProfileOpen}
+          setIsEditProfileOpen={setIsEditProfileOpen}
+        ></ProfileEditForm>
         <div className="profil-card">
           <button
             onClick={() => {
@@ -57,7 +48,7 @@ function Profile() {
           </div>
         </div>
       </div>
-    </ProfilContext>
+    </div>
   );
 }
 
