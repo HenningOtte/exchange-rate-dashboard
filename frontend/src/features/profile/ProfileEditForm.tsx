@@ -12,15 +12,15 @@ function ProfileEditForm({
   isEditProfileOpen,
   setIsEditProfileOpen,
 }: editMode) {
-  const [isCardOpen, setIsCardOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
     if (isEditProfileOpen) {
-      setIsCardOpen(true);
+      setIsHidden(true);
     } else {
       const timer = setTimeout(() => {
-        setIsCardOpen(false);
+        setIsHidden(false);
       }, 300);
       return () => clearTimeout(timer);
     }
@@ -128,12 +128,10 @@ function ProfileEditForm({
   };
 
   return (
-    <div
-      className={isCardOpen ? "profileEdit" : "profileEdit profileEdit-hide"}
-    >
+    <div className={isHidden ? "profileEdit" : "profileEdit profileEdit-hide"}>
       <div
         className={
-          isCardOpen ? "profileEditCard" : "profileEditCard profilCard-hide"
+          isHidden ? "profileEditCard" : "profileEditCard profilCard-hide"
         }
       >
         <button

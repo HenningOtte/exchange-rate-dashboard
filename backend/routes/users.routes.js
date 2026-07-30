@@ -28,7 +28,7 @@ router.post(
           errorMessage.push({
             sucess: false,
             path: error.path,
-            msg: error.msg
+            msg: error.msg,
           });
         });
         return res.status(400).json(errorMessage);
@@ -43,17 +43,21 @@ router.post(
         email,
         password: hash,
       });
-      res.status(201).json([{
-        sucess: true,
-        "path": "success",
-        "msg": "User created successfully."
-      }]);
+      res.status(201).json([
+        {
+          sucess: true,
+          path: "success",
+          msg: "User created successfully.",
+        },
+      ]);
     } catch (error) {
-      res.status(400).json([{
-        sucess: false,
-        "path": "server",
-        "msg": "An unexpected server error occurred."
-      }]);
+      res.status(400).json([
+        {
+          sucess: false,
+          path: "server",
+          msg: "An unexpected server error occurred.",
+        },
+      ]);
     }
   },
 );
@@ -67,29 +71,60 @@ router.post("/login", async (req, res) => {
 
     if (login) {
       res.status(200).json({
-        sucess: login, message: "", data: {
+        sucess: login,
+        message: "",
+        data: {
           firstname: firstname,
           lastname: lastname,
           email: email,
-        }
+        },
       });
     } else {
       res.status(400).json({
-        sucess: login, message: "Incorrect password.", data: {
+        sucess: login,
+        message: "Incorrect password.",
+        data: {
           firstname: "",
           lastname: "",
           email: email,
-        }
+        },
       });
     }
   } catch (error) {
     res.status(400).json({
-      sucess: false, message: "Email not found.", data: {
+      sucess: false,
+      message: "Email not found.",
+      data: {
         firstname: "",
         lastname: "",
         email: "",
-      }
+      },
     });
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await userModel.findOne({ email: email });
+
+    const login = bcrypt.compareSync(password, user.password);
+
+    if (!login) {
+      return res.status(400).json({ message: "Password was incorrect!" });
+    }
+
+    const updateUser = await userModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    if (!updateUser) {
+      return res.status(400).json({ message: "User Not Found!" });
+    }
+
+    res.status(200).json({ message: "User Updated Successfully" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 
