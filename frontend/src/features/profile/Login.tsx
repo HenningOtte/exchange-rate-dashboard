@@ -3,7 +3,7 @@ import "./Login.css";
 import { postLogin } from "../../api/authApi";
 import { AuthContext } from "../../context/AuthProvider";
 import { useContext, useState } from "react";
-import type { LoginSucess } from "../../api/authApi";
+import type { LoginSuccess } from "../../api/authApi";
 import { NewExchangeContext } from "../../context/ExchangeContext";
 
 type authMode = {
@@ -29,11 +29,13 @@ function LoginSignup({ setAuthMode }: authMode) {
   ) => {
     e.preventDefault();
 
-    const login: LoginSucess = await postLogin(
+    const login: LoginSuccess = await postLogin(
       loginData.email,
       loginData.password,
     );
-    if (login.sucess) {
+    if (login.success) {
+      localStorage.setItem("token", login.token);
+
       setLoginErrors({
         email: "",
         password: "",

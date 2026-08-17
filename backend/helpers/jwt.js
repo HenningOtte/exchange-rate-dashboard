@@ -1,14 +1,12 @@
-import jsonwebtoken from "jsonwebtoken";
-import dotenv from "dotenv";
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
-export const generateToken = (user) => {
-  return jsonwebtoken.sign(
+const generateToken = (user) => {
+  return jwt.sign(
     {
       id: user._id,
-      email: user.email,
-      firstname: user.firstname,
     },
     process.env.SECRET,
     {
@@ -16,3 +14,13 @@ export const generateToken = (user) => {
     },
   );
 };
+
+const verifyToken = (token) => {
+  try {
+    return jwt.verify(token, process.env.SECRET);
+  } catch (error) {
+    return null;
+  }
+};
+
+module.exports = { generateToken, verifyToken };

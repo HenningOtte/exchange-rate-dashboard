@@ -1,6 +1,4 @@
 import Navbar from "./components/Navbar";
-import type { ExchangeState } from "./types/exchangeState";
-import React, { createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";

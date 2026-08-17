@@ -4,6 +4,7 @@ const userModel = require("../models/User.model");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const { body, validationResult } = require("express-validator");
+const { generateToken, verifyToken } = require("../helpers/jwt");
 
 router.post(
   "/register",
@@ -26,7 +27,7 @@ router.post(
 
         errors.array().forEach((error) => {
           errorMessage.push({
-            sucess: false,
+            success: false,
             path: error.path,
             msg: error.msg,
           });
@@ -45,7 +46,7 @@ router.post(
       });
       res.status(201).json([
         {
-          sucess: true,
+          success: true,
           path: "success",
           msg: "User created successfully.",
         },
@@ -53,7 +54,7 @@ router.post(
     } catch (error) {
       res.status(400).json([
         {
-          sucess: false,
+          success: false,
           path: "server",
           msg: "An unexpected server error occurred.",
         },
@@ -71,17 +72,18 @@ router.post("/login", async (req, res) => {
 
     if (login) {
       res.status(200).json({
-        sucess: login,
+        success: login,
         message: "",
         data: {
           firstname: firstname,
           lastname: lastname,
           email: email,
         },
+        token: generateToken(user),
       });
     } else {
       res.status(400).json({
-        sucess: login,
+        success: login,
         message: "Incorrect password.",
         data: {
           firstname: "",
@@ -92,13 +94,53 @@ router.post("/login", async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({
-      sucess: false,
+      success: false,
       message: "Email not found.",
       data: {
         firstname: "",
         lastname: "",
         email: "",
       },
+    });
+  }
+});
+
+router.get("/users/me", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      return res.status(401).json({
+        success: false,
+        message: "No token provided.",
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    const validToken = verifyToken(token);
+
+    const user = await userModel.findById(validToken.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired token.",
     });
   }
 });

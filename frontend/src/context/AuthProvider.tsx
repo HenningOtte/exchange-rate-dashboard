@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import type { User } from "../types/user";
 
 type AuthContextValue = {
@@ -17,6 +17,19 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     lastname: "",
     email: "",
   });
+
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("token"),
+  );
+
+  useEffect(() => {
+    if (!token) {
+      console.log("token not found!");
+    } else {
+      console.log("token found!");
+    }
+  }, [token]);
+
   return (
     <AuthContext value={{ isLoggedIn, setLoggedIn, user, setUser }}>
       {children}

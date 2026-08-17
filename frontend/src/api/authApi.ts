@@ -1,13 +1,14 @@
 import type { User } from "../types/user";
 
-export type LoginSucess = {
-  sucess: boolean;
+export type LoginSuccess = {
+  success: boolean;
   message: string;
   data: User;
+  token: string;
 };
 
-export type RegisterSucess = {
-  sucess: boolean;
+export type RegisterSuccess = {
+  success: boolean;
   path: string;
   msg: string;
 };
@@ -25,17 +26,18 @@ export async function postLogin(email: string, password: string) {
       }),
     });
 
-    const data: LoginSucess = await response.json();
+    const data: LoginSuccess = await response.json();
     return data;
   } catch (error) {
     return {
-      sucess: false,
+      success: false,
       message: "Network error.",
       data: {
         firstname: "",
         lastname: "",
         email: "",
       },
+      token: "",
     };
   }
 }
@@ -60,12 +62,12 @@ export async function postRegister(
       }),
     });
 
-    const data: RegisterSucess[] = await response.json();
+    const data: RegisterSuccess[] = await response.json();
     return data;
   } catch (error) {
     return [
       {
-        sucess: false,
+        success: false,
         path: "server",
         msg: "An unexpected server error occurred.",
       },

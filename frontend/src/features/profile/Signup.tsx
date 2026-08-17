@@ -1,7 +1,7 @@
 import InputField from "../../components/InputField";
 import { useState, useEffect } from "react";
 import { postRegister } from "../../api/authApi";
-import type { RegisterSucess } from "../../api/authApi";
+import type { RegisterSuccess } from "../../api/authApi";
 import "./Signup.css";
 
 type authMode = {
@@ -116,9 +116,9 @@ function Signup({ setAuthMode }: authMode) {
     handleErrors(message);
   };
 
-  function handleErrors(errors: RegisterSucess[]) {
+  function handleErrors(errors: RegisterSuccess[]) {
     if (errors.length === 0) return;
-    if (errors[0].sucess) {
+    if (errors[0].success) {
       setShowSuccess(true);
     }
 
@@ -129,7 +129,7 @@ function Signup({ setAuthMode }: authMode) {
       password: "",
     };
 
-    if (errors[0].sucess) {
+    if (errors[0].success) {
       return;
     }
 
@@ -147,8 +147,8 @@ function Signup({ setAuthMode }: authMode) {
 
   return (
     <div className="signUp">
-      <div className={showSuccess ? "sucess-container" : "dNone"}>
-        <div className="sucess-card">Login was sucessfull</div>
+      <div className={showSuccess ? "success-container" : "dNone"}>
+        <div className="success-card">Login was successfull</div>
       </div>
       <div className="signUp-card">
         <h3>Sign up</h3>
@@ -158,6 +158,7 @@ function Signup({ setAuthMode }: authMode) {
             title="First Name"
             type="text"
             value={signUp.firstname}
+            placeholder=""
             onChange={setFirstName}
           />
           <p className="error">{loginErrors.firstname}</p>
@@ -165,6 +166,7 @@ function Signup({ setAuthMode }: authMode) {
             title="Last Name"
             type="text"
             value={signUp.lastname}
+            placeholder=""
             onChange={setLastName}
           />
           <p className="error">{loginErrors.lastname}</p>
@@ -172,6 +174,7 @@ function Signup({ setAuthMode }: authMode) {
             title="Email"
             type="email"
             value={signUp.email}
+            placeholder=""
             onChange={setEmail}
           />
           <p className="error">{loginErrors.email}</p>
@@ -179,6 +182,7 @@ function Signup({ setAuthMode }: authMode) {
             title="Password"
             type="password"
             value={signUp.password}
+            placeholder=""
             onChange={setPassword}
           />
           <p className="error">{loginErrors.password}</p>
