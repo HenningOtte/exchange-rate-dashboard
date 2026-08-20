@@ -105,7 +105,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/users/me", async (req, res) => {
+router.get("/me", async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -113,19 +113,28 @@ router.get("/users/me", async (req, res) => {
       return res.status(401).json({
         success: false,
         message: "No token provided.",
+        data: {
+          firstname: "",
+          lastname: "",
+          email: "",
+        },
       });
     }
 
     const token = authHeader.split(" ")[1];
 
     const validToken = verifyToken(token);
-
     const user = await userModel.findById(validToken.id);
 
     if (!user) {
       return res.status(404).json({
         success: false,
         message: "User not found.",
+        data: {
+          firstname: "",
+          lastname: "",
+          email: "",
+        },
       });
     }
 
@@ -141,6 +150,11 @@ router.get("/users/me", async (req, res) => {
     return res.status(401).json({
       success: false,
       message: "Invalid or expired token.",
+      data: {
+        firstname: "",
+        lastname: "",
+        email: "",
+      },
     });
   }
 });

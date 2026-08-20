@@ -13,6 +13,12 @@ export type RegisterSuccess = {
   msg: string;
 };
 
+export type GetUserResponse = {
+  success: boolean;
+  message: string;
+  data: User;
+};
+
 export async function postLogin(email: string, password: string) {
   try {
     const response = await fetch("http://localhost:3000/users/login", {
@@ -72,5 +78,29 @@ export async function postRegister(
         msg: "An unexpected server error occurred.",
       },
     ];
+  }
+}
+
+export async function getUserData(token: string) {
+  try {
+    const response = await fetch("http://localhost:3000/users/me", {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data: GetUserResponse = await response.json();
+    return data;
+  } catch (error) {
+    return {
+      success: false,
+      message: "An unexpected server error occurred.",
+      data: {
+        firstname: "",
+        lastname: "",
+        email: "",
+      },
+    };
   }
 }
