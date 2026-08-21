@@ -5,14 +5,30 @@ import { useContext, useEffect } from "react";
 import { loadLocalStorage } from "../services/localStorage";
 import { AuthContext } from "../context/AuthProvider";
 import { fetchAllFavorites } from "../api/favoritesApi";
+import type { Favorite, FavoriteResponse } from "../types/favorites";
 
 function Favorites() {
   const newExchangeContext = useContext(NewExchangeContext);
   const authContext = useContext(AuthContext);
 
   async function loadFavorites() {
-    if (authContext?.isLoggedIn) {
-      newExchangeContext?.setFavoritesState(await fetchAllFavorites());
+    const token = localStorage.getItem("token");
+
+    if (authContext?.isLoggedIn && token) {
+      const favorites = await fetchAllFavorites(token);
+
+      if (favorites && Array.isArray(favorites)) {
+        newExchangeContext?.setFavoritesState(favorites);
+      } else if (typeof favorites == "string") {
+        console.log(favorites);
+      } else {
+        authContext.setLoggedIn(false);
+        authContext.setUser({
+          firstname: "",
+          lastname: "",
+          email: "",
+        });
+      }
     } else {
       newExchangeContext?.setFavoritesState(loadLocalStorage());
     }
@@ -23,8 +39,7 @@ function Favorites() {
   }, [authContext?.isLoggedIn]);
 
   return (
-    <div
-      className="favorites">
+    <div className="favorites">
       <div className="favorites-card">
         <h3>Favorites</h3>
         <div className="test">

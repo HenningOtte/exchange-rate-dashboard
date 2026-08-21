@@ -4,9 +4,23 @@ import { getCurrentDate } from "../utils/date";
 
 const favoritesEndpoint = "http://localhost:3000/favorites";
 
-export async function fetchAllFavorites() {
+export async function fetchAllFavorites(token: string) {
   try {
-    const response = await fetch(favoritesEndpoint);
+    const response = await fetch(favoritesEndpoint, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      if (response.status === 401 || response.status === 400) {
+        return null;
+      } else {
+        return "Serverfehler. Favoriten konnten nicht geladen werden.";
+      }
+    }
+
     const favoritesApi: FavoriteResponse[] = await response.json();
     const favorites: Favorite[] = favoritesApi.map((fav) => {
       const { id, name, creationDate, state } = fav;
@@ -14,7 +28,7 @@ export async function fetchAllFavorites() {
     });
     return favorites;
   } catch (error) {
-    return [];
+    return null;
   }
 }
 

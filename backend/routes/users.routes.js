@@ -8,7 +8,6 @@ const { generateToken, verifyToken } = require("../helpers/jwt");
 
 router.post(
   "/register",
-
   [
     body("firstname").notEmpty().withMessage("Firstname ist required"),
     body("lastname").notEmpty().withMessage("Lastname is required"),

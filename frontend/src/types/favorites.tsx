@@ -15,7 +15,7 @@ export type FavoriteResponse = {
   state: ExchangeState;
   __v: number;
   _id: string;
-}
+};
 
 export function generateFavorite(
   i: string,
@@ -27,7 +27,6 @@ export function generateFavorite(
     id: i,
     name: exchangeName,
     creationDate: creationDate,
-
     state: exchangeState,
   };
   return favorite;

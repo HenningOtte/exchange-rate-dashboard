@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const favoriteModel = require("../models/Favorite.model");
+const { generateToken, verifyToken } = require("../helpers/jwt");
 
 const {
   createFavoriteValidation,
@@ -23,11 +24,33 @@ router.post(
 );
 
 router.get("/", async (req, res) => {
-  try {
-    const favoriteList = await favoriteModel.find();
-    res.send(favoriteList);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    return res.status(401).json({
+      success: false,
+      message: "No token provided.",
+    });
+  }
+
+  const token = authHeader.split(" ")[1];
+  const validToken = verifyToken(token);
+
+  if (validToken.id) {
+    try {
+      const favoriteList = await favoriteModel.find();
+      res.send(favoriteList);
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid token.",
+    });
   }
 });
 
