@@ -1,6 +1,6 @@
 import "./Profile.css";
 import ProfileEditForm from "../features/profile/ProfileEditForm";
-import { useState, createContext, useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import Login from "../features/profile/Login";
 import Signup from "../features/profile/Signup";

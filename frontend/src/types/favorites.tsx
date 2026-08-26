@@ -17,6 +17,11 @@ export type FavoriteResponse = {
   _id: string;
 };
 
+export type ErrorResponse = {
+  success: false;
+  message: string;
+};
+
 export function generateFavorite(
   i: string,
   exchangeName: string,

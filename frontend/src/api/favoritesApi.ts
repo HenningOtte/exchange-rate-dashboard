@@ -1,4 +1,8 @@
-import type { Favorite, FavoriteResponse } from "../types/favorites";
+import type {
+  Favorite,
+  FavoriteResponse,
+  ErrorResponse,
+} from "../types/favorites";
 import { generateFavorite } from "../types/favorites";
 import { getCurrentDate } from "../utils/date";
 
@@ -14,10 +18,11 @@ export async function fetchAllFavorites(token: string) {
     });
 
     if (!response.ok) {
+      const errorMessage: ErrorResponse = await response.json();
       if (response.status === 401 || response.status === 400) {
-        return null;
+        return errorMessage;
       } else {
-        return "Serverfehler. Favoriten konnten nicht geladen werden.";
+        return errorMessage;
       }
     }
 
@@ -28,7 +33,11 @@ export async function fetchAllFavorites(token: string) {
     });
     return favorites;
   } catch (error) {
-    return null;
+    const errorResponse: ErrorResponse = {
+      success: false,
+      message: "Server not responding; try again later.",
+    };
+    return errorResponse;
   }
 }
 

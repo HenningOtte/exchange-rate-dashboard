@@ -5,7 +5,6 @@ import { useContext, useEffect } from "react";
 import { loadLocalStorage } from "../services/localStorage";
 import { AuthContext } from "../context/AuthProvider";
 import { fetchAllFavorites } from "../api/favoritesApi";
-import type { Favorite, FavoriteResponse } from "../types/favorites";
 
 function Favorites() {
   const newExchangeContext = useContext(NewExchangeContext);
@@ -14,7 +13,7 @@ function Favorites() {
   async function loadFavorites() {
     const token = localStorage.getItem("token");
 
-    if (authContext?.isLoggedIn && token) {
+    if (authContext != null && token) {
       const favorites = await fetchAllFavorites(token);
 
       if (favorites && Array.isArray(favorites)) {

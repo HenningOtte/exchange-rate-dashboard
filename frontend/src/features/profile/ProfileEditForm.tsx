@@ -124,7 +124,6 @@ function ProfileEditForm({
 
   const saveUserData = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    profilContext?.setIsEditProfileOpen(!profilContext.isEditProfileOpen);
   };
 
   return (
