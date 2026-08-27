@@ -2,6 +2,7 @@ import type {
   Favorite,
   FavoriteResponse,
   ErrorResponse,
+  FavoriteError,
 } from "../types/favorites";
 import { generateFavorite } from "../types/favorites";
 import { getCurrentDate } from "../utils/date";
@@ -18,12 +19,12 @@ export async function fetchAllFavorites(token: string) {
     });
 
     if (!response.ok) {
-      const errorMessage: ErrorResponse = await response.json();
-      if (response.status === 401 || response.status === 400) {
-        return errorMessage;
-      } else {
-        return errorMessage;
-      }
+      const errorResponse: ErrorResponse = await response.json();
+      const favoriteError: FavoriteError = {
+        status: response.status,
+        message: errorResponse.message,
+      };
+      return favoriteError;
     }
 
     const favoritesApi: FavoriteResponse[] = await response.json();
@@ -33,11 +34,11 @@ export async function fetchAllFavorites(token: string) {
     });
     return favorites;
   } catch (error) {
-    const errorResponse: ErrorResponse = {
-      success: false,
+    const favoriteError: FavoriteError = {
+      status: 504,
       message: "Server not responding; try again later.",
     };
-    return errorResponse;
+    return favoriteError;
   }
 }
 

@@ -22,6 +22,11 @@ export type ErrorResponse = {
   message: string;
 };
 
+export type FavoriteError = {
+  status: number;
+  message: string;
+};
+
 export function generateFavorite(
   i: string,
   exchangeName: string,
