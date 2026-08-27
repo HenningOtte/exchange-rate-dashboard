@@ -121,7 +121,6 @@ router.get("/me", async (req, res) => {
     }
 
     const token = authHeader.split(" ")[1];
-
     const validToken = verifyToken(token);
     const user = await userModel.findById(validToken.id);
 

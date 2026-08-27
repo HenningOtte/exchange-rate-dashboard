@@ -18,8 +18,6 @@ function Favorites() {
 
       if (favorites && Array.isArray(favorites)) {
         newExchangeContext?.setFavoritesState(favorites);
-      } else if (typeof favorites == "string") {
-        console.log(favorites);
       } else {
         authContext.setLoggedIn(false);
         authContext.setUser({

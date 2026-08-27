@@ -18,12 +18,20 @@ function FavoriteRow({ favorite, border }: Row) {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleDelete = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     e.stopPropagation();
+    const token = localStorage.getItem("token");
 
-    if (authContext?.isLoggedIn) {
+    if (authContext?.isLoggedIn && token) {
       await deleteFavorite(favorite.id);
-      context?.setFavoritesState(await fetchAllFavorites());
+      const favorites = await fetchAllFavorites(token);
+      if (favorites && Array.isArray(favorites)) {
+        context?.setFavoritesState(favorites);
+      } else {
+        // logOut
+      }
     } else {
       removeFavorite(favorite.id);
       context?.setFavoritesState(loadLocalStorage());
