@@ -26,14 +26,15 @@ function Card({ title }: CardProps) {
     : true;
 
   const handleSaveFavorite = async () => {
-
     if (exchangeContext?.exchange == null) return;
 
-    if (authContext?.isLoggedIn) {
+    const token = localStorage.getItem("token");
+
+    if (authContext?.isLoggedIn && token) {
       const { converter, dashboard } = exchangeContext.exchange;
       if (exchangeContext.activeFavoriteId) {
         await putSingleFavorite(
-          "From frontend",
+          "To Backend",
           converter.initialValue,
           converter.targetValue,
           converter.sourceCurrency,
@@ -42,12 +43,12 @@ function Card({ title }: CardProps) {
           converter.isHistorical,
           dashboard.dateFrom,
           dashboard.dateTo,
-          exchangeContext.activeFavoriteId
+          exchangeContext.activeFavoriteId,
+          token,
         );
-
       } else {
         await postSingleFavorite(
-          "From frontend",
+          "To Backend",
           converter.initialValue,
           converter.targetValue,
           converter.sourceCurrency,
@@ -56,6 +57,7 @@ function Card({ title }: CardProps) {
           converter.isHistorical,
           dashboard.dateFrom,
           dashboard.dateTo,
+          token,
         );
       }
     } else {
@@ -69,14 +71,20 @@ function Card({ title }: CardProps) {
       }
       exchangeContext.setFavoritesState(loadLocalStorage());
     }
-  }
+  };
 
   return (
     <div className="converter-card max-w-512">
       <button
         disabled={exchangeContext?.exchange.converter.initialValue.length == 0}
-        onClick={() => { handleSaveFavorite() }}
-        className={exchangeContext?.exchange.converter.initialValue.length == 0 ? "save-icon save-icon-disabled" : "save-icon"}
+        onClick={() => {
+          handleSaveFavorite();
+        }}
+        className={
+          exchangeContext?.exchange.converter.initialValue.length == 0
+            ? "save-icon save-icon-disabled"
+            : "save-icon"
+        }
       ></button>
       <h2>{title}</h2>
       <div className="currency-inputs">

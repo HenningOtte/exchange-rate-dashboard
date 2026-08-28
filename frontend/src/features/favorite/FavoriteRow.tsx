@@ -25,12 +25,10 @@ function FavoriteRow({ favorite, border }: Row) {
     const token = localStorage.getItem("token");
 
     if (authContext?.isLoggedIn && token) {
-      await deleteFavorite(favorite.id);
+      await deleteFavorite(favorite.id, token);
       const favorites = await fetchAllFavorites(token);
       if (favorites && Array.isArray(favorites)) {
         context?.setFavoritesState(favorites);
-      } else {
-        // logOut
       }
     } else {
       removeFavorite(favorite.id);

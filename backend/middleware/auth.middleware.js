@@ -20,6 +20,7 @@ const authenticate = (req, res, next) => {
     });
   }
 
+  req.userId = validToken.id;
   next();
 };
 

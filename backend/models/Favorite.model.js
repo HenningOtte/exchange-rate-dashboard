@@ -12,6 +12,11 @@ const favoriteSchema = mongoose.Schema({
     required: true,
   },
 
+  userId: {
+    type: String,
+    required: true,
+  },
+
   state: {
     converter: {
       initialValue: {
