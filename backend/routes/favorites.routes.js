@@ -78,7 +78,6 @@ router.put(
           message: "Favorite Not Found!",
         });
       }
-
       res
         .status(200)
         .json({ message: "Favorite Updated Successfully", updateFavorite });
