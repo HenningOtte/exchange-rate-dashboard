@@ -75,6 +75,19 @@
   color: var(--color-selected);
 }
 
+.m-navbar-actions > button {
+  padding-top: 16px;
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.m-navbar-actions > button:hover {
+  color: var(--color-selected);
+}
+
 .hide-menu {
   pointer-events: none;
   opacity: 0;
