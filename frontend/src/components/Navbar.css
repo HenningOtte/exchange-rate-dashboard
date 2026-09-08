@@ -1,15 +1,18 @@
-.navbar {
-  height: 64px;
+.navbar-container {
   left: 0;
   right: 0;
+  position: fixed;
+  z-index: 20;
+}
+
+.navbar {
+  height: 64px;
   background-color: var(--color-primary);
   padding-left: 32px;
   padding-right: 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  z-index: 20;
 }
 
 .logo {
@@ -55,8 +58,69 @@
   opacity: 75%;
 }
 
+.navbar-actions>button {
+  height: 48px;
+  width: 48px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background-image: url("../assets/icons/profile-pic.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.navbar-actions>button:hover {
+  opacity: 75%;
+}
+
+.profileMenu {
+  width: 160px;
+  position: absolute;
+  right: 16px;
+  top: 80px;
+  background-color: var(--color-secondary);
+  border: 2px solid var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.profileMenu-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  padding: 4px 10px;
+  font-weight: 600;
+}
+
+.profileMenu-link:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.profileMenu>button {
+  width: 100%;
+  background-color: transparent;
+  font-size: 16px;
+  border: none;
+  text-align: left;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 4px 10px;
+  font-weight: 600;
+}
+
+.profileMenu>button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
 @media (max-width: 767px) {
-  .navbar {
+  .navbar-container {
     display: none;
   }
 }
