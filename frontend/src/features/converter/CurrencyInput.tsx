@@ -83,10 +83,7 @@ function CurrencyInput({ title, id }: InputProps) {
       <div className="currency-selection-container">
         <button
           onClick={() => {
-            setIsOpen((btnState) => {
-              let newState: boolean = !btnState;
-              return newState;
-            });
+            setIsOpen(!isOpen);
           }}
           className="currency-button"
         >

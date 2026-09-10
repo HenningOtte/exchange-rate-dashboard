@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const favoriteModel = require("../models/Favorite.model");
-const { verifyToken } = require("../helpers/jwt");
 
 const {
   createFavoriteValidation,

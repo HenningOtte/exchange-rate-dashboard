@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
@@ -8,6 +8,8 @@ function Navbar() {
   const toggleProfilMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.setItem("token", "");
@@ -22,7 +24,26 @@ function Navbar() {
     toggleProfilMenu();
   };
 
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        e.target instanceof Node &&
+        !dropdownRef.current?.contains(e.target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   return (
     <div className="navbar-container">
@@ -58,7 +79,7 @@ function Navbar() {
           ></button>
         </div>
       </nav>
-      <div className={isMenuOpen ? "profileMenu" : "dNone"}>
+      <div ref={dropdownRef} className={isMenuOpen ? "profileMenu" : "dNone"}>
         <Link
           onClick={() => {
             toggleProfilMenu();
@@ -74,7 +95,7 @@ function Navbar() {
             handleLogout();
           }}
         >
-          Logout
+          {authContext?.isLoggedIn ? "Logout" : "Login"}
         </button>
       </div>
     </div>

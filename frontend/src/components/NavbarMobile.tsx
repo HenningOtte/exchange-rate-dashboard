@@ -69,7 +69,7 @@ function NavbarMobile() {
               handleLogout();
             }}
           >
-            Logout
+            {authContext?.isLoggedIn ? "Logout" : "Login"}
           </button>
         </nav>
       </div>
