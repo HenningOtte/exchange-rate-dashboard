@@ -1,7 +1,15 @@
 import { useState, useContext, useRef, useEffect } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+
+const navLinkStyles = ({ isActive }: { isActive: boolean }) => ({
+  backgroundColor: isActive ? "#82adeb" : "",
+});
+
+const test = {
+  farbe: "blau",
+};
 
 function Navbar() {
   const authContext = useContext(AuthContext);
@@ -54,24 +62,26 @@ function Navbar() {
           alt="currio-logo"
         />
         <div className="navbar-actions">
-          <Link
+          <NavLink
             onClick={() => {
               if (isMenuOpen) toggleProfilMenu();
             }}
             className="navbar-link"
             to={"/"}
+            style={navLinkStyles}
           >
             Home
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             onClick={() => {
               if (isMenuOpen) toggleProfilMenu();
             }}
             className="navbar-link"
             to={"/favorites"}
+            style={navLinkStyles}
           >
             Favorites
-          </Link>
+          </NavLink>
           <button
             onClick={() => {
               toggleProfilMenu();
@@ -80,7 +90,7 @@ function Navbar() {
         </div>
       </nav>
       <div ref={dropdownRef} className={isMenuOpen ? "profileMenu" : "dNone"}>
-        <Link
+        <NavLink
           onClick={() => {
             toggleProfilMenu();
           }}
@@ -88,8 +98,8 @@ function Navbar() {
           to={"/profil"}
         >
           Profile
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           onClick={() => {
             handleLogout();
           }}
@@ -97,7 +107,7 @@ function Navbar() {
           className="profileMenu-link"
         >
           {authContext?.isLoggedIn ? "Logout" : "Login"}
-        </Link>
+        </NavLink>
       </div>
     </div>
   );
