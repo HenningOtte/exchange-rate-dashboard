@@ -1,5 +1,5 @@
 import "./ProfileEditForm.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import InputField from "../../components/InputField";
 import { AuthContext } from "../../context/AuthProvider";
 
@@ -12,18 +12,27 @@ function ProfileEditForm({
   isEditProfileOpen,
   setIsEditProfileOpen,
 }: editMode) {
-  const [isHidden, setIsHidden] = useState(false);
   const authContext = useContext(AuthContext);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const handleClickOutSide = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        e.target instanceof Node &&
+        !dropdownRef.current.contains(e.target)
+      ) {
+        setIsEditProfileOpen(false);
+      }
+    };
+
     if (isEditProfileOpen) {
-      setIsHidden(true);
-    } else {
-      const timer = setTimeout(() => {
-        setIsHidden(false);
-      }, 300);
-      return () => clearTimeout(timer);
+      document.addEventListener("mousedown", handleClickOutSide);
     }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide);
+    };
   }, [isEditProfileOpen]);
 
   const [userFormData, setUserFormData] = useState({
@@ -127,11 +136,18 @@ function ProfileEditForm({
   };
 
   return (
-    <div className={isHidden ? "profileEdit" : "profileEdit profileEdit-hide"}>
+    <div
+      className={
+        isEditProfileOpen ? "profileEdit" : "profileEdit profileEdit-hide"
+      }
+    >
       <div
         className={
-          isHidden ? "profileEditCard" : "profileEditCard profilCard-hide"
+          isEditProfileOpen
+            ? "profileEditCard"
+            : "profileEditCard profilCard-hide"
         }
+        ref={dropdownRef}
       >
         <button
           className="close-btn"
