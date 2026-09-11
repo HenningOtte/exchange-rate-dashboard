@@ -43,16 +43,6 @@
   transform: translateX(60vw);
 }
 
-@keyframes myAnimation {
-  from {
-    right: -124px;
-  }
-
-  to {
-    right: 0;
-  }
-}
-
 .profilEditPicture {
   height: 80px;
   width: 80px;

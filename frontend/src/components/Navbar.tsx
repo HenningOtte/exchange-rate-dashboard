@@ -89,7 +89,12 @@ function Navbar() {
           ></button>
         </div>
       </nav>
-      <div ref={dropdownRef} className={isMenuOpen ? "profileMenu" : "dNone"}>
+      <div
+        ref={dropdownRef}
+        className={
+          isMenuOpen ? "profileMenu" : "profileMenu profileMenu-closed"
+        }
+      >
         <NavLink
           onClick={() => {
             toggleProfilMenu();

@@ -87,6 +87,11 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: all ease 0.2s;
+}
+
+.profileMenu-closed {
+  transform: translateX(180px);
 }
 
 .profileMenu-link {
