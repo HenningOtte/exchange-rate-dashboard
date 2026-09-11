@@ -89,14 +89,15 @@ function Navbar() {
         >
           Profile
         </Link>
-        <button
+        <Link
           onClick={() => {
-            toggleProfilMenu();
             handleLogout();
           }}
+          to={"/profil"}
+          className="profileMenu-link"
         >
           {authContext?.isLoggedIn ? "Logout" : "Login"}
-        </button>
+        </Link>
       </div>
     </div>
   );
