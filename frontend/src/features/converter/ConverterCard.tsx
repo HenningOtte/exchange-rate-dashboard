@@ -29,12 +29,16 @@ function Card({ title }: CardProps) {
     if (exchangeContext?.exchange == null) return;
 
     const token = localStorage.getItem("token");
+    let favoriteName = document.getElementById(
+      "favoriteName",
+    ) as HTMLInputElement | null;
 
     if (authContext?.isLoggedIn && token) {
       const { converter, dashboard } = exchangeContext.exchange;
+
       if (exchangeContext.activeFavoriteId) {
         await putSingleFavorite(
-          "To Backend",
+          favoriteName ? favoriteName.value : "Name",
           converter.initialValue,
           converter.targetValue,
           converter.sourceCurrency,
@@ -48,7 +52,7 @@ function Card({ title }: CardProps) {
         );
       } else {
         await postSingleFavorite(
-          "To Backend",
+          favoriteName ? favoriteName.value : "Name",
           converter.initialValue,
           converter.targetValue,
           converter.sourceCurrency,
@@ -87,6 +91,15 @@ function Card({ title }: CardProps) {
         }
       ></button>
       <h2>{title}</h2>
+      <div className="favorite-name-container">
+        <p className="favorite-label">Name</p>
+        <input
+          id="favoriteName"
+          className="favorite-name-input"
+          type="text"
+          maxLength={30}
+        />
+      </div>
       <div className="currency-inputs">
         <CurrencyInput title="Initial value" id="initialValue"></CurrencyInput>
         <CurrencyInput title="Target value" id="targetValue"></CurrencyInput>
