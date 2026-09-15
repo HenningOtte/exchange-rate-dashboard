@@ -4,6 +4,7 @@ import type { ExchangeState } from "../types/exchangeState";
 import { loadLocalStorage } from "../services/localStorage";
 
 const initialExchangeState: ExchangeState = {
+  name: "",
   converter: {
     initialValue: "",
     targetValue: "",
