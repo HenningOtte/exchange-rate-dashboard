@@ -1,3 +1,5 @@
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 export type Currencies = "USD" | "EUR" | "GBP";
 
 export interface CurrencyRates {
@@ -19,7 +21,7 @@ async function getSingleRate(
   type Response = {
     data: Partial<CurrencyRates>;
   };
-  const apiUrl: string = `https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_RnwtzVgYRA9qlpegCia189guOBgXN2Xqz4cdlAtv&currencies=${quoteCurrency}&base_currency=${baseCurrency}`;
+  const apiUrl: string = `https://api.freecurrencyapi.com/v1/latest?apikey=${API_KEY}&currencies=${quoteCurrency}&base_currency=${baseCurrency}`;
 
   try {
     const promise = await fetch(apiUrl);
