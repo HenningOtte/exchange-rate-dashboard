@@ -27,18 +27,14 @@ function Card({ title }: CardProps) {
 
   const handleSaveFavorite = async () => {
     if (exchangeContext?.exchange == null) return;
-
     const token = localStorage.getItem("token");
-    let favoriteName = document.getElementById(
-      "favoriteName",
-    ) as HTMLInputElement | null;
 
     if (authContext?.isLoggedIn && token) {
       const { converter, dashboard } = exchangeContext.exchange;
 
       if (exchangeContext.activeFavoriteId) {
         await putSingleFavorite(
-          favoriteName ? favoriteName.value : "Name",
+          exchangeContext.activeFavoriteName,
           converter.initialValue,
           converter.targetValue,
           converter.sourceCurrency,
@@ -52,7 +48,7 @@ function Card({ title }: CardProps) {
         );
       } else {
         await postSingleFavorite(
-          favoriteName ? favoriteName.value : "Name",
+          exchangeContext.activeFavoriteName,
           converter.initialValue,
           converter.targetValue,
           converter.sourceCurrency,
@@ -68,13 +64,22 @@ function Card({ title }: CardProps) {
       if (exchangeContext.activeFavoriteId) {
         overwriteFavorite(
           exchangeContext.activeFavoriteId,
+          exchangeContext.activeFavoriteName,
           exchangeContext.exchange,
         );
       } else {
-        saveToLocal(exchangeContext.exchange, "Name");
+        saveToLocal(
+          exchangeContext.exchange,
+          exchangeContext.activeFavoriteName,
+        );
       }
       exchangeContext.setFavoritesState(loadLocalStorage());
     }
+  };
+
+  const updateFavoriteName = (e: React.InputEvent<HTMLInputElement>) => {
+    const input = e.currentTarget;
+    exchangeContext?.setActiveFavoriteName(input.value);
   };
 
   return (
@@ -94,6 +99,10 @@ function Card({ title }: CardProps) {
       <div className="favorite-name-container">
         <p className="favorite-label">Name</p>
         <input
+          value={exchangeContext?.activeFavoriteName}
+          onInput={(e) => {
+            updateFavoriteName(e);
+          }}
           id="favoriteName"
           className="favorite-name-input"
           type="text"

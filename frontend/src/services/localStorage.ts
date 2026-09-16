@@ -45,10 +45,15 @@ export function removeFavorite(id: string) {
   localStorage.setItem("favorites", JSON.stringify(newfavorites));
 }
 
-export function overwriteFavorite(id: string, exchangeState: ExchangeState) {
+export function overwriteFavorite(
+  id: string,
+  name: string,
+  exchangeState: ExchangeState,
+) {
   let favorites = loadLocalStorage();
   favorites.forEach((favorite) => {
     if (favorite.id === id) {
+      favorite.name = name;
       favorite.state = exchangeState;
     }
   });

@@ -45,6 +45,7 @@ function FavoriteRow({ favorite, border }: Row) {
 
     if (selectedFavorite) {
       context.setActiveFavoriteId(selectedFavorite.id);
+      context.setActiveFavoriteName(selectedFavorite.name);
       context.setExchangeState(selectedFavorite.state);
       navigate("/");
     }

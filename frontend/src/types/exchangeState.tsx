@@ -1,5 +1,4 @@
 export type ExchangeState = {
-  name: string;
   converter: {
     initialValue: string;
     targetValue: string;
@@ -16,7 +15,6 @@ export type ExchangeState = {
 
 export function createExchangeState(i: ExchangeState) {
   return {
-    name: i.name,
     converter: {
       initialValue: i.converter.initialValue,
       targetValue: i.converter.targetValue,
@@ -35,7 +33,6 @@ export function createExchangeState(i: ExchangeState) {
 export function clearExchangeState(i: ExchangeState) {
   const exchangeViewState: ExchangeState = createExchangeState(i);
 
-  exchangeViewState.name = "";
   exchangeViewState.converter.initialValue = "0";
   exchangeViewState.converter.targetValue = "0";
   exchangeViewState.converter.sourceCurrency = "USD";

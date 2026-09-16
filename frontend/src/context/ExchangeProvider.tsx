@@ -4,7 +4,6 @@ import type { ExchangeState } from "../types/exchangeState";
 import { loadLocalStorage } from "../services/localStorage";
 
 const initialExchangeState: ExchangeState = {
-  name: "",
   converter: {
     initialValue: "",
     targetValue: "",
@@ -21,6 +20,7 @@ const initialExchangeState: ExchangeState = {
 
 function ExchangeProvider({ children }: { children: React.ReactNode }) {
   const [activeFavoriteId, setActiveFavoriteId] = useState<string | null>(null);
+  const [activeFavoriteName, setActiveFavoriteName] = useState<string>("");
   const [exchange, setExchangeState] = useState(initialExchangeState);
   const [favorites, setFavoritesState] = useState(loadLocalStorage());
 
@@ -29,6 +29,8 @@ function ExchangeProvider({ children }: { children: React.ReactNode }) {
       value={{
         activeFavoriteId,
         setActiveFavoriteId,
+        activeFavoriteName,
+        setActiveFavoriteName,
         exchange,
         setExchangeState,
         favorites,

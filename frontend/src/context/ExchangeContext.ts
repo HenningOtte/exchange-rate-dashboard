@@ -6,6 +6,9 @@ type ExchangeContextValue = {
   activeFavoriteId: string | null;
   setActiveFavoriteId: React.Dispatch<React.SetStateAction<string | null>>;
 
+  activeFavoriteName: string;
+  setActiveFavoriteName: React.Dispatch<React.SetStateAction<string>>;
+
   exchange: ExchangeState;
   setExchangeState: React.Dispatch<React.SetStateAction<ExchangeState>>;
 
