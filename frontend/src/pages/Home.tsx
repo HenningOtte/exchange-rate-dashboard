@@ -63,6 +63,7 @@ function Home() {
       return clearExchangeState(exchange);
     });
     exchangeContext.setActiveFavoriteId(null);
+    exchangeContext.setActiveFavoriteName("");
   };
 
   return (
