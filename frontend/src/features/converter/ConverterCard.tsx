@@ -4,7 +4,7 @@ import DatePicker from "./DatePicker";
 import Switch from "@mui/material/Switch";
 import type { ExchangeState } from "../../types/exchangeState";
 import { createExchangeState } from "../../types/exchangeState";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { NewExchangeContext } from "../../context/ExchangeContext";
 import {
   saveToLocal,
@@ -19,14 +19,26 @@ type CardProps = {
 };
 
 function Card({ title }: CardProps) {
+  const [favoriteSaved, setFavoriteSaved] = useState(false);
   const authContext = useContext(AuthContext);
   const exchangeContext = useContext(NewExchangeContext);
   const isDisabled = exchangeContext?.exchange.converter.isHistorical
     ? false
     : true;
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFavoriteSaved(false);
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [favoriteSaved]);
+
   const handleSaveFavorite = async () => {
     if (exchangeContext?.exchange == null) return;
+    if (exchangeContext.activeFavoriteName.length < 3) return;
+
     const token = localStorage.getItem("token");
 
     if (authContext?.isLoggedIn && token) {
@@ -75,6 +87,7 @@ function Card({ title }: CardProps) {
       }
       exchangeContext.setFavoritesState(loadLocalStorage());
     }
+    setFavoriteSaved(true);
   };
 
   const updateFavoriteName = (e: React.InputEvent<HTMLInputElement>) => {
@@ -125,7 +138,6 @@ function Card({ title }: CardProps) {
             exchangeContext?.setExchangeState((exchange) => {
               const exchangeViewState: ExchangeState =
                 createExchangeState(exchange);
-
               exchangeViewState.converter.isHistorical =
                 !exchange.converter.isHistorical;
 
@@ -135,6 +147,15 @@ function Card({ title }: CardProps) {
           size="small"
         />
       </div>
+      {favoriteSaved ? (
+        <div className="save-message-container">
+          <div className="save-message">
+            "{exchangeContext?.activeFavoriteName}" saved!
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

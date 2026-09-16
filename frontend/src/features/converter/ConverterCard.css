@@ -77,3 +77,67 @@
   margin: 0 8px;
   font-size: 16px;
 }
+
+.save-message-container {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0, 0, 0, 0.2);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation-name: saveMessageContainerAnimation;
+  animation-duration: 2s;
+  opacity: 0;
+}
+
+@keyframes saveMessageContainerAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.save-message {
+  padding: 24px;
+  background-color: var(--color-primary);
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(60vh);
+  animation-name: saveMessageAnimation;
+  animation-duration: 2s;
+}
+
+@keyframes saveMessageAnimation {
+  0% {
+    transform: translateY(60vh);
+  }
+
+  20% {
+    transform: translateY(0vh);
+  }
+
+  80% {
+    transform: translateY(0vh);
+  }
+
+  100% {
+    transform: translateY(60vh);
+  }
+}
