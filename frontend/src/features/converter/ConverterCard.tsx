@@ -20,6 +20,13 @@ type CardProps = {
 
 function Card({ title }: CardProps) {
   const [favoriteSaved, setFavoriteSaved] = useState(false);
+
+  const [validationErrors, setValidationErrors] = useState({
+    favoriteName: null as string | null,
+    initialValue: null as string | null,
+    targetValue: null as string | null,
+  });
+
   const authContext = useContext(AuthContext);
   const exchangeContext = useContext(NewExchangeContext);
   const isDisabled = exchangeContext?.exchange.converter.isHistorical
@@ -27,6 +34,8 @@ function Card({ title }: CardProps) {
     : true;
 
   useEffect(() => {
+    if (!favoriteSaved) return;
+
     const timer = setTimeout(() => {
       setFavoriteSaved(false);
     }, 2000);
@@ -35,9 +44,40 @@ function Card({ title }: CardProps) {
     };
   }, [favoriteSaved]);
 
+  const hasInputErrors = () => {
+    if (exchangeContext?.exchange == null) return;
+
+    const message = {
+      favoriteName:
+        exchangeContext.activeFavoriteName.length < 3
+          ? "The minimum length is three characters."
+          : null,
+
+      initialValue:
+        Number(exchangeContext.exchange.converter.initialValue) <= 0
+          ? "Enter a number."
+          : null,
+
+      targetValue:
+        Number(exchangeContext.exchange.converter.targetValue) <= 0
+          ? "Please press the START button."
+          : null,
+    };
+
+    setValidationErrors(() => {
+      return message;
+    });
+
+    const hasErrors = Object.values(message).some((error) => {
+      return error !== null;
+    });
+
+    return hasErrors;
+  };
+
   const handleSaveFavorite = async () => {
     if (exchangeContext?.exchange == null) return;
-    if (exchangeContext.activeFavoriteName.length < 3) return;
+    if (hasInputErrors()) return;
 
     const token = localStorage.getItem("token");
 
@@ -109,22 +149,46 @@ function Card({ title }: CardProps) {
         }
       ></button>
       <h2>{title}</h2>
-      <div className="favorite-name-container">
-        <p className="favorite-label">Name</p>
-        <input
-          value={exchangeContext?.activeFavoriteName}
-          onInput={(e) => {
-            updateFavoriteName(e);
-          }}
-          id="favoriteName"
-          className="favorite-name-input"
-          type="text"
-          maxLength={30}
-        />
+      <div className="favorite-name-field">
+        <div className="favorite-name-container">
+          <p className="favorite-label">Name</p>
+          <input
+            value={exchangeContext?.activeFavoriteName}
+            onInput={(e) => {
+              updateFavoriteName(e);
+            }}
+            onClick={() => {
+              setValidationErrors((hasErrors) => {
+                return {
+                  favoriteName: null,
+                  initialValue: hasErrors.initialValue,
+                  targetValue: hasErrors.targetValue,
+                };
+              });
+            }}
+            id="favoriteName"
+            className="favorite-name-input"
+            type="text"
+            maxLength={30}
+          />
+        </div>
+        <div className="errorMessage-conatiner">
+          {validationErrors.favoriteName && (
+            <span>{validationErrors.favoriteName}</span>
+          )}
+        </div>
       </div>
       <div className="currency-inputs">
-        <CurrencyInput title="Initial value" id="initialValue"></CurrencyInput>
-        <CurrencyInput title="Target value" id="targetValue"></CurrencyInput>
+        <CurrencyInput
+          title="Initial value"
+          id="initialValue"
+          validationMessage={validationErrors.initialValue}
+        ></CurrencyInput>
+        <CurrencyInput
+          title="Target value"
+          id="targetValue"
+          validationMessage={validationErrors.targetValue}
+        ></CurrencyInput>
       </div>
       <div className="date-controls">
         <DatePicker
