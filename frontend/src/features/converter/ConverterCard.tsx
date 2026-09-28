@@ -182,12 +182,14 @@ function Card({ title }: CardProps) {
         <CurrencyInput
           title="Initial value"
           id="initialValue"
-          validationMessage={validationErrors.initialValue}
+          validationError={validationErrors.initialValue}
+          setValidationErrors={setValidationErrors}
         ></CurrencyInput>
         <CurrencyInput
           title="Target value"
           id="targetValue"
-          validationMessage={validationErrors.targetValue}
+          validationError={validationErrors.targetValue}
+          setValidationErrors={setValidationErrors}
         ></CurrencyInput>
       </div>
       <div className="date-controls">

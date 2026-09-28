@@ -9,10 +9,22 @@ import { NewExchangeContext } from "../../context/ExchangeContext.ts";
 type InputProps = {
   title: string;
   id: string;
-  validationMessage: string | null;
+  validationError: string | null;
+  setValidationErrors: React.Dispatch<
+    React.SetStateAction<{
+      favoriteName: string | null;
+      initialValue: string | null;
+      targetValue: string | null;
+    }>
+  >;
 };
 
-function CurrencyInput({ title, id, validationMessage }: InputProps) {
+function CurrencyInput({
+  title,
+  id,
+  validationError,
+  setValidationErrors,
+}: InputProps) {
   let exchangeContext = useContext(NewExchangeContext);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -66,7 +78,23 @@ function CurrencyInput({ title, id, validationMessage }: InputProps) {
   }, [isOpen]);
 
   return (
-    <div>
+    <div
+      onClick={() => {
+        setValidationErrors((errors) => {
+          return {
+            favoriteName: errors.favoriteName,
+            initialValue:
+              errors.initialValue === validationError
+                ? null
+                : errors.initialValue,
+            targetValue:
+              errors.targetValue === validationError
+                ? null
+                : errors.targetValue,
+          };
+        });
+      }}
+    >
       <div className="currency-input-container">
         <p className="currency-label">{title}</p>
         <input
@@ -131,7 +159,7 @@ function CurrencyInput({ title, id, validationMessage }: InputProps) {
         </div>
       </div>
       <ValidationMessage
-        validationMessage={validationMessage}
+        validationMessage={validationError}
       ></ValidationMessage>
     </div>
   );
