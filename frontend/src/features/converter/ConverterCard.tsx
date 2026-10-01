@@ -4,15 +4,8 @@ import DatePicker from "./DatePicker";
 import Switch from "@mui/material/Switch";
 import type { ExchangeState } from "../../types/exchangeState";
 import { createExchangeState } from "../../types/exchangeState";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { NewExchangeContext } from "../../context/ExchangeContext";
-import {
-  saveToLocal,
-  loadLocalStorage,
-  overwriteFavorite,
-} from "../../services/localStorage";
-import { AuthContext } from "../../context/AuthProvider";
-import { postSingleFavorite, putSingleFavorite } from "../../api/favoritesApi";
 import { ValidationContext } from "../../context/ValidationProvider";
 
 type CardProps = {
@@ -21,9 +14,7 @@ type CardProps = {
 
 function Card({ title }: CardProps) {
   const validationContext = useContext(ValidationContext);
-  const [favoriteSaved, setFavoriteSaved] = useState(false);
 
-  const authContext = useContext(AuthContext);
   const exchangeContext = useContext(NewExchangeContext);
   const isDisabled = exchangeContext?.exchange.converter.isHistorical
     ? false
@@ -33,101 +24,6 @@ function Card({ title }: CardProps) {
     throw new Error("ValidationContext is missing");
   }
 
-  useEffect(() => {
-    if (!favoriteSaved) return;
-
-    const timer = setTimeout(() => {
-      setFavoriteSaved(false);
-    }, 2000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [favoriteSaved]);
-
-  const hasInputErrors = () => {
-    if (exchangeContext?.exchange == null) return;
-
-    const message = {
-      favoriteName:
-        exchangeContext.activeFavoriteName.length < 3
-          ? "The minimum length is three characters."
-          : null,
-
-      initialValue:
-        Number(exchangeContext.exchange.converter.initialValue) <= 0
-          ? "Enter a number."
-          : null,
-
-      targetValue:
-        Number(exchangeContext.exchange.converter.targetValue) <= 0
-          ? "Please press the START button."
-          : null,
-    };
-
-    validationContext?.setValidationErrors(message);
-
-    const hasErrors = Object.values(message).some((error) => {
-      return error !== null;
-    });
-
-    return hasErrors;
-  };
-
-  const handleSaveFavorite = async () => {
-    if (exchangeContext?.exchange == null) return;
-    if (hasInputErrors()) return;
-
-    const token = localStorage.getItem("token");
-
-    if (authContext?.isLoggedIn && token) {
-      const { converter, dashboard } = exchangeContext.exchange;
-
-      if (exchangeContext.activeFavoriteId) {
-        await putSingleFavorite(
-          exchangeContext.activeFavoriteName,
-          converter.initialValue,
-          converter.targetValue,
-          converter.sourceCurrency,
-          converter.targetCurrency,
-          converter.historicalDate,
-          converter.isHistorical,
-          dashboard.dateFrom,
-          dashboard.dateTo,
-          exchangeContext.activeFavoriteId,
-          token,
-        );
-      } else {
-        await postSingleFavorite(
-          exchangeContext.activeFavoriteName,
-          converter.initialValue,
-          converter.targetValue,
-          converter.sourceCurrency,
-          converter.targetCurrency,
-          converter.historicalDate,
-          converter.isHistorical,
-          dashboard.dateFrom,
-          dashboard.dateTo,
-          token,
-        );
-      }
-    } else {
-      if (exchangeContext.activeFavoriteId) {
-        overwriteFavorite(
-          exchangeContext.activeFavoriteId,
-          exchangeContext.activeFavoriteName,
-          exchangeContext.exchange,
-        );
-      } else {
-        saveToLocal(
-          exchangeContext.exchange,
-          exchangeContext.activeFavoriteName,
-        );
-      }
-      exchangeContext.setFavoritesState(loadLocalStorage());
-    }
-    setFavoriteSaved(true);
-  };
-
   const updateFavoriteName = (e: React.InputEvent<HTMLInputElement>) => {
     const input = e.currentTarget;
     exchangeContext?.setActiveFavoriteName(input.value);
@@ -135,17 +31,6 @@ function Card({ title }: CardProps) {
 
   return (
     <div className="converter-card max-w-512">
-      <button
-        disabled={exchangeContext?.exchange.converter.initialValue.length == 0}
-        onClick={() => {
-          handleSaveFavorite();
-        }}
-        className={
-          exchangeContext?.exchange.converter.initialValue.length == 0
-            ? "save-icon save-icon-disabled"
-            : "save-icon"
-        }
-      ></button>
       <h2>{title}</h2>
       <div className="favorite-name-field">
         <div className="favorite-name-container">
@@ -209,15 +94,6 @@ function Card({ title }: CardProps) {
           size="small"
         />
       </div>
-      {favoriteSaved ? (
-        <div className="save-message-container">
-          <div className="save-message">
-            "{exchangeContext?.activeFavoriteName}" saved!
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
     </div>
   );
 }

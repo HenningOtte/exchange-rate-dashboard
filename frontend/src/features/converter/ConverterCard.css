@@ -29,26 +29,6 @@
   margin-bottom: 16px;
 }
 
-.save-icon {
-  right: 16px;
-  position: absolute;
-  height: 24px;
-  width: 24px;
-  border: none;
-  background-color: transparent;
-  background-image: url("../../assets/icons/heart.svg");
-  cursor: pointer;
-  transition: all ease 0.2s;
-}
-
-.save-icon:hover {
-  opacity: 0.5;
-}
-
-.save-icon-disabled {
-  opacity: 0.5;
-}
-
 .favorite-name-field {
   margin-bottom: 16px;
 }
