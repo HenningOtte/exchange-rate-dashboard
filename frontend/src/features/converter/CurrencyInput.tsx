@@ -2,32 +2,21 @@ import "./CurrencyInput.css";
 import ValidationMessage from "./ValidationMessage.tsx";
 import type { ExchangeState } from "../../types/exchangeState.tsx";
 import { createExchangeState } from "../../types/exchangeState.tsx";
-import { useEffect, useRef, useState } from "react";
-import { useContext } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { NewExchangeContext } from "../../context/ExchangeContext.ts";
+import { ValidationContext } from "../../context/ValidationProvider.tsx";
 
 type InputProps = {
   title: string;
   id: string;
   validationError: string | null;
-  setValidationErrors: React.Dispatch<
-    React.SetStateAction<{
-      favoriteName: string | null;
-      initialValue: string | null;
-      targetValue: string | null;
-    }>
-  >;
 };
 
-function CurrencyInput({
-  title,
-  id,
-  validationError,
-  setValidationErrors,
-}: InputProps) {
+function CurrencyInput({ title, id, validationError }: InputProps) {
   let exchangeContext = useContext(NewExchangeContext);
-  const [isOpen, setIsOpen] = useState(false);
+  const validationContext = useContext(ValidationContext);
 
+  const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const setCurrency = (currency: "USD" | "EUR" | "GBP") => {
@@ -80,18 +69,16 @@ function CurrencyInput({
   return (
     <div
       onClick={() => {
-        setValidationErrors((errors) => {
-          return {
-            favoriteName: errors.favoriteName,
-            initialValue:
-              errors.initialValue === validationError
-                ? null
-                : errors.initialValue,
-            targetValue:
-              errors.targetValue === validationError
-                ? null
-                : errors.targetValue,
-          };
+        validationContext?.setValidationErrors({
+          favoriteName: validationContext.validationErrors.favoriteName,
+          initialValue:
+            validationContext.validationErrors.initialValue === validationError
+              ? null
+              : validationContext.validationErrors.initialValue,
+          targetValue:
+            validationContext.validationErrors.targetValue === validationError
+              ? null
+              : validationContext.validationErrors.targetValue,
         });
       }}
     >

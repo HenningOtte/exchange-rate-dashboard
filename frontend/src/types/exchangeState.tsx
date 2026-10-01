@@ -33,8 +33,8 @@ export function createExchangeState(i: ExchangeState) {
 export function clearExchangeState(i: ExchangeState) {
   const exchangeViewState: ExchangeState = createExchangeState(i);
 
-  exchangeViewState.converter.initialValue = "0";
-  exchangeViewState.converter.targetValue = "0";
+  exchangeViewState.converter.initialValue = "";
+  exchangeViewState.converter.targetValue = "";
   exchangeViewState.converter.sourceCurrency = "USD";
   exchangeViewState.converter.targetCurrency = "EUR";
   exchangeViewState.converter.historicalDate = "";

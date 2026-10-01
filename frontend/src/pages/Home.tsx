@@ -1,23 +1,16 @@
 import ConverterCard from "../features/converter/ConverterCard";
 import DashboardCard from "../features/converter/DashboardCard";
 import { useContext } from "react";
-import type { ExchangeState } from "../types/exchangeState";
 import { clearExchangeState } from "../types/exchangeState";
-import { createContext } from "react";
 import { calculateHistoricalExchange } from "../services/exchangeService";
 import { calculateLatestRates } from "../services/exchangeService";
 import { createExchangeState } from "../types/exchangeState";
 import { NewExchangeContext } from "../context/ExchangeContext";
-
-type ExchangeContextValue = {
-  exchangeState: ExchangeState;
-  setExchangeState: React.Dispatch<React.SetStateAction<ExchangeState>>;
-};
-
-export const ExchangeContext = createContext<ExchangeContextValue | null>(null);
+import { ValidationContext } from "../context/ValidationProvider";
 
 function Home() {
-  let exchangeContext = useContext(NewExchangeContext);
+  const exchangeContext = useContext(NewExchangeContext);
+  const validationContext = useContext(ValidationContext);
 
   const updateTargetValue = (convertedValue: string) => {
     exchangeContext?.setExchangeState((state) => {
@@ -64,6 +57,12 @@ function Home() {
     });
     exchangeContext.setActiveFavoriteId(null);
     exchangeContext.setActiveFavoriteName("");
+
+    validationContext?.setValidationErrors({
+      favoriteName: null,
+      initialValue: null,
+      targetValue: null,
+    });
   };
 
   return (

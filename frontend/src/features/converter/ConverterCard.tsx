@@ -13,25 +13,25 @@ import {
 } from "../../services/localStorage";
 import { AuthContext } from "../../context/AuthProvider";
 import { postSingleFavorite, putSingleFavorite } from "../../api/favoritesApi";
+import { ValidationContext } from "../../context/ValidationProvider";
 
 type CardProps = {
   title: string;
 };
 
 function Card({ title }: CardProps) {
+  const validationContext = useContext(ValidationContext);
   const [favoriteSaved, setFavoriteSaved] = useState(false);
-
-  const [validationErrors, setValidationErrors] = useState({
-    favoriteName: null as string | null,
-    initialValue: null as string | null,
-    targetValue: null as string | null,
-  });
 
   const authContext = useContext(AuthContext);
   const exchangeContext = useContext(NewExchangeContext);
   const isDisabled = exchangeContext?.exchange.converter.isHistorical
     ? false
     : true;
+
+  if (validationContext === null) {
+    throw new Error("ValidationContext is missing");
+  }
 
   useEffect(() => {
     if (!favoriteSaved) return;
@@ -64,9 +64,7 @@ function Card({ title }: CardProps) {
           : null,
     };
 
-    setValidationErrors(() => {
-      return message;
-    });
+    validationContext?.setValidationErrors(message);
 
     const hasErrors = Object.values(message).some((error) => {
       return error !== null;
@@ -158,12 +156,10 @@ function Card({ title }: CardProps) {
               updateFavoriteName(e);
             }}
             onClick={() => {
-              setValidationErrors((hasErrors) => {
-                return {
-                  favoriteName: null,
-                  initialValue: hasErrors.initialValue,
-                  targetValue: hasErrors.targetValue,
-                };
+              validationContext?.setValidationErrors({
+                favoriteName: null,
+                initialValue: validationContext.validationErrors.initialValue,
+                targetValue: validationContext.validationErrors.targetValue,
               });
             }}
             id="favoriteName"
@@ -173,8 +169,8 @@ function Card({ title }: CardProps) {
           />
         </div>
         <div className="errorMessage-conatiner">
-          {validationErrors.favoriteName && (
-            <span>{validationErrors.favoriteName}</span>
+          {validationContext?.validationErrors.favoriteName && (
+            <span>{validationContext?.validationErrors.favoriteName}</span>
           )}
         </div>
       </div>
@@ -182,14 +178,12 @@ function Card({ title }: CardProps) {
         <CurrencyInput
           title="Initial value"
           id="initialValue"
-          validationError={validationErrors.initialValue}
-          setValidationErrors={setValidationErrors}
+          validationError={validationContext.validationErrors.initialValue}
         ></CurrencyInput>
         <CurrencyInput
           title="Target value"
           id="targetValue"
-          validationError={validationErrors.targetValue}
-          setValidationErrors={setValidationErrors}
+          validationError={validationContext.validationErrors.targetValue}
         ></CurrencyInput>
       </div>
       <div className="date-controls">
@@ -201,7 +195,9 @@ function Card({ title }: CardProps) {
         <Switch
           checked={exchangeContext?.exchange.converter.isHistorical}
           onClick={() => {
-            exchangeContext?.setExchangeState((exchange) => {
+            if (!exchangeContext) return;
+
+            exchangeContext.setExchangeState((exchange) => {
               const exchangeViewState: ExchangeState =
                 createExchangeState(exchange);
               exchangeViewState.converter.isHistorical =

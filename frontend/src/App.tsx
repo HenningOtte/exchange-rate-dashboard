@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import ExchangeProvider from "./context/ExchangeProvider";
 import NavbarMobile from "./components/NavbarMobile";
 import AuthProvider from "./context/AuthProvider";
+import ValidationProvider from "./context/ValidationProvider";
 
 function App() {
   return (
@@ -17,7 +18,14 @@ function App() {
           <main>
             <ExchangeProvider>
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route
+                  path="/"
+                  element={
+                    <ValidationProvider>
+                      <Home />
+                    </ValidationProvider>
+                  }
+                />
                 <Route path="/favorites" element={<Favorites />} />
                 <Route path="/profil" element={<Profile />} />
               </Routes>
