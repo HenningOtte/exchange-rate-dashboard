@@ -1,26 +1,25 @@
 const { verifyToken } = require("../helpers/jwt");
 
 const authenticate = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const token = req.cookies.authcookie;
 
-  if (!authHeader) {
+  if (!token) {
     return res.status(401).json({
       success: false,
       message: "No token provided.",
     });
   }
 
-  const token = authHeader.split(" ")[1];
   const validToken = verifyToken(token);
 
   if (!validToken) {
-    return res.status(400).json({
+    return res.status(401).json({
       success: false,
       message: "Invalid token.",
     });
   }
 
-  req.userId = validToken.id;  
+  req.userId = validToken.id;
   next();
 };
 

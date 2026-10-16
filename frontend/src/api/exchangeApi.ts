@@ -41,7 +41,7 @@ export async function fetchHistoricalRates(
   };
 
   const [initial, target] = currencies;
-  const apiUrl = `https://api.freecurrencyapi.com/v1/historical?apikey=fca_live_RnwtzVgYRA9qlpegCia189guOBgXN2Xqz4cdlAtv&date=${date}&base_currency=${initial}&currencies=${target}`;
+  const apiUrl = `https://api.freecurrencyapi.com/v1/historical?apikey=${API_KEY}&date=${date}&base_currency=${initial}&currencies=${target}`;
 
   try {
     const promise = await fetch(apiUrl);

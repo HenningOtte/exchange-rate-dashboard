@@ -13,6 +13,7 @@ export async function fetchAllFavorites(token: string) {
   try {
     const response = await fetch(favoritesEndpoint, {
       method: "GET",
+      credentials: "include",
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -46,7 +47,7 @@ export async function fetchSingleFavorite(id: String) {
   const apiUrl = `${favoritesEndpoint}/${id}`;
 
   try {
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, { credentials: "include" });
     const favoriteApi: FavoriteResponse = await response.json();
     const { id, name, creationDate, state } = favoriteApi;
     const favorite: Favorite = generateFavorite(id, name, state, creationDate);
@@ -73,6 +74,7 @@ export async function postSingleFavorite(
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
+      credentials: "include",
       headers: {
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -122,6 +124,7 @@ export async function putSingleFavorite(
   try {
     const response = await fetch(apiUrl, {
       method: "PUT",
+      credentials: "include",
       headers: {
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -158,6 +161,7 @@ export async function deleteFavorite(id: string, token: string) {
 
   try {
     const response = await fetch(apiUrl, {
+      credentials: "include",
       method: "DELETE",
       headers: {
         authorization: `Bearer ${token}`,

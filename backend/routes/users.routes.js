@@ -4,7 +4,12 @@ const userModel = require("../models/User.model");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const { body, validationResult } = require("express-validator");
-const { generateToken, verifyToken } = require("../helpers/jwt");
+const {
+  generateToken,
+  verifyToken,
+  TOKEN_EXPIRES_IN_SECONDS,
+} = require("../helpers/jwt");
+const authenticate = require("../middleware/auth.middleware");
 
 router.post(
   "/register",
@@ -70,6 +75,13 @@ router.post("/login", async (req, res) => {
     const login = bcrypt.compareSync(password, user.password);
 
     if (login) {
+      res.cookie("authcookie", generateToken(user), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: TOKEN_EXPIRES_IN_SECONDS * 1000,
+      });
+
       res.status(200).json({
         success: login,
         message: "",
@@ -78,7 +90,6 @@ router.post("/login", async (req, res) => {
           lastname: lastname,
           email: email,
         },
-        token: generateToken(user),
       });
     } else {
       res.status(400).json({
@@ -104,23 +115,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/me", async (req, res) => {
+router.get("/me", authenticate, async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader) {
-      return res.status(401).json({
-        success: false,
-        message: "No token provided.",
-        data: {
-          firstname: "",
-          lastname: "",
-          email: "",
-        },
-      });
-    }
-
-    const token = authHeader.split(" ")[1];
+    const token = req.cookies.authcookie;
     const validToken = verifyToken(token);
     const user = await userModel.findById(validToken.id);
 

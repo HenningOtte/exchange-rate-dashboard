@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const TOKEN_EXPIRES_IN_SECONDS = 7 * 24 * 60 * 60;
 
 dotenv.config();
 
@@ -10,7 +11,7 @@ const generateToken = (user) => {
     },
     process.env.SECRET,
     {
-      expiresIn: "7d",
+      expiresIn: TOKEN_EXPIRES_IN_SECONDS,
     },
   );
 };
@@ -23,4 +24,4 @@ const verifyToken = (token) => {
   }
 };
 
-module.exports = { generateToken, verifyToken };
+module.exports = { generateToken, verifyToken, TOKEN_EXPIRES_IN_SECONDS };
