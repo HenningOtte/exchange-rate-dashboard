@@ -122,9 +122,7 @@ function Home() {
     if (exchangeContext?.exchange == null) return;
     if (hasInputErrors()) return;
 
-    const token = localStorage.getItem("token");
-
-    if (authContext?.isLoggedIn && token) {
+    if (authContext?.isLoggedIn) {
       const { converter, dashboard } = exchangeContext.exchange;
 
       if (exchangeContext.activeFavoriteId) {
@@ -139,7 +137,6 @@ function Home() {
           dashboard.dateFrom,
           dashboard.dateTo,
           exchangeContext.activeFavoriteId,
-          token,
         );
       } else {
         await postSingleFavorite(
@@ -152,7 +149,6 @@ function Home() {
           converter.isHistorical,
           dashboard.dateFrom,
           dashboard.dateTo,
-          token,
         );
       }
     } else {

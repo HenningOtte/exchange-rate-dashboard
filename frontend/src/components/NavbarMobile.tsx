@@ -14,7 +14,6 @@ function NavbarMobile() {
   };
 
   const handleLogout = () => {
-    localStorage.setItem("token", "");
     authContext?.setLoggedIn(false);
     authContext?.setUser(() => {
       return {

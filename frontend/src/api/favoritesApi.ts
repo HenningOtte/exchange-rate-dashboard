@@ -5,18 +5,15 @@ import type {
   FavoriteError,
 } from "../types/favorites";
 import { generateFavorite } from "../types/favorites";
-import { getCurrentDate } from "../utils/date";  
+import { getCurrentDate } from "../utils/date";
 
 const favoritesEndpoint = "http://localhost:3000/favorites";
 
-export async function fetchAllFavorites(token: string) {
+export async function fetchAllFavorites() {
   try {
     const response = await fetch(favoritesEndpoint, {
       method: "GET",
       credentials: "include",
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
     });
 
     if (!response.ok) {
@@ -67,7 +64,6 @@ export async function postSingleFavorite(
   isHistorical: boolean,
   dateFrom: string,
   dateTo: string,
-  token: string,
 ) {
   const apiUrl = favoritesEndpoint;
 
@@ -76,7 +72,6 @@ export async function postSingleFavorite(
       method: "POST",
       credentials: "include",
       headers: {
-        authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -117,7 +112,6 @@ export async function putSingleFavorite(
   dateFrom: string,
   dateTo: string,
   id: string,
-  token: string,
 ) {
   const apiUrl = `${favoritesEndpoint}/${id}`;
 
@@ -126,7 +120,6 @@ export async function putSingleFavorite(
       method: "PUT",
       credentials: "include",
       headers: {
-        authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -156,16 +149,13 @@ export async function putSingleFavorite(
   }
 }
 
-export async function deleteFavorite(id: string, token: string) {
+export async function deleteFavorite(id: string) {
   const apiUrl = `${favoritesEndpoint}/${id}`;
 
   try {
     const response = await fetch(apiUrl, {
       credentials: "include",
       method: "DELETE",
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
     });
     const data = await response.json();
     console.log(data);

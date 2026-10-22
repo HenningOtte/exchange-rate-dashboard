@@ -22,11 +22,10 @@ function FavoriteRow({ favorite, border }: Row) {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.stopPropagation();
-    const token = localStorage.getItem("token");
 
-    if (authContext?.isLoggedIn && token) {
-      await deleteFavorite(favorite.id, token);
-      const favorites = await fetchAllFavorites(token);
+    if (authContext?.isLoggedIn) {
+      await deleteFavorite(favorite.id);
+      const favorites = await fetchAllFavorites();
       if (favorites && Array.isArray(favorites)) {
         context?.setFavoritesState(favorites);
       }

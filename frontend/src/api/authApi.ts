@@ -4,7 +4,6 @@ export type LoginSuccess = {
   success: boolean;
   message: string;
   data: User;
-  token: string;
 };
 
 export type RegisterSuccess = {
@@ -44,7 +43,6 @@ export async function postLogin(email: string, password: string) {
         lastname: "",
         email: "",
       },
-      token: "",
     };
   }
 }
@@ -82,14 +80,11 @@ export async function postRegister(
   }
 }
 
-export async function getUserData(token: string) {
+export async function getUserData() {
   try {
     const response = await fetch("http://localhost:3000/users/me", {
       method: "GET",
       credentials: "include",
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
     });
 
     const data: GetUserResponse = await response.json();

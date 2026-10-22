@@ -7,10 +7,6 @@ const navLinkStyles = ({ isActive }: { isActive: boolean }) => ({
   backgroundColor: isActive ? "#82adeb" : "",
 });
 
-const test = {
-  farbe: "blau",
-};
-
 function Navbar() {
   const authContext = useContext(AuthContext);
   const toggleProfilMenu = () => {
@@ -20,7 +16,6 @@ function Navbar() {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.setItem("token", "");
     authContext?.setLoggedIn(false);
     authContext?.setUser(() => {
       return {

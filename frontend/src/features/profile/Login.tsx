@@ -34,8 +34,6 @@ function LoginSignup({ setAuthMode }: authMode) {
       loginData.password,
     );
     if (login.success) {
-      localStorage.setItem("token", login.token);
-
       setLoginErrors({
         email: "",
         password: "",

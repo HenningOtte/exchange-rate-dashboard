@@ -11,10 +11,8 @@ function Favorites() {
   const authContext = useContext(AuthContext);
 
   async function loadFavorites() {
-    const token = localStorage.getItem("token");
-
-    if (authContext != null && token) {
-      const favorites = await fetchAllFavorites(token);
+    if (authContext != null) {
+      const favorites = await fetchAllFavorites();
 
       if (favorites && Array.isArray(favorites)) {
         newExchangeContext?.setFavoritesState(favorites);
