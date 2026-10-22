@@ -5,7 +5,7 @@ import type {
   FavoriteError,
 } from "../types/favorites";
 import { generateFavorite } from "../types/favorites";
-import { getCurrentDate } from "../utils/date";
+import { getCurrentDate } from "../utils/date";  
 
 const favoritesEndpoint = "http://localhost:3000/favorites";
 

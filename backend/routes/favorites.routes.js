@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const favoriteModel = require("../models/Favorite.model");
+const authenticate = require("../middleware/auth.middleware");
 
 const {
   createFavoriteValidation,
@@ -10,6 +11,7 @@ const {
 
 router.post(
   "/",
+  authenticate,
   createFavoriteValidation,
   handleValidationErrors,
   async (req, res) => {
@@ -23,7 +25,7 @@ router.post(
   },
 );
 
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
   try {
     const favoriteList = await favoriteModel.find({
       userId: req.userId,
@@ -37,16 +39,23 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", authenticate, async (req, res) => {
   try {
-    const { id } = req.params;
     const favorite = await favoriteModel.findOne({
-      _id: id,
+      _id: req.params.id,
       userId: req.userId,
     });
-    res.send(favorite);
+
+    if (!favorite) {
+      return res.status(404).json({
+        success: false,
+        message: "Favorite not found.",
+      });
+    }
+
+    return res.status(200).json(favorite);
   } catch (error) {
-    res.status(500).json({
+    return res.status(400).json({
       success: false,
       message: error.message,
     });
@@ -55,6 +64,7 @@ router.get("/:id", async (req, res) => {
 
 router.put(
   "/:id",
+  authenticate,
   updateFavoriteValidation,
   handleValidationErrors,
   async (req, res) => {
@@ -89,7 +99,7 @@ router.put(
   },
 );
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticate, async (req, res) => {
   try {
     const { id } = req.params;
     const deletedFavorite = await favoriteModel.findOneAndDelete({

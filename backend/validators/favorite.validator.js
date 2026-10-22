@@ -1,7 +1,6 @@
 const { body, validationResult, param } = require("express-validator");
 
 const createFavoriteValidation = [
-  param("id").isMongoId().withMessage("Invalid favorite id"),
   body("name").notEmpty().withMessage("Name is required"),
   body("creationDate").notEmpty().withMessage("Date is required"),
   body("state.converter.initialValue")
