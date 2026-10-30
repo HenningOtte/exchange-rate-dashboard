@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+import { postLogout } from "../api/authApi";
 import "./Navbar.css";
 import "./NavbarMobile.css";
+import type { LogoutResponse } from "../api/authApi";
 
 function NavbarMobile() {
   const authContext = useContext(AuthContext);
@@ -13,16 +15,25 @@ function NavbarMobile() {
     setMenuOpen(!menuOpen);
   };
 
-  const handleLogout = () => {
-    authContext?.setLoggedIn(false);
-    authContext?.setUser(() => {
-      return {
-        firstname: "",
-        lastname: "",
-        email: "",
-      };
-    });
-    setMenuOpen(!menuOpen);
+  const handleLogout = async () => {
+    try {
+      const response: LogoutResponse = await postLogout();
+      console.log(response);
+
+      if (response.success) {
+        authContext?.setLoggedIn(false);
+        authContext?.setUser(() => {
+          return {
+            firstname: "",
+            lastname: "",
+            email: "",
+          };
+        });
+      }
+      setMenuOpen(!menuOpen);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

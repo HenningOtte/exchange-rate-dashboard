@@ -67,6 +67,19 @@ router.post(
   },
 );
 
+router.post("/logout", async (req, res) => {
+  res.clearCookie("authcookie", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Successfully logged out.",
+  });
+});
+
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -103,6 +116,7 @@ router.post("/login", async (req, res) => {
       });
     }
   } catch (error) {
+    console.error(error);
     res.status(400).json({
       success: false,
       message: "Email not found.",

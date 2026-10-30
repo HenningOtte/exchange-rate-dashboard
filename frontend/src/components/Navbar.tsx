@@ -2,6 +2,8 @@ import { useState, useContext, useRef, useEffect } from "react";
 import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+import { postLogout } from "../api/authApi";
+import type { LogoutResponse } from "../api/authApi";
 
 const navLinkStyles = ({ isActive }: { isActive: boolean }) => ({
   backgroundColor: isActive ? "#82adeb" : "",
@@ -15,16 +17,25 @@ function Navbar() {
 
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    authContext?.setLoggedIn(false);
-    authContext?.setUser(() => {
-      return {
-        firstname: "",
-        lastname: "",
-        email: "",
-      };
-    });
-    toggleProfilMenu();
+  const handleLogout = async () => {
+    try {
+      const response: LogoutResponse = await postLogout();
+      console.log(response);
+
+      if (response.success) {
+        authContext?.setLoggedIn(false);
+        authContext?.setUser(() => {
+          return {
+            firstname: "",
+            lastname: "",
+            email: "",
+          };
+        });
+      }
+      toggleProfilMenu();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const dropdownRef = useRef<HTMLDivElement>(null);

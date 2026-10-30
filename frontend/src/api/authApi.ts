@@ -18,6 +18,11 @@ export type GetUserResponse = {
   data: User;
 };
 
+export type LogoutResponse = {
+  success: boolean;
+  message: string;
+};
+
 export async function postLogin(email: string, password: string) {
   try {
     const response = await fetch("http://localhost:3000/users/login", {
@@ -98,6 +103,21 @@ export async function getUserData() {
         lastname: "",
         email: "",
       },
+    };
+  }
+}
+export async function postLogout() {
+  try {
+    const response = await fetch("http://localhost:3000/users/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    return await response.json();
+  } catch (error) {
+    return {
+      success: false,
+      message: "Network error.",
     };
   }
 }

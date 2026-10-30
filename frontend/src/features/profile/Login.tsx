@@ -33,6 +33,7 @@ function LoginSignup({ setAuthMode }: authMode) {
       loginData.email,
       loginData.password,
     );
+
     if (login.success) {
       setLoginErrors({
         email: "",
