@@ -5,6 +5,8 @@ import { AuthContext } from "../../context/AuthProvider";
 import { useContext, useState } from "react";
 import type { LoginSuccess } from "../../api/authApi";
 import { NewExchangeContext } from "../../context/ExchangeContext";
+import { fetchAllFavorites } from "../../api/favoritesApi";
+import { loadLocalStorage } from "../../services/localStorage";
 
 type authMode = {
   setAuthMode: React.Dispatch<React.SetStateAction<"login" | "signup">>;
@@ -45,9 +47,12 @@ function LoginSignup({ setAuthMode }: authMode) {
         email: login.data.email,
       });
 
-      newExchangeContext?.setFavoritesState([]);
-      newExchangeContext?.setActiveFavoriteId(null);
+      const favorites = await fetchAllFavorites();
+      if (favorites && Array.isArray(favorites)) {
+        newExchangeContext?.setFavoritesState(favorites);
+      }
 
+      newExchangeContext?.setActiveFavoriteId(null);
       authContext?.setLoggedIn(true);
     } else {
       if (login.message == "Email not found.") {
@@ -61,6 +66,10 @@ function LoginSignup({ setAuthMode }: authMode) {
           password: login.message,
         });
       }
+
+      authContext?.setLoggedIn(false);
+      newExchangeContext?.setFavoritesState(loadLocalStorage());
+      newExchangeContext?.setActiveFavoriteId(null);
     }
   };
 

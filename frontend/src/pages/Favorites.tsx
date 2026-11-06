@@ -1,37 +1,10 @@
 import FavoriteRow from "../features/favorite/FavoriteRow";
 import { NewExchangeContext } from "../context/ExchangeContext";
 import "./Favorites.css";
-import { useContext, useEffect } from "react";
-import { loadLocalStorage } from "../services/localStorage";
-import { AuthContext } from "../context/AuthProvider";
-import { fetchAllFavorites } from "../api/favoritesApi";
+import { useContext } from "react";
 
 function Favorites() {
   const newExchangeContext = useContext(NewExchangeContext);
-  const authContext = useContext(AuthContext);
-
-  async function loadFavorites() {
-    if (authContext != null) {
-      const favorites = await fetchAllFavorites();
-
-      if (favorites && Array.isArray(favorites)) {
-        newExchangeContext?.setFavoritesState(favorites);
-      } else {
-        authContext.setLoggedIn(false);
-        authContext.setUser({
-          firstname: "",
-          lastname: "",
-          email: "",
-        });
-      }
-    } else {
-      newExchangeContext?.setFavoritesState(loadLocalStorage());
-    }
-  }
-
-  useEffect(() => {
-    loadFavorites();
-  }, [authContext?.isLoggedIn]);
 
   return (
     <div className="favorites">

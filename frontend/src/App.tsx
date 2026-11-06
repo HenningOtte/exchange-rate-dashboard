@@ -12,11 +12,11 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <AuthProvider>
-          <NavbarMobile></NavbarMobile>
-          <Navbar></Navbar>
-          <main>
-            <ExchangeProvider>
+        <ExchangeProvider>
+          <AuthProvider>
+            <NavbarMobile></NavbarMobile>
+            <Navbar></Navbar>
+            <main>
               <Routes>
                 <Route
                   path="/"
@@ -29,9 +29,9 @@ function App() {
                 <Route path="/favorites" element={<Favorites />} />
                 <Route path="/profil" element={<Profile />} />
               </Routes>
-            </ExchangeProvider>
-          </main>
-        </AuthProvider>
+            </main>
+          </AuthProvider>
+        </ExchangeProvider>
       </BrowserRouter>
     </>
   );

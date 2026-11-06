@@ -1,9 +1,11 @@
 import { useState, useContext, useRef, useEffect } from "react";
 import "./Navbar.css";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import { postLogout } from "../api/authApi";
 import type { LogoutResponse } from "../api/authApi";
+import { NewExchangeContext } from "../context/ExchangeContext";
+import { loadLocalStorage } from "../services/localStorage";
 
 const navLinkStyles = ({ isActive }: { isActive: boolean }) => ({
   backgroundColor: isActive ? "#82adeb" : "",
@@ -11,6 +13,8 @@ const navLinkStyles = ({ isActive }: { isActive: boolean }) => ({
 
 function Navbar() {
   const authContext = useContext(AuthContext);
+  const newExchangeContext = useContext(NewExchangeContext);
+
   const toggleProfilMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
@@ -20,17 +24,15 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       const response: LogoutResponse = await postLogout();
-      console.log(response);
 
       if (response.success) {
         authContext?.setLoggedIn(false);
-        authContext?.setUser(() => {
-          return {
-            firstname: "",
-            lastname: "",
-            email: "",
-          };
+        authContext?.setUser({
+          firstname: "",
+          lastname: "",
+          email: "",
         });
+        newExchangeContext?.setFavoritesState(loadLocalStorage());
       }
       toggleProfilMenu();
     } catch (error) {
@@ -112,7 +114,7 @@ function Navbar() {
         </NavLink>
         <NavLink
           onClick={() => {
-            handleLogout();
+            if (authContext?.isLoggedIn) handleLogout();
           }}
           to={"/profil"}
           className="profileMenu-link"

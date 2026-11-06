@@ -5,9 +5,12 @@ import { postLogout } from "../api/authApi";
 import "./Navbar.css";
 import "./NavbarMobile.css";
 import type { LogoutResponse } from "../api/authApi";
+import { NewExchangeContext } from "../context/ExchangeContext";
+import { loadLocalStorage } from "../services/localStorage";
 
 function NavbarMobile() {
   const authContext = useContext(AuthContext);
+  const exchangeContext = useContext(NewExchangeContext);
   let location = useLocation();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,17 +21,15 @@ function NavbarMobile() {
   const handleLogout = async () => {
     try {
       const response: LogoutResponse = await postLogout();
-      console.log(response);
 
       if (response.success) {
         authContext?.setLoggedIn(false);
-        authContext?.setUser(() => {
-          return {
-            firstname: "",
-            lastname: "",
-            email: "",
-          };
+        authContext?.setUser({
+          firstname: "",
+          lastname: "",
+          email: "",
         });
+        exchangeContext?.setFavoritesState(loadLocalStorage());
       }
       setMenuOpen(!menuOpen);
     } catch (error) {
@@ -74,13 +75,14 @@ function NavbarMobile() {
           <Link className="m-navbar-link" to={"/profil"}>
             Profil
           </Link>
-          <button
+          <Link
             onClick={() => {
-              handleLogout();
+              if (authContext?.isLoggedIn) handleLogout();
             }}
+            to={"/profil"}
           >
             {authContext?.isLoggedIn ? "Logout" : "Login"}
-          </button>
+          </Link>
         </nav>
       </div>
     </div>

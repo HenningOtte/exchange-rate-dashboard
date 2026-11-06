@@ -1,6 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import type { User } from "../types/user";
 import { getUserData } from "../api/authApi";
+import { NewExchangeContext } from "./ExchangeContext";
+import { fetchAllFavorites } from "../api/favoritesApi";
+import { loadLocalStorage } from "../services/localStorage";
 
 type AuthContextValue = {
   isLoggedIn: boolean;
@@ -18,7 +21,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     lastname: "",
     email: "",
   });
+
   const [isLoading, setIsLoading] = useState(true);
+  const newExchangeContext = useContext(NewExchangeContext);
 
   useEffect(() => {
     async function verifyAuthentication() {
@@ -32,11 +37,16 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             lastname: response.data.lastname,
             email: response.data.email,
           });
+          const favorites = await fetchAllFavorites();
+          if (Array.isArray(favorites))
+            newExchangeContext?.setFavoritesState(favorites);
         } else {
           setLoggedIn(false);
+          newExchangeContext?.setFavoritesState(loadLocalStorage());
         }
       } catch {
         setLoggedIn(false);
+        newExchangeContext?.setFavoritesState(loadLocalStorage());
         setUser({
           firstname: "",
           lastname: "",

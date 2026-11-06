@@ -26,9 +26,7 @@ function FavoriteRow({ favorite, border }: Row) {
     if (authContext?.isLoggedIn) {
       await deleteFavorite(favorite.id);
       const favorites = await fetchAllFavorites();
-      if (favorites && Array.isArray(favorites)) {
-        context?.setFavoritesState(favorites);
-      }
+      if (favorites && Array.isArray(favorites)) context?.setFavoritesState(favorites);
     } else {
       removeFavorite(favorite.id);
       context?.setFavoritesState(loadLocalStorage());

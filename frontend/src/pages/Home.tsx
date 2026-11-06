@@ -17,6 +17,7 @@ import { AuthContext } from "../context/AuthProvider";
 import heartIconWhite from "../assets/icons/heart-white.svg";
 import startIconWhite from "../assets/icons/start-white.png";
 import trashIcon from "../assets/icons/trash.png";
+import { fetchAllFavorites } from "../api/favoritesApi";
 
 function Home() {
   const authContext = useContext(AuthContext);
@@ -150,6 +151,11 @@ function Home() {
           dashboard.dateFrom,
           dashboard.dateTo,
         );
+      }
+
+      const favorites = await fetchAllFavorites();
+      if (favorites && Array.isArray(favorites)) {
+        exchangeContext?.setFavoritesState(favorites);
       }
     } else {
       if (exchangeContext.activeFavoriteId) {
