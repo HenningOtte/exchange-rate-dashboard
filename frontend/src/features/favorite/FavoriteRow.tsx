@@ -7,6 +7,7 @@ import { NewExchangeContext } from "../../context/ExchangeContext";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { deleteFavorite, fetchAllFavorites } from "../../api/favoritesApi";
+import { NotificationContext } from "../../context/NotificationContext";
 
 type Row = {
   favorite: Favorite;
@@ -16,6 +17,7 @@ type Row = {
 function FavoriteRow({ favorite, border }: Row) {
   const context = useContext(NewExchangeContext);
   const authContext = useContext(AuthContext);
+  const notificationContext = useContext(NotificationContext);
   const navigate = useNavigate();
 
   const handleDelete = async (
@@ -26,11 +28,15 @@ function FavoriteRow({ favorite, border }: Row) {
     if (authContext?.isLoggedIn) {
       await deleteFavorite(favorite.id);
       const favorites = await fetchAllFavorites();
-      if (favorites && Array.isArray(favorites)) context?.setFavoritesState(favorites);
+      if (favorites && Array.isArray(favorites))
+        context?.setFavoritesState(favorites);
     } else {
       removeFavorite(favorite.id);
       context?.setFavoritesState(loadLocalStorage());
     }
+
+    notificationContext?.setMessage("Removed from favorites!");
+    notificationContext?.setShowNotification(true);
   };
 
   function openFavorite() {

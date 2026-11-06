@@ -1,8 +1,9 @@
 import InputField from "../../components/InputField";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { postRegister } from "../../api/authApi";
 import type { RegisterSuccess } from "../../api/authApi";
 import "./Signup.css";
+import { NotificationContext } from "../../context/NotificationContext";
 
 type authMode = {
   setAuthMode: React.Dispatch<React.SetStateAction<"login" | "signup">>;
@@ -23,18 +24,7 @@ function Signup({ setAuthMode }: authMode) {
     password: "",
   });
 
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  useEffect(() => {
-    if (!showSuccess) return;
-
-    const timer = setTimeout(() => {
-      setShowSuccess(false);
-      setAuthMode("login");
-    }, 2500);
-
-    return () => clearTimeout(timer);
-  }, [showSuccess]);
+  const notificationContext = useContext(NotificationContext);
 
   const setFirstName = (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
@@ -119,7 +109,8 @@ function Signup({ setAuthMode }: authMode) {
   function handleErrors(errors: RegisterSuccess[]) {
     if (errors.length === 0) return;
     if (errors[0].success) {
-      setShowSuccess(true);
+      notificationContext?.setMessage("Welcome! Your account is ready.");
+      notificationContext?.setShowNotification(true);
     }
 
     let updatedErrors = {
@@ -147,9 +138,6 @@ function Signup({ setAuthMode }: authMode) {
 
   return (
     <div className="signUp">
-      <div className={showSuccess ? "success-container" : "dNone"}>
-        <div className="success-card">Login was successfull</div>
-      </div>
       <div className="signUp-card">
         <h3>Sign up</h3>
 

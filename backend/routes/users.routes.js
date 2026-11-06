@@ -84,47 +84,42 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email: email });
-    const { firstname, lastname } = user;
-    const login = bcrypt.compareSync(password, user.password);
 
-    if (login) {
-      res.cookie("authcookie", generateToken(user), {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: TOKEN_EXPIRES_IN_SECONDS * 1000,
-      });
-
-      res.status(200).json({
-        success: login,
-        message: "",
-        data: {
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-        },
-      });
-    } else {
-      res.status(400).json({
-        success: login,
-        message: "Incorrect password.",
-        data: {
-          firstname: "",
-          lastname: "",
-          email: email,
-        },
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Email not found.",
       });
     }
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({
-      success: false,
-      message: "Email not found.",
+
+    const login = bcrypt.compareSync(password, user.password);
+
+    if (!login) {
+      return res.status(401).json({
+        success: false,
+        message: "Incorrect password.",
+      });
+    }
+    res.cookie("authcookie", generateToken(user), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: TOKEN_EXPIRES_IN_SECONDS * 1000,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "",
       data: {
-        firstname: "",
-        lastname: "",
-        email: "",
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
       },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error.",
     });
   }
 });

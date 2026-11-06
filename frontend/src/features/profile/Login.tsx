@@ -7,6 +7,7 @@ import type { LoginSuccess } from "../../api/authApi";
 import { NewExchangeContext } from "../../context/ExchangeContext";
 import { fetchAllFavorites } from "../../api/favoritesApi";
 import { loadLocalStorage } from "../../services/localStorage";
+import { NotificationContext } from "../../context/NotificationContext";
 
 type authMode = {
   setAuthMode: React.Dispatch<React.SetStateAction<"login" | "signup">>;
@@ -15,6 +16,7 @@ type authMode = {
 function LoginSignup({ setAuthMode }: authMode) {
   const authContext = useContext(AuthContext);
   const newExchangeContext = useContext(NewExchangeContext);
+  const notificationContext = useContext(NotificationContext);
 
   const [loginErrors, setLoginErrors] = useState({
     email: "",
@@ -54,17 +56,28 @@ function LoginSignup({ setAuthMode }: authMode) {
 
       newExchangeContext?.setActiveFavoriteId(null);
       authContext?.setLoggedIn(true);
+
+      notificationContext?.setMessage("Welcome back!");
+      notificationContext?.setShowNotification(true);
     } else {
-      if (login.message == "Email not found.") {
+      if (login.message === "Email not found.") {
         setLoginErrors({
           email: login.message,
           password: "",
         });
-      } else {
+      } else if (login.message === "Incorrect password.") {
         setLoginErrors({
           email: "",
           password: login.message,
         });
+      } else {
+        setLoginErrors({
+          email: "",
+          password: "",
+        });
+
+        notificationContext?.setMessage(login.message);
+        notificationContext?.setShowNotification(true);
       }
 
       authContext?.setLoggedIn(false);

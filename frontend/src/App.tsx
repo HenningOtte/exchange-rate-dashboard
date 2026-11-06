@@ -7,6 +7,7 @@ import ExchangeProvider from "./context/ExchangeProvider";
 import NavbarMobile from "./components/NavbarMobile";
 import AuthProvider from "./context/AuthProvider";
 import ValidationProvider from "./context/ValidationProvider";
+import NotificationProvider from "./context/NotificationProvider";
 
 function App() {
   return (
@@ -14,22 +15,24 @@ function App() {
       <BrowserRouter>
         <ExchangeProvider>
           <AuthProvider>
-            <NavbarMobile></NavbarMobile>
-            <Navbar></Navbar>
-            <main>
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <ValidationProvider>
-                      <Home />
-                    </ValidationProvider>
-                  }
-                />
-                <Route path="/favorites" element={<Favorites />} />
-                <Route path="/profil" element={<Profile />} />
-              </Routes>
-            </main>
+            <NotificationProvider>
+              <NavbarMobile></NavbarMobile>
+              <Navbar></Navbar>
+              <main>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <ValidationProvider>
+                        <Home />
+                      </ValidationProvider>
+                    }
+                  />
+                  <Route path="/favorites" element={<Favorites />} />
+                  <Route path="/profil" element={<Profile />} />
+                </Routes>
+              </main>
+            </NotificationProvider>
           </AuthProvider>
         </ExchangeProvider>
       </BrowserRouter>

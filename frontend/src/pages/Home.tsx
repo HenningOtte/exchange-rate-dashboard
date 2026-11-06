@@ -1,6 +1,6 @@
 import ConverterCard from "../features/converter/ConverterCard";
 import DashboardCard from "../features/converter/DashboardCard";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { clearExchangeState } from "../types/exchangeState";
 import { calculateHistoricalExchange } from "../services/exchangeService";
 import { calculateLatestRates } from "../services/exchangeService";
@@ -18,24 +18,13 @@ import heartIconWhite from "../assets/icons/heart-white.svg";
 import startIconWhite from "../assets/icons/start-white.png";
 import trashIcon from "../assets/icons/trash.png";
 import { fetchAllFavorites } from "../api/favoritesApi";
+import { NotificationContext } from "../context/NotificationContext";
 
 function Home() {
   const authContext = useContext(AuthContext);
   const exchangeContext = useContext(NewExchangeContext);
   const validationContext = useContext(ValidationContext);
-
-  const [favoriteSaved, setFavoriteSaved] = useState(false);
-
-  useEffect(() => {
-    if (!favoriteSaved) return;
-
-    const timer = setTimeout(() => {
-      setFavoriteSaved(false);
-    }, 2000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [favoriteSaved]);
+  const notificationContext = useContext(NotificationContext);
 
   const updateTargetValue = (convertedValue: string) => {
     exchangeContext?.setExchangeState((state) => {
@@ -172,7 +161,11 @@ function Home() {
       }
       exchangeContext.setFavoritesState(loadLocalStorage());
     }
-    setFavoriteSaved(true);
+
+    notificationContext?.setMessage(
+      `${exchangeContext?.activeFavoriteName} saved!`,
+    );
+    notificationContext?.setShowNotification(true);
   };
 
   return (
@@ -217,15 +210,6 @@ function Home() {
           SAVE
         </button>
       </div>
-      {favoriteSaved ? (
-        <div className="save-message-container">
-          <div className="save-message">
-            "{exchangeContext?.activeFavoriteName}" saved!
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
     </div>
   );
 }

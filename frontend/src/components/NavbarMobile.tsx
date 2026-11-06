@@ -76,6 +76,7 @@ function NavbarMobile() {
             Profil
           </Link>
           <Link
+            className="m-navbar-link"
             onClick={() => {
               if (authContext?.isLoggedIn) handleLogout();
             }}
