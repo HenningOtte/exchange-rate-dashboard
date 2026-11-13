@@ -1,6 +1,5 @@
 .profil {
   height: 400px;
-  margin-top: 92px;
   padding-right: 32px;
   padding-left: 32px;
   display: flex;
@@ -71,4 +70,11 @@
 
 .edit-btn:hover {
   background-color: var(--color-light-grey);
+}
+
+@media (max-width: 480px) {
+  .profil {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
 }

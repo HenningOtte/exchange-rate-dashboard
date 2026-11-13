@@ -31,8 +31,13 @@ h3 {
 }
 
 body {
+  height: 100%;
   display: flex;
   justify-content: center;
+  background-image: url("./assets/backgrounds/blue_blurred_ellipse.svg");
+  background-repeat: no-repeat;
+  background-position: center bottom -60px;
+  background-size: 180%;
 }
 
 :root {
@@ -58,13 +63,16 @@ body {
 }
 
 main {
+  padding-top: 92px;
   width: 100%;
-  margin-bottom: 32px;
+  min-height: 100vh;
+  height: 100%;
 }
 
 .home {
   width: 100%;
-  margin-top: 96px;
+  padding-left: 16px;
+  padding-right: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,6 +84,7 @@ main {
   display: flex;
   justify-content: center;
   gap: 8px;
+  padding-bottom: 32px;
 }
 
 .action-button-icon {
@@ -237,4 +246,11 @@ main {
   margin-top: 2px;
   margin-bottom: 10px;
   font-size: 12px;
+}
+
+@media (max-width: 384px) {
+  .home {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

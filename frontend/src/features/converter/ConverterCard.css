@@ -60,39 +60,3 @@
   margin: 0 8px;
   font-size: 16px;
 }
-
-@keyframes saveMessageContainerAnimation {
-  0% {
-    opacity: 0;
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  80% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes saveMessageAnimation {
-  0% {
-    transform: translateY(60vh);
-  }
-
-  20% {
-    transform: translateY(0vh);
-  }
-
-  80% {
-    transform: translateY(0vh);
-  }
-
-  100% {
-    transform: translateY(60vh);
-  }
-}
