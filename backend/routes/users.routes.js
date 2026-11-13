@@ -4,11 +4,7 @@ const userModel = require("../models/User.model");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const { body, validationResult } = require("express-validator");
-const {
-  generateToken,
-  verifyToken,
-  TOKEN_EXPIRES_IN_SECONDS,
-} = require("../helpers/jwt");
+const { generateToken, TOKEN_EXPIRES_IN_SECONDS } = require("../helpers/jwt");
 const authenticate = require("../middleware/auth.middleware");
 
 router.post(
@@ -126,9 +122,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/me", authenticate, async (req, res) => {
   try {
-    const token = req.cookies.authcookie;
-    const validToken = verifyToken(token);
-    const user = await userModel.findById(validToken.id);
+    const user = await userModel.findById(req.userId);
 
     if (!user) {
       return res.status(404).json({
@@ -151,9 +145,11 @@ router.get("/me", authenticate, async (req, res) => {
       },
     });
   } catch (error) {
-    return res.status(401).json({
+    console.error("Failed to fetch current user:", error);
+
+    return res.status(500).json({
       success: false,
-      message: "Invalid or expired token.",
+      message: "Internal server error.",
       data: {
         firstname: "",
         lastname: "",
