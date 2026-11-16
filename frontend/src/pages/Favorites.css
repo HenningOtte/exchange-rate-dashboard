@@ -19,6 +19,14 @@ th {
   white-space: nowrap;
 }
 
+th {
+  cursor: pointer;
+}
+
+th:hover {
+  color: var(--color-accent);
+}
+
 .favorites-card {
   padding: 0 16px 32px 16px;
   position: relative;
