@@ -1,11 +1,18 @@
 import FavoriteRow from "../features/favorite/FavoriteRow";
 import { NewExchangeContext } from "../context/ExchangeContext";
 import "./Favorites.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import type { Favorite } from "../types/favorites";
 
 function Favorites() {
   const newExchangeContext = useContext(NewExchangeContext);
+
+  const [sortOrder, setSortOrder] = useState({
+    name: "asc",
+    initialValue: "asc",
+    targetValue: "asc",
+    creationDate: "desc",
+  });
 
   const sortFavoritesByName = (
     e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>,
@@ -17,10 +24,24 @@ function Favorites() {
         const nameA = a.name.toUpperCase();
         const nameB = b.name.toUpperCase();
 
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
+        if (sortOrder.name == "asc") {
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+        } else {
+          if (nameA < nameB) return +1;
+          if (nameA > nameB) return -1;
+        }
         return 0;
       });
+    });
+
+    setSortOrder((order) => {
+      return {
+        name: order.name == "asc" ? "desc" : "asc",
+        initialValue: order.initialValue,
+        targetValue: order.targetValue,
+        creationDate: order.creationDate,
+      };
     });
   };
 
@@ -31,12 +52,18 @@ function Favorites() {
     e.stopPropagation();
 
     newExchangeContext?.setFavoritesState((fav) => {
-      return [...fav].sort(
-        (a: Favorite, b: Favorite) =>
-          parseFloat(a.state.converter[target]) -
-          parseFloat(b.state.converter[target]),
-      );
+      return [...fav].sort((a, b) => {
+        const valueA = parseFloat(a.state.converter[target]);
+        const valueB = parseFloat(b.state.converter[target]);
+
+        return sortOrder[target] === "asc" ? valueA - valueB : valueB - valueA;
+      });
     });
+
+    setSortOrder((order) => ({
+      ...order,
+      [target]: order[target] === "asc" ? "desc" : "asc",
+    }));
   };
 
   const sortFavoritesByDate = (
@@ -45,12 +72,18 @@ function Favorites() {
     e.stopPropagation();
 
     newExchangeContext?.setFavoritesState((fav) => {
-      return [...fav].sort(
-        (a, b) =>
-          new Date(a.creationDate).getTime() -
-          new Date(b.creationDate).getTime(),
-      );
+      return [...fav].sort((a, b) => {
+        const dateA = new Date(a.creationDate).getTime();
+        const dateB = new Date(b.creationDate).getTime();
+
+        return sortOrder.creationDate === "asc" ? dateA - dateB : dateB - dateA;
+      });
     });
+
+    setSortOrder((order) => ({
+      ...order,
+      creationDate: order.creationDate === "asc" ? "desc" : "asc",
+    }));
   };
 
   return (
