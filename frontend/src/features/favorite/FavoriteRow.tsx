@@ -25,17 +25,26 @@ function FavoriteRow({ favorite, border }: Row) {
   ) => {
     e.stopPropagation();
 
+    let message = "";
+
     if (authContext?.isLoggedIn) {
-      await deleteFavorite(favorite.id);
-      const favorites = await fetchAllFavorites();
-      if (favorites && Array.isArray(favorites))
-        context?.setFavoritesState(favorites);
+      const response = await deleteFavorite(favorite.id);
+
+      if (response.success) {
+        message = response.message;
+        const favorites = await fetchAllFavorites();
+        if (favorites && Array.isArray(favorites))
+          context?.setFavoritesState(favorites);
+      } else {
+        message = response.message;
+      }
     } else {
       removeFavorite(favorite.id);
       context?.setFavoritesState(loadLocalStorage());
+      message = "Removed from favorites!";
     }
 
-    notificationContext?.setMessage("Removed from favorites!");
+    notificationContext?.setMessage(message);
     notificationContext?.setShowNotification(true);
   };
 

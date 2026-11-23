@@ -108,11 +108,21 @@ router.delete("/:id", authenticate, async (req, res) => {
     });
 
     if (!deletedFavorite) {
-      return res.status(404).json({ message: "Favorite Not Found!" });
+      return res.status(404).json({
+        success: false,
+        message: "Favorite Not Found!",
+      });
     }
-    res.status(200).json({ message: "Favorite Deleted" });
+    return res.status(200).json({
+      success: true,
+      message: "Favorite Deleted",
+    });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({
+      success: false,
+      message: "An unexpected server error occurred.",
+    });
+    console.log(error.message);
   }
 });
 

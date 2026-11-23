@@ -22,6 +22,11 @@ export type ErrorResponse = {
   message: string;
 };
 
+export type DeleteResponse = {
+  success: boolean;
+  message: string;
+};
+
 export type FavoriteError = {
   status: number;
   message: string;

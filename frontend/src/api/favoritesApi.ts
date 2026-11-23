@@ -3,6 +3,7 @@ import type {
   FavoriteResponse,
   ErrorResponse,
   FavoriteError,
+  DeleteResponse,
 } from "../types/favorites";
 import { generateFavorite } from "../types/favorites";
 import { getCurrentDate } from "../utils/date";
@@ -157,9 +158,13 @@ export async function deleteFavorite(id: string) {
       credentials: "include",
       method: "DELETE",
     });
-    const data = await response.json();
-    console.log(data);
+    const data: DeleteResponse = await response.json();
+    return data;
   } catch (error) {
-    console.log(error);
+    const message: DeleteResponse = {
+      success: false,
+      message: "Server not responding; try again later.",
+    };
+    return message;
   }
 }
